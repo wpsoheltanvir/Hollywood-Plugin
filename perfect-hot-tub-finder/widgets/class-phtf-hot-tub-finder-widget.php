@@ -342,6 +342,16 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				'description' => esc_html__( 'Products using this filter must use the same value.', 'perfect-hot-tub-finder' ),
 			]
 		);
+		$price_filter_repeater->add_control(
+			'range_label',
+			[
+				'label'       => esc_html__( 'Range Text', 'perfect-hot-tub-finder' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => esc_html__( '(Up to $10,999)', 'perfect-hot-tub-finder' ),
+				'label_block' => true,
+				'description' => esc_html__( 'Optional text shown beside the price symbols.', 'perfect-hot-tub-finder' ),
+			]
+		);
 
 		$this->add_control(
 			'price_filters',
@@ -351,10 +361,10 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				'fields'      => $price_filter_repeater->get_controls(),
 				'title_field' => '{{{ label }}}',
 				'default'     => [
-					[ 'label' => '$', 'value' => 'tier-1' ],
-					[ 'label' => '$$', 'value' => 'tier-2' ],
-					[ 'label' => '$$$', 'value' => 'tier-3' ],
-					[ 'label' => '$$$$', 'value' => 'tier-4' ],
+					[ 'label' => '$', 'value' => 'tier-1', 'range_label' => esc_html__( '(Up to $10,999)', 'perfect-hot-tub-finder' ) ],
+					[ 'label' => '$$', 'value' => 'tier-2', 'range_label' => esc_html__( '($11,000-$16,999)', 'perfect-hot-tub-finder' ) ],
+					[ 'label' => '$$$', 'value' => 'tier-3', 'range_label' => esc_html__( '($17,000-$20,999)', 'perfect-hot-tub-finder' ) ],
+					[ 'label' => '$$$$', 'value' => 'tier-4', 'range_label' => esc_html__( '($21,000 and up)', 'perfect-hot-tub-finder' ) ],
 				],
 				'condition'   => [
 					'show_filters'      => 'yes',
@@ -3601,7 +3611,12 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 											<label class="phtf-checkbox" for="<?php echo esc_attr( $input_id ); ?>">
 												<input id="<?php echo esc_attr( $input_id ); ?>" type="checkbox" data-phtf-filter="price" value="<?php echo esc_attr( $filter['value'] ); ?>">
 												<span class="phtf-box" aria-hidden="true"></span>
-												<span><?php echo esc_html( $filter['label'] ); ?></span>
+												<span class="phtf-price-filter-label">
+													<span class="phtf-price-filter-symbol"><?php echo esc_html( $filter['label'] ); ?></span>
+													<?php if ( ! empty( $filter['range_label'] ) ) : ?>
+														<span class="phtf-price-filter-range"><?php echo esc_html( $filter['range_label'] ); ?></span>
+													<?php endif; ?>
+												</span>
 											</label>
 										<?php endforeach; ?>
 											<?php if ( ! empty( $settings['price_info_popup_content'] ) ) : ?>

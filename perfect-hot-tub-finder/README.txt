@@ -35,6 +35,10 @@ This plugin uses the default Elementor/WordPress image placeholder when no image
 
 Changelog
 ---------
+= 1.0.149 =
+* Added editable Price Option range text so filters can show labels like $$$$ with "(Up to $10,999)" beside them.
+* Styled price ranges for desktop, tablet, and mobile drawer layouts, including unavailable gray states.
+
 = 1.0.148 =
 * Added mobile/tablet filter drawer actions for Show Results and Reset Filters.
 * Show Results closes the drawer with the current filters applied, while Reset Filters clears all filter selections and refreshes available options.
