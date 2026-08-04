@@ -5793,3 +5793,29 @@ body > .phtf-price-note-popup.phtf-popup-detached {
 		white-space: normal;
 	}
 }
+
+/* v1.0.150: larger price filter labels and range text. */
+.phtf-widget.phtf-widget--classic .phtf-filter-group--price .phtf-checkbox {
+	font-size: 19px !important;
+}
+
+.phtf-widget.phtf-widget--classic .phtf-price-filter-symbol {
+	font-size: 19px !important;
+	line-height: 1.35;
+}
+
+.phtf-widget.phtf-widget--classic .phtf-price-filter-range {
+	font-size: 18px !important;
+	line-height: 1.35;
+}
+
+@media (max-width: 1024px) {
+	.phtf-widget.phtf-widget--classic .phtf-filter-group--price .phtf-checkbox {
+		font-size: 18px !important;
+	}
+
+	.phtf-widget.phtf-widget--classic .phtf-price-filter-symbol,
+	.phtf-widget.phtf-widget--classic .phtf-price-filter-range {
+		font-size: 18px !important;
+	}
+}
