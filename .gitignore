@@ -1,0 +1,4 @@
+*.zip
+.php-lint-tools/
+.DS_Store
+Thumbs.db
