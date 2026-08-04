@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Perfect Hot Tub Finder
  * Description: Adds a customizable Elementor widget for a hot tub finder/shop layout.
- * Version: 1.0.151
+ * Version: 1.0.152
  * Author: Attractional Marketing
  * Text Domain: perfect-hot-tub-finder
  * Requires at least: 6.0
@@ -151,7 +151,7 @@ if ( ! function_exists( 'phtf_apply_elementor_global_colors' ) ) {
 }
 
 final class PHTF_Perfect_Hot_Tub_Finder {
-	const VERSION = '1.0.151';
+	const VERSION = '1.0.152';
 	const MINIMUM_ELEMENTOR_VERSION = '3.5.0';
 	const MINIMUM_PHP_VERSION = '7.4';
 
@@ -269,25 +269,33 @@ final class PHTF_Perfect_Hot_Tub_Finder {
 	}
 
 	public function register_widgets( $widgets_manager ) {
-		require_once __DIR__ . '/widgets/class-phtf-hot-tub-finder-widget.php';
-		require_once __DIR__ . '/widgets/class-phtf-series-comparison-widget.php';
-		require_once __DIR__ . '/widgets/class-phtf-explore-models-widget.php';
-		require_once __DIR__ . '/widgets/class-phtf-spa-colors-widget.php';
-		require_once __DIR__ . '/widgets/class-phtf-spa-series-models-widget.php';
-		require_once __DIR__ . '/widgets/class-phtf-spa-series-delight-widget.php';
-		require_once __DIR__ . '/widgets/class-phtf-reviews-widget.php';
-		require_once __DIR__ . '/widgets/class-phtf-spa-model-specifications-widget.php';
-		require_once __DIR__ . '/widgets/class-phtf-compare-spa-models-widget.php';
+		$widgets = [
+			[ 'widgets/class-phtf-hot-tub-finder-widget.php', '\PHTF_Hot_Tub_Finder_Widget' ],
+			[ 'widgets/class-phtf-series-comparison-widget.php', '\PHTF_Series_Comparison_Widget' ],
+			[ 'widgets/class-phtf-explore-models-widget.php', '\PHTF_Explore_Models_Widget' ],
+			[ 'widgets/class-phtf-spa-colors-widget.php', '\PHTF_Spa_Colors_Widget' ],
+			[ 'widgets/class-phtf-spa-series-models-widget.php', '\PHTF_Spa_Series_Models_Widget' ],
+			[ 'widgets/class-phtf-spa-series-delight-widget.php', '\PHTF_Spa_Series_Delight_Widget' ],
+			[ 'widgets/class-phtf-reviews-widget.php', '\PHTF_Reviews_Widget' ],
+			[ 'widgets/class-phtf-spa-model-specifications-widget.php', '\PHTF_Spa_Model_Specifications_Widget' ],
+			[ 'widgets/class-phtf-compare-spa-models-widget.php', '\PHTF_Compare_Spa_Models_Widget' ],
+		];
 
-		$widgets_manager->register( new \PHTF_Hot_Tub_Finder_Widget() );
-		$widgets_manager->register( new \PHTF_Series_Comparison_Widget() );
-		$widgets_manager->register( new \PHTF_Explore_Models_Widget() );
-		$widgets_manager->register( new \PHTF_Spa_Colors_Widget() );
-		$widgets_manager->register( new \PHTF_Spa_Series_Models_Widget() );
-		$widgets_manager->register( new \PHTF_Spa_Series_Delight_Widget() );
-		$widgets_manager->register( new \PHTF_Reviews_Widget() );
-		$widgets_manager->register( new \PHTF_Spa_Model_Specifications_Widget() );
-		$widgets_manager->register( new \PHTF_Compare_Spa_Models_Widget() );
+		foreach ( $widgets as $widget ) {
+			$file  = __DIR__ . '/' . $widget[0];
+			$class = $widget[1];
+
+			if ( ! file_exists( $file ) ) {
+				error_log( sprintf( 'Perfect Hot Tub Finder: missing widget file %s', $file ) );
+				continue;
+			}
+
+			require_once $file;
+
+			if ( class_exists( $class ) ) {
+				$widgets_manager->register( new $class() );
+			}
+		}
 	}
 }
 

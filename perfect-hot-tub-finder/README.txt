@@ -35,6 +35,9 @@ This plugin uses the default Elementor/WordPress image placeholder when no image
 
 Changelog
 ---------
+= 1.0.152 =
+* Added a safer Elementor widget loader so a missing optional widget file cannot crash the Elementor editor during an incomplete plugin upload.
+
 = 1.0.151 =
 * Improved responsive Style tab support so image, background, arrow, layout, and button controls continue working in tablet and mobile layouts.
 * Connected the mobile filter drawer Show Results and Reset Filters buttons to the Primary Button and Secondary Button style controls.
