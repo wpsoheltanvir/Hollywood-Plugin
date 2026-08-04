@@ -888,7 +888,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 			[
 				'name'           => 'button_typography',
 				'label'          => esc_html__( 'Buttons', 'perfect-hot-tub-finder' ),
-				'selector'       => '{{WRAPPER}} .phtf-button',
+				'selector'       => '{{WRAPPER}} .phtf-button, {{WRAPPER}} .phtf-mobile-filter-action',
 				'fields_options' => [
 					'font_family' => [ 'default' => 'Questrial' ],
 					'font_weight' => [ 'default' => '700' ],
@@ -1142,7 +1142,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				],
 				'default'    => [ 'size' => 18, 'unit' => 'px' ],
 				'selectors'  => [
-					'{{WRAPPER}} .phtf-results-nav' => 'gap: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-results-nav' => 'gap: {{SIZE}}{{UNIT}} !important;',
 				],
 			]
 		);
@@ -1160,7 +1160,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				],
 				'default'    => [ 'size' => 20, 'unit' => 'px' ],
 				'selectors'  => [
-					'{{WRAPPER}} .phtf-arrow' => 'font-size: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-arrow' => 'font-size: {{SIZE}}{{UNIT}} !important;',
 				],
 			]
 		);
@@ -1178,7 +1178,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				],
 				'default'    => [ 'size' => 25, 'unit' => 'px' ],
 				'selectors'  => [
-					'{{WRAPPER}} .phtf-arrow' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-arrow' => 'width: {{SIZE}}{{UNIT}} !important; height: {{SIZE}}{{UNIT}} !important;',
 				],
 			]
 		);
@@ -1190,7 +1190,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', 'rem' ],
 				'selectors'  => [
-					'{{WRAPPER}} .phtf-arrow' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-arrow' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
 				],
 			]
 		);
@@ -1202,7 +1202,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px' ],
 				'selectors'  => [
-					'{{WRAPPER}} .phtf-arrow' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; border-style: solid;',
+					'{{WRAPPER}} .phtf-arrow' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important; border-style: solid;',
 				],
 			]
 		);
@@ -1222,7 +1222,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 					'isLinked' => true,
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .phtf-arrow' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-arrow' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
 				],
 			]
 		);
@@ -1436,7 +1436,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				'default'        => [ 'size' => 625, 'unit' => 'px' ],
 				'laptop_default' => [ 'size' => 590, 'unit' => 'px' ],
 				'selectors'  => [
-					'{{WRAPPER}} .phtf-widget' => 'min-height: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-widget' => 'min-height: {{SIZE}}{{UNIT}} !important;',
 				],
 			]
 		);
@@ -1524,7 +1524,8 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				'default'        => [ 'size' => 150, 'unit' => 'px' ],
 				'laptop_default' => [ 'size' => 150, 'unit' => 'px' ],
 				'selectors'  => [
-					'{{WRAPPER}} .phtf-filters' => 'width: {{SIZE}}{{UNIT}}; flex-basis: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-widget--classic' => '--phtf-filter-column-width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-filters' => 'width: {{SIZE}}{{UNIT}} !important; flex-basis: {{SIZE}}{{UNIT}} !important;',
 				],
 			]
 		);
@@ -2049,7 +2050,8 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				'default'        => [ 'size' => 250, 'unit' => 'px' ],
 				'laptop_default' => [ 'size' => 250, 'unit' => 'px' ],
 				'selectors'  => [
-					'{{WRAPPER}} .phtf-product-image, {{WRAPPER}} .phtf-widget.phtf-widget--classic .phtf-product-image' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}}; aspect-ratio: 1 / 1;',
+					'{{WRAPPER}} .phtf-widget--classic' => '--phtf-product-image-width: {{SIZE}}{{UNIT}}; --phtf-mobile-product-image-width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-product-image, {{WRAPPER}} .phtf-widget.phtf-widget--classic .phtf-product-image' => 'width: {{SIZE}}{{UNIT}} !important; aspect-ratio: 1 / 1;',
 				],
 			]
 		);
@@ -2068,7 +2070,8 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				'default'        => [ 'size' => 250, 'unit' => 'px' ],
 				'laptop_default' => [ 'size' => 250, 'unit' => 'px' ],
 				'selectors'  => [
-					'{{WRAPPER}} .phtf-product-image' => 'max-width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-widget--classic' => '--phtf-product-image-max-width: {{SIZE}}{{UNIT}}; --phtf-mobile-product-image-max-width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-product-image' => 'max-width: {{SIZE}}{{UNIT}} !important;',
 				],
 			]
 		);
@@ -2088,7 +2091,8 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				'default'        => [ 'size' => 30, 'unit' => 'vh' ],
 				'laptop_default' => [ 'size' => 30, 'unit' => 'vh' ],
 				'selectors'  => [
-					'{{WRAPPER}} .phtf-product-image, {{WRAPPER}} .phtf-widget.phtf-widget--classic .phtf-product-image' => 'height: {{SIZE}}{{UNIT}}; max-height: {{SIZE}}{{UNIT}}; aspect-ratio: auto;',
+					'{{WRAPPER}} .phtf-widget--classic' => '--phtf-product-image-height: {{SIZE}}{{UNIT}}; --phtf-product-image-max-height: {{SIZE}}{{UNIT}}; --phtf-mobile-product-image-height: {{SIZE}}{{UNIT}}; --phtf-mobile-product-image-max-height: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-product-image, {{WRAPPER}} .phtf-widget.phtf-widget--classic .phtf-product-image' => 'height: {{SIZE}}{{UNIT}} !important; max-height: {{SIZE}}{{UNIT}} !important; aspect-ratio: auto;',
 				],
 			]
 		);
@@ -2105,7 +2109,8 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 					'fill'    => esc_html__( 'Fill', 'perfect-hot-tub-finder' ),
 				],
 				'selectors' => [
-					'{{WRAPPER}} .phtf-product-image' => 'object-fit: {{VALUE}};',
+					'{{WRAPPER}} .phtf-widget--classic' => '--phtf-product-image-fit: {{VALUE}};',
+					'{{WRAPPER}} .phtf-product-image' => 'object-fit: {{VALUE}} !important;',
 				],
 			]
 		);
@@ -2124,7 +2129,8 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				'default'        => [ 'size' => 40, 'unit' => '%' ],
 				'laptop_default' => [ 'size' => 40, 'unit' => '%' ],
 				'selectors'  => [
-					'{{WRAPPER}} .phtf-product-image' => 'right: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-widget--classic' => '--phtf-product-image-right: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-product-image' => 'right: {{SIZE}}{{UNIT}} !important;',
 				],
 			]
 		);
@@ -2143,7 +2149,8 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				'default'        => [ 'size' => 50, 'unit' => '%' ],
 				'laptop_default' => [ 'size' => 50, 'unit' => '%' ],
 				'selectors'  => [
-					'{{WRAPPER}} .phtf-product-image' => 'top: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-widget--classic' => '--phtf-product-image-top: {{SIZE}}{{UNIT}}; --phtf-mobile-product-image-top: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-product-image' => 'top: {{SIZE}}{{UNIT}} !important;',
 				],
 			]
 		);
@@ -2161,7 +2168,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				'default'        => [ 'size' => 50, 'unit' => '%' ],
 				'laptop_default' => [ 'size' => 50, 'unit' => '%' ],
 				'selectors'  => [
-					'{{WRAPPER}} .phtf-product-image' => '--phtf-product-image-translate-x: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-widget--classic' => '--phtf-product-image-translate-x: {{SIZE}}{{UNIT}}; --phtf-mobile-product-image-translate-x: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -2179,7 +2186,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				'default'        => [ 'size' => -50, 'unit' => '%' ],
 				'laptop_default' => [ 'size' => -50, 'unit' => '%' ],
 				'selectors'  => [
-					'{{WRAPPER}} .phtf-product-image' => '--phtf-product-image-translate-y: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-widget--classic' => '--phtf-product-image-translate-y: {{SIZE}}{{UNIT}}; --phtf-mobile-product-image-translate-y: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -2271,7 +2278,8 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				'default'        => [ 'size' => 48, 'unit' => '%' ],
 				'laptop_default' => [ 'size' => 46, 'unit' => '%' ],
 				'selectors'  => [
-					'{{WRAPPER}} .phtf-hero-bg' => 'width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-widget--classic' => '--phtf-desktop-hero-width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-hero-bg' => 'width: {{SIZE}}{{UNIT}} !important;',
 				],
 			]
 		);
@@ -2311,7 +2319,8 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				'default'        => [ 'size' => 100, 'unit' => 'vh' ],
 				'laptop_default' => [ 'size' => 100, 'unit' => 'vh' ],
 				'selectors'  => [
-					'{{WRAPPER}} .phtf-widget.phtf-widget--classic .phtf-hero-bg, {{WRAPPER}} .phtf-hero-bg' => 'height: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-widget--classic' => '--phtf-hero-bg-height: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-widget.phtf-widget--classic .phtf-hero-bg, {{WRAPPER}} .phtf-hero-bg' => 'height: {{SIZE}}{{UNIT}} !important;',
 				],
 			]
 		);
@@ -2330,7 +2339,8 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 					'center right'  => esc_html__( 'Right', 'perfect-hot-tub-finder' ),
 				],
 				'selectors' => [
-					'{{WRAPPER}} .phtf-hero-bg' => 'background-position: {{VALUE}};',
+					'{{WRAPPER}} .phtf-widget--classic' => '--phtf-hero-bg-position: {{VALUE}};',
+					'{{WRAPPER}} .phtf-hero-bg' => 'background-position: {{VALUE}} !important;',
 				],
 			]
 		);
@@ -2347,7 +2357,8 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 					'auto'    => esc_html__( 'Auto', 'perfect-hot-tub-finder' ),
 				],
 				'selectors' => [
-					'{{WRAPPER}} .phtf-hero-bg' => 'background-size: {{VALUE}};',
+					'{{WRAPPER}} .phtf-widget--classic' => '--phtf-hero-bg-size: {{VALUE}};',
+					'{{WRAPPER}} .phtf-hero-bg' => 'background-size: {{VALUE}} !important;',
 				],
 			]
 		);
@@ -2365,7 +2376,8 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 					'repeat-y'  => esc_html__( 'Repeat Y', 'perfect-hot-tub-finder' ),
 				],
 				'selectors' => [
-					'{{WRAPPER}} .phtf-hero-bg' => 'background-repeat: {{VALUE}};',
+					'{{WRAPPER}} .phtf-widget--classic' => '--phtf-hero-bg-repeat: {{VALUE}};',
+					'{{WRAPPER}} .phtf-hero-bg' => 'background-repeat: {{VALUE}} !important;',
 				],
 			]
 		);
@@ -2393,7 +2405,8 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 					'isLinked' => true,
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .phtf-hero-bg' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; overflow: hidden;',
+					'{{WRAPPER}} .phtf-widget--classic' => '--phtf-hero-bg-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-hero-bg' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important; overflow: hidden;',
 				],
 			]
 		);
@@ -2447,7 +2460,8 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 					'none'  => esc_html__( 'Hide', 'perfect-hot-tub-finder' ),
 				],
 				'selectors' => [
-					'{{WRAPPER}} .phtf-hero-bg::before' => 'display: {{VALUE}};',
+					'{{WRAPPER}} .phtf-widget--classic' => '--phtf-hero-curve-display: {{VALUE}};',
+					'{{WRAPPER}} .phtf-hero-bg::before' => 'display: {{VALUE}} !important;',
 				],
 			]
 		);
@@ -2466,7 +2480,8 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				'default'        => [ 'size' => 25, 'unit' => '%' ],
 				'laptop_default' => [ 'size' => 25, 'unit' => '%' ],
 				'selectors'  => [
-					'{{WRAPPER}} .phtf-hero-bg::before' => 'width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-widget--classic' => '--phtf-hero-curve-width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-hero-bg::before' => 'width: {{SIZE}}{{UNIT}} !important;',
 				],
 			]
 		);
@@ -2485,7 +2500,8 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				'default'        => [ 'size' => -8, 'unit' => '%' ],
 				'laptop_default' => [ 'size' => -8, 'unit' => '%' ],
 				'selectors'  => [
-					'{{WRAPPER}} .phtf-hero-bg::before' => 'left: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-widget--classic' => '--phtf-hero-curve-left: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-hero-bg::before' => 'left: {{SIZE}}{{UNIT}} !important;',
 				],
 			]
 		);
@@ -2526,7 +2542,8 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				'default'   => 'flex-start',
 				'toggle'    => false,
 				'selectors' => [
-					'{{WRAPPER}} .phtf-actions' => 'justify-content: {{VALUE}};',
+					'{{WRAPPER}} .phtf-widget--classic' => '--phtf-buttons-justify: {{VALUE}};',
+					'{{WRAPPER}} .phtf-actions' => 'justify-content: {{VALUE}} !important;',
 				],
 			]
 		);
@@ -2543,7 +2560,8 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				],
 				'default'    => [ 'size' => 14, 'unit' => 'px' ],
 				'selectors'  => [
-					'{{WRAPPER}} .phtf-actions' => 'gap: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-widget--classic' => '--phtf-buttons-gap: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-actions' => 'gap: {{SIZE}}{{UNIT}} !important;',
 				],
 			]
 		);
@@ -2561,7 +2579,8 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				],
 				'default'    => [ 'size' => 145, 'unit' => 'px' ],
 				'selectors'  => [
-					'{{WRAPPER}} .phtf-button--primary' => 'min-width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-widget--classic' => '--phtf-primary-button-min-width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-button--primary, {{WRAPPER}} .phtf-mobile-filter-action--show' => 'min-width: {{SIZE}}{{UNIT}} !important;',
 				],
 			]
 		);
@@ -2579,7 +2598,8 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				],
 				'default'    => [ 'size' => 184, 'unit' => 'px' ],
 				'selectors'  => [
-					'{{WRAPPER}} .phtf-button--secondary' => 'min-width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-widget--classic' => '--phtf-secondary-button-min-width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-button--secondary, {{WRAPPER}} .phtf-mobile-filter-action--reset' => 'min-width: {{SIZE}}{{UNIT}} !important;',
 				],
 			]
 		);
@@ -2599,7 +2619,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 			[
 				'name'           => 'primary_button_typography',
 				'label'          => esc_html__( 'Typography', 'perfect-hot-tub-finder' ),
-				'selector'       => '{{WRAPPER}} .phtf-button--primary',
+				'selector'       => '{{WRAPPER}} .phtf-button--primary, {{WRAPPER}} .phtf-mobile-filter-action--show',
 				'fields_options' => [
 					'font_family' => [ 'default' => 'Questrial' ],
 					'font_weight' => [ 'default' => '700' ],
@@ -2612,7 +2632,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 			[
 				'name'     => 'primary_button_text_shadow',
 				'label'    => esc_html__( 'Text Shadow', 'perfect-hot-tub-finder' ),
-				'selector' => '{{WRAPPER}} .phtf-button--primary',
+				'selector' => '{{WRAPPER}} .phtf-button--primary, {{WRAPPER}} .phtf-mobile-filter-action--show',
 			]
 		);
 
@@ -2633,7 +2653,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				'global' => [ 'default' => 'globals/colors?id=hol_white' ],
 				'default'   => '#FFFFFF',
 				'selectors' => [
-					'{{WRAPPER}} .phtf-button--primary' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .phtf-button--primary, {{WRAPPER}} .phtf-mobile-filter-action--show' => 'color: {{VALUE}} !important;',
 				],
 			]
 		);
@@ -2645,7 +2665,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				'label'          => esc_html__( 'Background Type', 'perfect-hot-tub-finder' ),
 				'types'          => [ 'classic', 'gradient' ],
 				'exclude'        => [ 'image' ],
-				'selector'       => '{{WRAPPER}} .phtf-button--primary',
+				'selector'       => '{{WRAPPER}} .phtf-button--primary, {{WRAPPER}} .phtf-mobile-filter-action--show',
 				'fields_options' => [
 					'background' => [ 'default' => 'classic' ],
 					'color'      => [ 'default' => '#85D9DE' ],
@@ -2659,7 +2679,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 			[
 				'name'     => 'primary_button_box_shadow',
 				'label'    => esc_html__( 'Box Shadow', 'perfect-hot-tub-finder' ),
-				'selector' => '{{WRAPPER}} .phtf-button--primary',
+				'selector' => '{{WRAPPER}} .phtf-button--primary, {{WRAPPER}} .phtf-mobile-filter-action--show',
 			]
 		);
 
@@ -2680,7 +2700,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				'global' => [ 'default' => 'globals/colors?id=hol_white' ],
 				'default'   => '#FFFFFF',
 				'selectors' => [
-					'{{WRAPPER}} .phtf-button--primary:hover, {{WRAPPER}} .phtf-button--primary:focus-visible' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .phtf-button--primary:hover, {{WRAPPER}} .phtf-button--primary:focus-visible, {{WRAPPER}} .phtf-mobile-filter-action--show:hover, {{WRAPPER}} .phtf-mobile-filter-action--show:focus-visible' => 'color: {{VALUE}} !important;',
 				],
 			]
 		);
@@ -2692,7 +2712,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				'label'          => esc_html__( 'Background Type', 'perfect-hot-tub-finder' ),
 				'types'          => [ 'classic', 'gradient' ],
 				'exclude'        => [ 'image' ],
-				'selector'       => '{{WRAPPER}} .phtf-button--primary:hover, {{WRAPPER}} .phtf-button--primary:focus-visible',
+				'selector'       => '{{WRAPPER}} .phtf-button--primary:hover, {{WRAPPER}} .phtf-button--primary:focus-visible, {{WRAPPER}} .phtf-mobile-filter-action--show:hover, {{WRAPPER}} .phtf-mobile-filter-action--show:focus-visible',
 				'fields_options' => [
 					'background' => [ 'default' => 'classic' ],
 					'color'      => [ 'default' => '#00263D' ],
@@ -2708,7 +2728,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				'global' => [ 'default' => 'globals/colors?id=primary' ],
 				'default'   => '#00263D',
 				'selectors' => [
-					'{{WRAPPER}} .phtf-button--primary:hover, {{WRAPPER}} .phtf-button--primary:focus-visible' => 'border-color: {{VALUE}};',
+					'{{WRAPPER}} .phtf-button--primary:hover, {{WRAPPER}} .phtf-button--primary:focus-visible, {{WRAPPER}} .phtf-mobile-filter-action--show:hover, {{WRAPPER}} .phtf-mobile-filter-action--show:focus-visible' => 'border-color: {{VALUE}};',
 				],
 			]
 		);
@@ -2718,7 +2738,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 			[
 				'name'     => 'primary_button_hover_box_shadow',
 				'label'    => esc_html__( 'Box Shadow', 'perfect-hot-tub-finder' ),
-				'selector' => '{{WRAPPER}} .phtf-button--primary:hover, {{WRAPPER}} .phtf-button--primary:focus-visible',
+				'selector' => '{{WRAPPER}} .phtf-button--primary:hover, {{WRAPPER}} .phtf-button--primary:focus-visible, {{WRAPPER}} .phtf-mobile-filter-action--show:hover, {{WRAPPER}} .phtf-mobile-filter-action--show:focus-visible',
 			]
 		);
 
@@ -2730,7 +2750,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 			[
 				'name'           => 'primary_button_border',
 				'label'          => esc_html__( 'Border Type', 'perfect-hot-tub-finder' ),
-				'selector'       => '{{WRAPPER}} .phtf-button--primary',
+				'selector'       => '{{WRAPPER}} .phtf-button--primary, {{WRAPPER}} .phtf-mobile-filter-action--show',
 				'fields_options' => [
 					'border' => [ 'default' => 'solid' ],
 					'color'  => [ 'default' => '#85D9DE' ],
@@ -2763,7 +2783,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 					'isLinked' => true,
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .phtf-button--primary' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-button--primary, {{WRAPPER}} .phtf-mobile-filter-action--show' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -2783,7 +2803,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 					'isLinked' => false,
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .phtf-button--primary' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-button--primary, {{WRAPPER}} .phtf-mobile-filter-action--show' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -2803,7 +2823,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 			[
 				'name'           => 'secondary_button_typography',
 				'label'          => esc_html__( 'Typography', 'perfect-hot-tub-finder' ),
-				'selector'       => '{{WRAPPER}} .phtf-button--secondary',
+				'selector'       => '{{WRAPPER}} .phtf-button--secondary, {{WRAPPER}} .phtf-mobile-filter-action--reset',
 				'fields_options' => [
 					'font_family' => [ 'default' => 'Questrial' ],
 					'font_weight' => [ 'default' => '700' ],
@@ -2816,7 +2836,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 			[
 				'name'     => 'secondary_button_text_shadow',
 				'label'    => esc_html__( 'Text Shadow', 'perfect-hot-tub-finder' ),
-				'selector' => '{{WRAPPER}} .phtf-button--secondary',
+				'selector' => '{{WRAPPER}} .phtf-button--secondary, {{WRAPPER}} .phtf-mobile-filter-action--reset',
 			]
 		);
 
@@ -2837,7 +2857,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				'global' => [ 'default' => 'globals/colors?id=secondary' ],
 				'default'   => '#85D9DE',
 				'selectors' => [
-					'{{WRAPPER}} .phtf-button--secondary' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .phtf-button--secondary, {{WRAPPER}} .phtf-mobile-filter-action--reset' => 'color: {{VALUE}} !important;',
 				],
 			]
 		);
@@ -2849,7 +2869,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				'label'          => esc_html__( 'Background Type', 'perfect-hot-tub-finder' ),
 				'types'          => [ 'classic', 'gradient' ],
 				'exclude'        => [ 'image' ],
-				'selector'       => '{{WRAPPER}} .phtf-button--secondary',
+				'selector'       => '{{WRAPPER}} .phtf-button--secondary, {{WRAPPER}} .phtf-mobile-filter-action--reset',
 				'fields_options' => [
 					'background' => [ 'default' => 'classic' ],
 					'color'      => [ 'default' => 'rgba(255,255,255,0)' ],
@@ -2863,7 +2883,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 			[
 				'name'     => 'secondary_button_box_shadow',
 				'label'    => esc_html__( 'Box Shadow', 'perfect-hot-tub-finder' ),
-				'selector' => '{{WRAPPER}} .phtf-button--secondary',
+				'selector' => '{{WRAPPER}} .phtf-button--secondary, {{WRAPPER}} .phtf-mobile-filter-action--reset',
 			]
 		);
 
@@ -2884,7 +2904,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				'global' => [ 'default' => 'globals/colors?id=hol_white' ],
 				'default'   => '#FFFFFF',
 				'selectors' => [
-					'{{WRAPPER}} .phtf-button--secondary:hover, {{WRAPPER}} .phtf-button--secondary:focus-visible' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .phtf-button--secondary:hover, {{WRAPPER}} .phtf-button--secondary:focus-visible, {{WRAPPER}} .phtf-mobile-filter-action--reset:hover, {{WRAPPER}} .phtf-mobile-filter-action--reset:focus-visible' => 'color: {{VALUE}} !important;',
 				],
 			]
 		);
@@ -2896,7 +2916,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				'label'          => esc_html__( 'Background Type', 'perfect-hot-tub-finder' ),
 				'types'          => [ 'classic', 'gradient' ],
 				'exclude'        => [ 'image' ],
-				'selector'       => '{{WRAPPER}} .phtf-button--secondary:hover, {{WRAPPER}} .phtf-button--secondary:focus-visible',
+				'selector'       => '{{WRAPPER}} .phtf-button--secondary:hover, {{WRAPPER}} .phtf-button--secondary:focus-visible, {{WRAPPER}} .phtf-mobile-filter-action--reset:hover, {{WRAPPER}} .phtf-mobile-filter-action--reset:focus-visible',
 				'fields_options' => [
 					'background' => [ 'default' => 'classic' ],
 					'color'      => [ 'default' => '#85D9DE' ],
@@ -2912,7 +2932,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				'global' => [ 'default' => 'globals/colors?id=secondary' ],
 				'default'   => '#85D9DE',
 				'selectors' => [
-					'{{WRAPPER}} .phtf-button--secondary:hover, {{WRAPPER}} .phtf-button--secondary:focus-visible' => 'border-color: {{VALUE}};',
+					'{{WRAPPER}} .phtf-button--secondary:hover, {{WRAPPER}} .phtf-button--secondary:focus-visible, {{WRAPPER}} .phtf-mobile-filter-action--reset:hover, {{WRAPPER}} .phtf-mobile-filter-action--reset:focus-visible' => 'border-color: {{VALUE}};',
 				],
 			]
 		);
@@ -2922,7 +2942,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 			[
 				'name'     => 'secondary_button_hover_box_shadow',
 				'label'    => esc_html__( 'Box Shadow', 'perfect-hot-tub-finder' ),
-				'selector' => '{{WRAPPER}} .phtf-button--secondary:hover, {{WRAPPER}} .phtf-button--secondary:focus-visible',
+				'selector' => '{{WRAPPER}} .phtf-button--secondary:hover, {{WRAPPER}} .phtf-button--secondary:focus-visible, {{WRAPPER}} .phtf-mobile-filter-action--reset:hover, {{WRAPPER}} .phtf-mobile-filter-action--reset:focus-visible',
 			]
 		);
 
@@ -2934,7 +2954,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 			[
 				'name'           => 'secondary_button_border',
 				'label'          => esc_html__( 'Border Type', 'perfect-hot-tub-finder' ),
-				'selector'       => '{{WRAPPER}} .phtf-button--secondary',
+				'selector'       => '{{WRAPPER}} .phtf-button--secondary, {{WRAPPER}} .phtf-mobile-filter-action--reset',
 				'fields_options' => [
 					'border' => [ 'default' => 'solid' ],
 					'color'  => [ 'default' => '#85D9DE' ],
@@ -2967,7 +2987,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 					'isLinked' => true,
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .phtf-button--secondary' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-button--secondary, {{WRAPPER}} .phtf-mobile-filter-action--reset' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -2987,7 +3007,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 					'isLinked' => false,
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .phtf-button--secondary' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-button--secondary, {{WRAPPER}} .phtf-mobile-filter-action--reset' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);

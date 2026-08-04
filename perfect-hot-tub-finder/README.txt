@@ -35,6 +35,10 @@ This plugin uses the default Elementor/WordPress image placeholder when no image
 
 Changelog
 ---------
+= 1.0.151 =
+* Improved responsive Style tab support so image, background, arrow, layout, and button controls continue working in tablet and mobile layouts.
+* Connected the mobile filter drawer Show Results and Reset Filters buttons to the Primary Button and Secondary Button style controls.
+
 = 1.0.150 =
 * Increased the Price filter symbol and range text size for clearer tablet/mobile drawer display.
 
