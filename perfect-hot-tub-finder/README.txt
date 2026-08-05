@@ -35,6 +35,9 @@ This plugin uses the default Elementor/WordPress image placeholder when no image
 
 Changelog
 ---------
+= 1.0.157 =
+* Removed extra blank space below the tablet/mobile product buttons and hid the inner slider scrollbars.
+
 = 1.0.156 =
 * Removed tablet/mobile filter drawer scrollbars and fixed the sticky footer buttons so they fit inside the drawer.
 
