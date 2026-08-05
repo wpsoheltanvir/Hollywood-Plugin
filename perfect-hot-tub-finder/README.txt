@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.167 =
+* Increased and balanced tablet/mobile filter drawer typography.
+
 = 1.0.166 =
 * Fixed tablet/mobile filter footer button clipping inside Elementor preview frames.
 
