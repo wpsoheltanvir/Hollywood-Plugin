@@ -403,8 +403,8 @@
 		var products = Array.prototype.slice.call(widget.querySelectorAll('[data-phtf-item]'));
 		var count = widget.querySelector('[data-phtf-count]');
 		var empty = widget.querySelector('[data-phtf-empty]');
-		var prev = widget.querySelector('[data-phtf-prev]');
-		var next = widget.querySelector('[data-phtf-next]');
+		var prevButtons = Array.prototype.slice.call(widget.querySelectorAll('[data-phtf-prev]'));
+		var nextButtons = Array.prototype.slice.call(widget.querySelectorAll('[data-phtf-next]'));
 		var filters = Array.prototype.slice.call(widget.querySelectorAll('[data-phtf-filter]'));
 		var filterOpenButtons = Array.prototype.slice.call(widget.querySelectorAll('[data-phtf-filter-open]'));
 		var filterCloseButtons = Array.prototype.slice.call(widget.querySelectorAll('[data-phtf-filter-close]'));
@@ -524,12 +524,12 @@
 
 		function setControlsState() {
 			var disabled = visibleProducts.length <= 1;
-			if (prev) {
-				prev.disabled = disabled;
-			}
-			if (next) {
-				next.disabled = disabled;
-			}
+			prevButtons.forEach(function (button) {
+				button.disabled = disabled;
+			});
+			nextButtons.forEach(function (button) {
+				button.disabled = disabled;
+			});
 		}
 
 		function flashArrowState(button) {
@@ -595,21 +595,21 @@
 			filter.addEventListener('change', applyFilters);
 		});
 
-		if (prev) {
-			prev.addEventListener('click', function () {
-				flashArrowState(prev);
+		prevButtons.forEach(function (button) {
+			button.addEventListener('click', function () {
+				flashArrowState(button);
 				currentIndex -= 1;
 				showCurrent();
 			});
-		}
+		});
 
-		if (next) {
-			next.addEventListener('click', function () {
-				flashArrowState(next);
+		nextButtons.forEach(function (button) {
+			button.addEventListener('click', function () {
+				flashArrowState(button);
 				currentIndex += 1;
 				showCurrent();
 			});
-		}
+		});
 
 		filterOpenButtons.forEach(function (button) {
 			button.addEventListener('click', function () {

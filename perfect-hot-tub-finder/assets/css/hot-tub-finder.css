@@ -561,6 +561,10 @@
 	display: contents;
 }
 
+.phtf-product-mobile-arrows {
+	display: none;
+}
+
 .phtf-product {
 	display: none;
 }
@@ -5863,5 +5867,75 @@ body > .phtf-price-note-popup.phtf-popup-detached {
 	.phtf-widget.phtf-widget--classic .phtf-price-filter-symbol,
 	.phtf-widget.phtf-widget--classic .phtf-price-filter-range {
 		font-size: 18px !important;
+	}
+}
+
+/* v1.0.154: tablet/mobile product image arrows with no lifestyle background. */
+@media (max-width: 1024px) {
+	.phtf-widget.phtf-widget--classic .phtf-results-nav-main > .phtf-arrow {
+		display: none !important;
+	}
+
+	.phtf-widget.phtf-widget--classic .phtf-product-visual {
+		background: var(--phtf-surface, #FFFFFF) !important;
+		border: 0 !important;
+		margin-top: clamp(14px, 3vw, 24px) !important;
+	}
+
+	.phtf-widget.phtf-widget--classic .phtf-product-visual .phtf-hero-bg,
+	.phtf-widget.phtf-widget--classic .phtf-product-visual .phtf-hero-bg[style] {
+		display: none !important;
+	}
+
+	.phtf-widget.phtf-widget--classic .phtf-product-mobile-arrows {
+		display: flex !important;
+		align-items: center;
+		justify-content: space-between;
+		position: absolute;
+		z-index: 60;
+		top: 50%;
+		left: clamp(10px, 4vw, 36px);
+		right: clamp(10px, 4vw, 36px);
+		transform: translateY(-50%);
+		pointer-events: none;
+	}
+
+	.phtf-widget.phtf-widget--classic .phtf-product-mobile-arrow {
+		display: inline-flex !important;
+		width: 44px !important;
+		height: 44px !important;
+		padding: 0 !important;
+		font-size: 56px !important;
+		line-height: 1 !important;
+		color: var(--phtf-secondary, #85D9DE) !important;
+		background: transparent !important;
+		border: 0 !important;
+		box-shadow: none !important;
+		pointer-events: auto;
+	}
+
+	.phtf-widget.phtf-widget--classic .phtf-product-mobile-arrow:hover,
+	.phtf-widget.phtf-widget--classic .phtf-product-mobile-arrow:focus-visible {
+		color: var(--phtf-primary, #00263D) !important;
+		background: transparent !important;
+		transform: scale(1.06);
+	}
+
+	.phtf-widget.phtf-widget--classic .phtf-product-mobile-arrow[disabled] {
+		opacity: .28;
+		cursor: not-allowed;
+	}
+}
+
+@media (max-width: 520px) {
+	.phtf-widget.phtf-widget--classic .phtf-product-mobile-arrows {
+		left: 16px;
+		right: 16px;
+	}
+
+	.phtf-widget.phtf-widget--classic .phtf-product-mobile-arrow {
+		width: 38px !important;
+		height: 38px !important;
+		font-size: 48px !important;
 	}
 }

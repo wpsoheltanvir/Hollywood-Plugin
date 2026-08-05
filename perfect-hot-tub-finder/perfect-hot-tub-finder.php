@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Perfect Hot Tub Finder
  * Description: Adds a customizable Elementor widget for a hot tub finder/shop layout.
- * Version: 1.0.153
+ * Version: 1.0.154
  * Author: Attractional Marketing
  * Text Domain: perfect-hot-tub-finder
  * Requires at least: 6.0
@@ -151,7 +151,7 @@ if ( ! function_exists( 'phtf_apply_elementor_global_colors' ) ) {
 }
 
 final class PHTF_Perfect_Hot_Tub_Finder {
-	const VERSION = '1.0.153';
+	const VERSION = '1.0.154';
 	const MINIMUM_ELEMENTOR_VERSION = '3.5.0';
 	const MINIMUM_PHP_VERSION = '7.4';
 

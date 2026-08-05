@@ -3619,6 +3619,10 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 		<?php if ( $show_product_image ) : ?>
 			<img class="phtf-product-image" src="<?php echo esc_url( $product_image ); ?>" alt="<?php echo esc_attr( $product['brand'] ); ?>">
 		<?php endif; ?>
+		<div class="phtf-product-mobile-arrows" aria-hidden="false">
+			<button type="button" class="phtf-arrow phtf-product-mobile-arrow phtf-product-mobile-arrow--prev" data-phtf-prev aria-label="<?php esc_attr_e( 'Previous result', 'perfect-hot-tub-finder' ); ?>">‹</button>
+			<button type="button" class="phtf-arrow phtf-product-mobile-arrow phtf-product-mobile-arrow--next" data-phtf-next aria-label="<?php esc_attr_e( 'Next result', 'perfect-hot-tub-finder' ); ?>">›</button>
+		</div>
 	</div>
 	<div class="phtf-product-copy">
 											<h3 class="phtf-product-title">

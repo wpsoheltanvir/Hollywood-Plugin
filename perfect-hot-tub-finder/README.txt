@@ -35,6 +35,11 @@ This plugin uses the default Elementor/WordPress image placeholder when no image
 
 Changelog
 ---------
+= 1.0.154 =
+* Hid the lifestyle/background image in tablet and mobile slider layouts.
+* Added tablet/mobile-only previous and next arrows beside the product image.
+* Updated slider JavaScript so all visible arrow controls stay in sync.
+
 = 1.0.153 =
 * Rebuilt the Product & Background Images style section with simpler controls for product size, desktop/mobile product position, background crop, banner height, and curved shape.
 * Removed extra advanced image controls that made responsive customization harder to manage.
