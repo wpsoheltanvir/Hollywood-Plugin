@@ -6500,3 +6500,21 @@ body.phtf-drawer-open .phtf-widget.is-filters-open .phtf-filters,
 		white-space: normal !important;
 	}
 }
+
+/* v1.0.170: make the Elementor widget full-width by default on every device. */
+body .elementor-widget-phtf_hot_tub_finder,
+body .elementor-widget-phtf_hot_tub_finder.elementor-widget,
+body .elementor-widget-phtf_hot_tub_finder > .elementor-widget-container,
+body .elementor-widget-phtf_hot_tub_finder .phtf-widget[data-phtf-widget],
+body .phtf-widget.phtf-widget--classic[data-phtf-widget] {
+	width: 100% !important;
+	max-width: 100% !important;
+	box-sizing: border-box !important;
+}
+
+body .elementor-widget-phtf_hot_tub_finder {
+	flex-basis: 100% !important;
+	align-self: stretch !important;
+	--container-widget-width: 100% !important;
+	--container-widget-flex-grow: 0 !important;
+}
