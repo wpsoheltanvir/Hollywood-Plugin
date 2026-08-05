@@ -35,6 +35,10 @@ This plugin uses the default Elementor/WordPress image placeholder when no image
 
 Changelog
 ---------
+= 1.0.153 =
+* Rebuilt the Product & Background Images style section with simpler controls for product size, desktop/mobile product position, background crop, banner height, and curved shape.
+* Removed extra advanced image controls that made responsive customization harder to manage.
+
 = 1.0.152 =
 * Added a safer Elementor widget loader so a missing optional widget file cannot crash the Elementor editor during an incomplete plugin upload.
 

@@ -2031,7 +2031,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'product_image_style_heading',
 			[
-				'label' => esc_html__( 'Product Image', 'perfect-hot-tub-finder' ),
+				'label' => esc_html__( 'Product Image Size', 'perfect-hot-tub-finder' ),
 				'type'  => Controls_Manager::HEADING,
 			]
 		);
@@ -2039,7 +2039,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 		$this->add_responsive_control(
 			'product_image_width',
 			[
-				'label'      => esc_html__( 'Width', 'perfect-hot-tub-finder' ),
+				'label'      => esc_html__( 'Product Width', 'perfect-hot-tub-finder' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', '%', 'vw' ],
 				'range'      => [
@@ -2050,28 +2050,8 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				'default'        => [ 'size' => 250, 'unit' => 'px' ],
 				'laptop_default' => [ 'size' => 250, 'unit' => 'px' ],
 				'selectors'  => [
-					'{{WRAPPER}} .phtf-widget--classic' => '--phtf-product-image-width: {{SIZE}}{{UNIT}}; --phtf-mobile-product-image-width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .phtf-widget--classic' => '--phtf-product-image-width: {{SIZE}}{{UNIT}}; --phtf-product-image-max-width: {{SIZE}}{{UNIT}}; --phtf-mobile-product-image-width: {{SIZE}}{{UNIT}}; --phtf-mobile-product-image-max-width: {{SIZE}}{{UNIT}};',
 					'{{WRAPPER}} .phtf-product-image, {{WRAPPER}} .phtf-widget.phtf-widget--classic .phtf-product-image' => 'width: {{SIZE}}{{UNIT}} !important; aspect-ratio: 1 / 1;',
-				],
-			]
-		);
-
-		$this->add_responsive_control(
-			'product_image_max_width',
-			[
-				'label'      => esc_html__( 'Max Width', 'perfect-hot-tub-finder' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => [ 'px', '%', 'vw' ],
-				'range'      => [
-					'px' => [ 'min' => 80, 'max' => 900 ],
-					'%'  => [ 'min' => 10, 'max' => 100 ],
-					'vw' => [ 'min' => 10, 'max' => 100 ],
-				],
-				'default'        => [ 'size' => 250, 'unit' => 'px' ],
-				'laptop_default' => [ 'size' => 250, 'unit' => 'px' ],
-				'selectors'  => [
-					'{{WRAPPER}} .phtf-widget--classic' => '--phtf-product-image-max-width: {{SIZE}}{{UNIT}}; --phtf-mobile-product-image-max-width: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .phtf-product-image' => 'max-width: {{SIZE}}{{UNIT}} !important;',
 				],
 			]
 		);
@@ -2079,7 +2059,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 		$this->add_responsive_control(
 			'product_image_display_height',
 			[
-				'label'      => esc_html__( 'Height', 'perfect-hot-tub-finder' ),
+				'label'      => esc_html__( 'Product Height', 'perfect-hot-tub-finder' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', '%', 'vh', 'vw' ],
 				'range'      => [
@@ -2100,9 +2080,9 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'product_image_object_fit',
 			[
-				'label'     => esc_html__( 'Image Fit', 'perfect-hot-tub-finder' ),
+				'label'     => esc_html__( 'Product Fit', 'perfect-hot-tub-finder' ),
 				'type'      => Controls_Manager::SELECT,
-				'default'   => 'cover',
+				'default'   => 'contain',
 				'options'   => [
 					'cover'   => esc_html__( 'Cover', 'perfect-hot-tub-finder' ),
 					'contain' => esc_html__( 'Contain', 'perfect-hot-tub-finder' ),
@@ -2115,10 +2095,19 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 			]
 		);
 
+		$this->add_control(
+			'product_image_position_heading',
+			[
+				'label'     => esc_html__( 'Product Image Position', 'perfect-hot-tub-finder' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			]
+		);
+
 		$this->add_responsive_control(
 			'product_image_right_position',
 			[
-				'label'      => esc_html__( 'Desktop Position From Right', 'perfect-hot-tub-finder' ),
+				'label'      => esc_html__( 'Desktop Horizontal Position', 'perfect-hot-tub-finder' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ '%', 'px', 'vw' ],
 				'range'      => [
@@ -2156,9 +2145,28 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 		);
 
 		$this->add_responsive_control(
+			'product_image_mobile_left_position',
+			[
+				'label'      => esc_html__( 'Tablet / Mobile Horizontal Position', 'perfect-hot-tub-finder' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ '%', 'px', 'vw' ],
+				'range'      => [
+					'%'  => [ 'min' => 0, 'max' => 100 ],
+					'px' => [ 'min' => -200, 'max' => 900 ],
+					'vw' => [ 'min' => -20, 'max' => 100 ],
+				],
+				'tablet_default' => [ 'size' => 50, 'unit' => '%' ],
+				'mobile_default' => [ 'size' => 50, 'unit' => '%' ],
+				'selectors'  => [
+					'{{WRAPPER}} .phtf-widget--classic' => '--phtf-mobile-product-image-left: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
 			'product_image_translate_x',
 			[
-				'label'      => esc_html__( 'Horizontal Offset', 'perfect-hot-tub-finder' ),
+				'label'      => esc_html__( 'Fine Tune X Offset', 'perfect-hot-tub-finder' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ '%', 'px' ],
 				'range'      => [
@@ -2176,7 +2184,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 		$this->add_responsive_control(
 			'product_image_translate_y',
 			[
-				'label'      => esc_html__( 'Vertical Offset', 'perfect-hot-tub-finder' ),
+				'label'      => esc_html__( 'Fine Tune Y Offset', 'perfect-hot-tub-finder' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ '%', 'px' ],
 				'range'      => [
@@ -2233,32 +2241,9 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 		);
 
 		$this->add_control(
-			'product_image_z_index',
-			[
-				'label'     => esc_html__( 'Z-Index', 'perfect-hot-tub-finder' ),
-				'type'      => Controls_Manager::NUMBER,
-				'default'   => 25,
-				'min'       => 0,
-				'max'       => 100,
-				'selectors' => [
-					'{{WRAPPER}} .phtf-product-image' => 'z-index: {{VALUE}};',
-				],
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Box_Shadow::get_type(),
-			[
-				'name'     => 'product_image_box_shadow',
-				'label'    => esc_html__( 'Box Shadow', 'perfect-hot-tub-finder' ),
-				'selector' => '{{WRAPPER}} .phtf-product-image',
-			]
-		);
-
-		$this->add_control(
 			'background_image_style_heading',
 			[
-				'label'     => esc_html__( 'Background / Lifestyle Image', 'perfect-hot-tub-finder' ),
+				'label'     => esc_html__( 'Background Image', 'perfect-hot-tub-finder' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -2267,7 +2252,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 		$this->add_responsive_control(
 			'background_image_width',
 			[
-				'label'      => esc_html__( 'Width', 'perfect-hot-tub-finder' ),
+				'label'      => esc_html__( 'Desktop Background Width', 'perfect-hot-tub-finder' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ '%', 'px', 'vw' ],
 				'range'      => [
@@ -2305,30 +2290,10 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 			]
 		);
 
-		$this->add_responsive_control(
-			'background_image_height',
-			[
-				'label'      => esc_html__( 'Height', 'perfect-hot-tub-finder' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => [ 'px', 'vh', '%' ],
-				'range'      => [
-					'px' => [ 'min' => 120, 'max' => 1000 ],
-					'vh' => [ 'min' => 10, 'max' => 100 ],
-					'%'  => [ 'min' => 10, 'max' => 100 ],
-				],
-				'default'        => [ 'size' => 100, 'unit' => 'vh' ],
-				'laptop_default' => [ 'size' => 100, 'unit' => 'vh' ],
-				'selectors'  => [
-					'{{WRAPPER}} .phtf-widget--classic' => '--phtf-hero-bg-height: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .phtf-widget.phtf-widget--classic .phtf-hero-bg, {{WRAPPER}} .phtf-hero-bg' => 'height: {{SIZE}}{{UNIT}} !important;',
-				],
-			]
-		);
-
 		$this->add_control(
 			'hero_image_position',
 			[
-				'label'     => esc_html__( 'Background Position', 'perfect-hot-tub-finder' ),
+				'label'     => esc_html__( 'Background Crop Position', 'perfect-hot-tub-finder' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'center center',
 				'options'   => [
@@ -2348,7 +2313,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'background_image_size',
 			[
-				'label'     => esc_html__( 'Background Size', 'perfect-hot-tub-finder' ),
+				'label'     => esc_html__( 'Background Crop Mode', 'perfect-hot-tub-finder' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'cover',
 				'options'   => [
@@ -2359,25 +2324,6 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 				'selectors' => [
 					'{{WRAPPER}} .phtf-widget--classic' => '--phtf-hero-bg-size: {{VALUE}};',
 					'{{WRAPPER}} .phtf-hero-bg' => 'background-size: {{VALUE}} !important;',
-				],
-			]
-		);
-
-		$this->add_control(
-			'background_image_repeat',
-			[
-				'label'     => esc_html__( 'Background Repeat', 'perfect-hot-tub-finder' ),
-				'type'      => Controls_Manager::SELECT,
-				'default'   => 'no-repeat',
-				'options'   => [
-					'no-repeat' => esc_html__( 'No Repeat', 'perfect-hot-tub-finder' ),
-					'repeat'    => esc_html__( 'Repeat', 'perfect-hot-tub-finder' ),
-					'repeat-x'  => esc_html__( 'Repeat X', 'perfect-hot-tub-finder' ),
-					'repeat-y'  => esc_html__( 'Repeat Y', 'perfect-hot-tub-finder' ),
-				],
-				'selectors' => [
-					'{{WRAPPER}} .phtf-widget--classic' => '--phtf-hero-bg-repeat: {{VALUE}};',
-					'{{WRAPPER}} .phtf-hero-bg' => 'background-repeat: {{VALUE}} !important;',
 				],
 			]
 		);
@@ -2425,34 +2371,18 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 		);
 
 		$this->add_control(
-			'background_overlay_color',
+			'background_curve_heading',
 			[
-				'label'     => esc_html__( 'Overlay Color', 'perfect-hot-tub-finder' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => 'rgba(0,0,0,0)',
-				'selectors' => [
-					'{{WRAPPER}} .phtf-hero-bg::after' => 'background-color: {{VALUE}};',
-				],
-			]
-		);
-
-		$this->add_control(
-			'background_overlay_opacity',
-			[
-				'label'     => esc_html__( 'Overlay Opacity', 'perfect-hot-tub-finder' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [ '' => [ 'min' => 0, 'max' => 1, 'step' => 0.01 ] ],
-				'default'   => [ 'size' => 1 ],
-				'selectors' => [
-					'{{WRAPPER}} .phtf-hero-bg::after' => 'opacity: {{SIZE}};',
-				],
+				'label'     => esc_html__( 'Curved White Shape', 'perfect-hot-tub-finder' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
 			]
 		);
 
 		$this->add_control(
 			'background_curve_display',
 			[
-				'label'     => esc_html__( 'Curved Cutout', 'perfect-hot-tub-finder' ),
+				'label'     => esc_html__( 'Show Curved Shape', 'perfect-hot-tub-finder' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'block',
 				'options'   => [
@@ -2469,7 +2399,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 		$this->add_responsive_control(
 			'background_curve_width',
 			[
-				'label'      => esc_html__( 'Curved Cutout Width', 'perfect-hot-tub-finder' ),
+				'label'      => esc_html__( 'Shape Width', 'perfect-hot-tub-finder' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', '%', 'vw' ],
 				'range'      => [
@@ -2489,7 +2419,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 		$this->add_responsive_control(
 			'background_curve_offset',
 			[
-				'label'      => esc_html__( 'Curved Cutout Offset', 'perfect-hot-tub-finder' ),
+				'label'      => esc_html__( 'Shape Horizontal Position', 'perfect-hot-tub-finder' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', '%', 'vw' ],
 				'range'      => [
