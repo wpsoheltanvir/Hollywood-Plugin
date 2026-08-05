@@ -3523,10 +3523,11 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 								</div>
 								<?php if ( $show_seating_filter ) : ?>
 									<div class="phtf-filter-group phtf-filter-group--seating" data-phtf-filter-group>
-										<div class="phtf-filter-group-toggle phtf-filter-group-plain-heading">
+										<button type="button" class="phtf-filter-group-toggle" data-phtf-filter-group-toggle aria-expanded="true" aria-controls="<?php echo esc_attr( $uid ); ?>-seating-filters">
 											<span class="phtf-filter-group-title"><?php echo esc_html( $settings['seating_title'] ?? esc_html__( 'Seating', 'perfect-hot-tub-finder' ) ); ?></span>
-										</div>
-										<div class="phtf-filter-group-body" data-phtf-filter-group-body>
+											<span class="phtf-filter-group-chevron" aria-hidden="true"></span>
+										</button>
+										<div id="<?php echo esc_attr( $uid ); ?>-seating-filters" class="phtf-filter-group-body" data-phtf-filter-group-body>
 										<?php foreach ( $seat_filters as $filter_index => $filter ) :
 											$input_id = $uid . '-seat-' . $filter_index . '-' . sanitize_html_class( $filter['value'] );
 											?>
@@ -3543,18 +3544,19 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 								<?php if ( $show_price_filter ) : ?>
 									<div class="phtf-filter-group phtf-filter-group--price" data-phtf-filter-group>
 										<div class="phtf-filter-group-head">
-											<div class="phtf-filter-group-toggle phtf-filter-group-plain-heading">
+											<button type="button" class="phtf-filter-group-toggle" data-phtf-filter-group-toggle aria-expanded="true" aria-controls="<?php echo esc_attr( $uid ); ?>-price-filters">
 												<span class="phtf-filter-group-title-wrap">
 													<span class="phtf-filter-group-title"><?php echo esc_html( $settings['price_title'] ?? esc_html__( 'Price', 'perfect-hot-tub-finder' ) ); ?></span>
 												</span>
-											</div>
+												<span class="phtf-filter-group-chevron" aria-hidden="true"></span>
+											</button>
 											<?php if ( 'yes' === ( $settings['price_info_icon'] ?? 'yes' ) ) : ?>
 												<span class="phtf-filter-heading-info">
 													<?php echo $this->render_price_info_icon_popup( $settings ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 												</span>
 											<?php endif; ?>
 										</div>
-										<div class="phtf-filter-group-body" data-phtf-filter-group-body>
+										<div id="<?php echo esc_attr( $uid ); ?>-price-filters" class="phtf-filter-group-body" data-phtf-filter-group-body>
 										<?php foreach ( $price_filters as $filter_index => $filter ) :
 											$input_id = $uid . '-price-' . $filter_index . '-' . sanitize_html_class( $filter['value'] );
 											?>

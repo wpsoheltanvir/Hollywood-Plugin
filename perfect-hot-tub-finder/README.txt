@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.169 =
+* Matched the tablet/mobile filter drawer accordion structure and sizing more closely to Caldera.
+
 = 1.0.168 =
 * Removed remaining tablet/mobile white space below the product buttons.
 
