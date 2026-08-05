@@ -6251,3 +6251,35 @@ body.phtf-drawer-open .phtf-widget.is-filters-open .phtf-filters,
 		padding-bottom: 0 !important;
 	}
 }
+
+/* v1.0.166: keep filter drawer footer inside Elementor tablet/mobile preview frames. */
+@media (max-width: 1024px) {
+	body.phtf-drawer-open .phtf-widget.is-filters-open .phtf-filters,
+	.phtf-widget.is-filters-open .phtf-filters {
+		padding-bottom: 0 !important;
+	}
+
+	body.phtf-drawer-open .phtf-widget.is-filters-open .phtf-filters-mobile-actions,
+	.phtf-widget.is-filters-open .phtf-filters-mobile-actions {
+		position: sticky !important;
+		right: auto !important;
+		bottom: 0 !important;
+		left: auto !important;
+		width: auto !important;
+		max-width: none !important;
+		margin: auto calc(clamp(16px, 5vw, 24px) * -1) 0 !important;
+		padding: 14px clamp(16px, 5vw, 24px) calc(14px + env(safe-area-inset-bottom, 0px)) !important;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+		box-sizing: border-box !important;
+		overflow: hidden !important;
+	}
+
+	body.phtf-drawer-open .phtf-widget.is-filters-open .phtf-mobile-filter-action,
+	.phtf-widget.is-filters-open .phtf-mobile-filter-action {
+		width: 100% !important;
+		min-width: 0 !important;
+		max-width: 100% !important;
+		box-sizing: border-box !important;
+		white-space: nowrap !important;
+	}
+}

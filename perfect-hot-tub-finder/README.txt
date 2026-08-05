@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.166 =
+* Fixed tablet/mobile filter footer button clipping inside Elementor preview frames.
+
 = 1.0.165 =
 * Removed the extra tablet/mobile blank space caused by saved Elementor minimum-height styles.
 
