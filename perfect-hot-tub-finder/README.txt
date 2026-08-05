@@ -35,6 +35,9 @@ This plugin uses the default Elementor/WordPress image placeholder when no image
 
 Changelog
 ---------
+= 1.0.158 =
+* Forced the opened tablet/mobile filter drawer to fill the whole device preview instead of showing as a narrow side panel.
+
 = 1.0.157 =
 * Removed extra blank space below the tablet/mobile product buttons and hid the inner slider scrollbars.
 
