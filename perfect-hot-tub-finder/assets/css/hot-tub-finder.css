@@ -6214,3 +6214,40 @@ body.phtf-drawer-open .phtf-widget.is-filters-open .phtf-filters,
 		max-height: calc(100% - 24px) !important;
 	}
 }
+
+/* v1.0.165: override saved Elementor minimum-height on tablet/mobile. */
+@media (max-width: 1024px) {
+	body .elementor .elementor-element .phtf-widget.phtf-widget--classic[data-phtf-widget],
+	body .phtf-widget.phtf-widget--classic[data-phtf-widget] {
+		height: auto !important;
+		min-height: 0 !important;
+		max-height: none !important;
+		padding-bottom: 0 !important;
+		overflow-y: visible !important;
+	}
+
+	body .elementor .elementor-element .phtf-widget.phtf-widget--classic[data-phtf-widget] .phtf-stage,
+	body .elementor .elementor-element .phtf-widget.phtf-widget--classic[data-phtf-widget] .phtf-left-panel,
+	body .elementor .elementor-element .phtf-widget.phtf-widget--classic[data-phtf-widget] .phtf-content-grid,
+	body .elementor .elementor-element .phtf-widget.phtf-widget--classic[data-phtf-widget] .phtf-results-panel,
+	body .elementor .elementor-element .phtf-widget.phtf-widget--classic[data-phtf-widget] .phtf-products,
+	body .elementor .elementor-element .phtf-widget.phtf-widget--classic[data-phtf-widget] .phtf-product,
+	body .elementor .elementor-element .phtf-widget.phtf-widget--classic[data-phtf-widget] .phtf-product-copy,
+	body .phtf-widget.phtf-widget--classic[data-phtf-widget] .phtf-stage,
+	body .phtf-widget.phtf-widget--classic[data-phtf-widget] .phtf-left-panel,
+	body .phtf-widget.phtf-widget--classic[data-phtf-widget] .phtf-content-grid,
+	body .phtf-widget.phtf-widget--classic[data-phtf-widget] .phtf-results-panel,
+	body .phtf-widget.phtf-widget--classic[data-phtf-widget] .phtf-products,
+	body .phtf-widget.phtf-widget--classic[data-phtf-widget] .phtf-product,
+	body .phtf-widget.phtf-widget--classic[data-phtf-widget] .phtf-product-copy {
+		height: auto !important;
+		min-height: 0 !important;
+		max-height: none !important;
+	}
+
+	body .elementor .elementor-element .phtf-widget.phtf-widget--classic[data-phtf-widget] .phtf-actions,
+	body .phtf-widget.phtf-widget--classic[data-phtf-widget] .phtf-actions {
+		margin-bottom: 0 !important;
+		padding-bottom: 0 !important;
+	}
+}
