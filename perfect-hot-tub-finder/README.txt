@@ -36,9 +36,10 @@ Automatic Updates
 -----------------
 This plugin can update from GitHub releases in wpsoheltanvir/Hollywood-Plugin.
 
-1. Push a version tag like v1.0.161.
-2. GitHub Actions will build and attach perfect-hot-tub-finder-1.0.161-install.zip to the release.
-3. WordPress will show the update from Dashboard > Updates or Plugins when the release version is newer.
+1. Increase the plugin version in perfect-hot-tub-finder.php, for example from 1.0.162 to 1.0.163.
+2. Push the code to the main branch.
+3. GitHub Actions will create the matching release tag and attach the install ZIP automatically.
+4. WordPress will show the update from Dashboard > Updates or Plugins when the release version is newer.
 
 For a private GitHub repository, add a fine-grained GitHub token with read-only repository Contents access to wp-config.php:
 
@@ -47,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.162 =
+* Updated the GitHub release workflow so pushing code to main creates the WordPress update release automatically.
+
 = 1.0.161 =
 * Moved the plugin updater source to the wpsoheltanvir/Hollywood-Plugin GitHub repository.
 
