@@ -34,10 +34,10 @@ This plugin uses the default Elementor/WordPress image placeholder when no image
 
 Automatic Updates
 -----------------
-This plugin can update from GitHub releases in wpsoheltanvir/Hollywood.
+This plugin can update from GitHub releases in wpsoheltanvir/Hollywood-Plugin.
 
-1. Push a version tag like v1.0.160.
-2. GitHub Actions will build and attach perfect-hot-tub-finder-1.0.160-install.zip to the release.
+1. Push a version tag like v1.0.161.
+2. GitHub Actions will build and attach perfect-hot-tub-finder-1.0.161-install.zip to the release.
 3. WordPress will show the update from Dashboard > Updates or Plugins when the release version is newer.
 
 For a private GitHub repository, add a fine-grained GitHub token with read-only repository Contents access to wp-config.php:
@@ -47,6 +47,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.161 =
+* Moved the plugin updater source to the wpsoheltanvir/Hollywood-Plugin GitHub repository.
+
 = 1.0.160 =
 * Added a GitHub Releases updater so WordPress can auto-detect new plugin versions.
 * Added a GitHub Actions release workflow that builds the install ZIP when a version tag is pushed.
