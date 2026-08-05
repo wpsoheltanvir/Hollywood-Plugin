@@ -35,6 +35,9 @@ This plugin uses the default Elementor/WordPress image placeholder when no image
 
 Changelog
 ---------
+= 1.0.155 =
+* Made the tablet/mobile filter drawer full-screen across the viewport.
+
 = 1.0.154 =
 * Hid the lifestyle/background image in tablet and mobile slider layouts.
 * Added tablet/mobile-only previous and next arrows beside the product image.
