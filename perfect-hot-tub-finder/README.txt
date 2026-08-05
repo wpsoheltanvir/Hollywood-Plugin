@@ -35,6 +35,9 @@ This plugin uses the default Elementor/WordPress image placeholder when no image
 
 Changelog
 ---------
+= 1.0.156 =
+* Removed tablet/mobile filter drawer scrollbars and fixed the sticky footer buttons so they fit inside the drawer.
+
 = 1.0.155 =
 * Made the tablet/mobile filter drawer full-screen across the viewport.
 
