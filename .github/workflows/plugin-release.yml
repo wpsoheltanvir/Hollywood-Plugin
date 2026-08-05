@@ -1,0 +1,44 @@
+name: Build Plugin Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+      - '[0-9]+.[0-9]+.[0-9]+'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Package plugin ZIP
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build ZIP
+        shell: bash
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          ZIP_NAME="perfect-hot-tub-finder-${VERSION}-install.zip"
+          zip -r "$ZIP_NAME" perfect-hot-tub-finder \
+            -x "perfect-hot-tub-finder/.git/*" \
+            -x "perfect-hot-tub-finder/.github/*" \
+            -x "perfect-hot-tub-finder/node_modules/*"
+          echo "ZIP_NAME=$ZIP_NAME" >> "$GITHUB_ENV"
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+
+      - name: Publish GitHub release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" "$ZIP_NAME" --clobber
+          else
+            gh release create "$GITHUB_REF_NAME" "$ZIP_NAME" \
+              --title "Perfect Hot Tub Finder ${VERSION}" \
+              --notes "Plugin update ${VERSION}."
+          fi

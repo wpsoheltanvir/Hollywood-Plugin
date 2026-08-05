@@ -2,9 +2,10 @@
 /**
  * Plugin Name: Perfect Hot Tub Finder
  * Description: Adds a customizable Elementor widget for a hot tub finder/shop layout.
- * Version: 1.0.159
+ * Version: 1.0.160
  * Author: Attractional Marketing
  * Text Domain: perfect-hot-tub-finder
+ * Update URI: https://github.com/wpsoheltanvir/Hollywood
  * Requires at least: 6.0
  * Requires PHP: 7.4
  */
@@ -151,7 +152,7 @@ if ( ! function_exists( 'phtf_apply_elementor_global_colors' ) ) {
 }
 
 final class PHTF_Perfect_Hot_Tub_Finder {
-	const VERSION = '1.0.156';
+	const VERSION = '1.0.160';
 	const MINIMUM_ELEMENTOR_VERSION = '3.5.0';
 	const MINIMUM_PHP_VERSION = '7.4';
 
@@ -170,7 +171,11 @@ final class PHTF_Perfect_Hot_Tub_Finder {
 
 	public function init() {
 		require_once __DIR__ . '/includes/class-phtf-spa-models-cpt.php';
+		require_once __DIR__ . '/includes/class-phtf-github-updater.php';
 		new PHTF_Spa_Models_CPT();
+		if ( is_admin() ) {
+			new PHTF_GitHub_Updater( __FILE__, self::VERSION, 'wpsoheltanvir', 'Hollywood' );
+		}
 		add_action( 'init', [ $this, 'maybe_flush_rewrite_rules' ], 99 );
 
 		add_action( 'admin_init', [ $this, 'maybe_apply_elementor_global_colors' ] );
