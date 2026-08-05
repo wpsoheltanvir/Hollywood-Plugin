@@ -411,6 +411,7 @@
 		var filterShowResultsButtons = Array.prototype.slice.call(widget.querySelectorAll('[data-phtf-filter-show-results]'));
 		var filterResetButtons = Array.prototype.slice.call(widget.querySelectorAll('[data-phtf-filter-reset]'));
 		var filterOverlay = widget.querySelector('[data-phtf-filter-overlay]');
+		var filterDrawer = widget.querySelector('.phtf-filters');
 		var filterGroupToggles = Array.prototype.slice.call(widget.querySelectorAll('[data-phtf-filter-group-toggle]'));
 		var currentIndex = 0;
 		var visibleProducts = [];
@@ -419,10 +420,80 @@
 			return window.matchMedia('(max-width: 1024px)').matches;
 		}
 
+		function setImportantStyle(element, property, value) {
+			if (element && element.style) {
+				element.style.setProperty(property, value, 'important');
+			}
+		}
+
+		function clearDrawerViewportLock() {
+			if (!filterDrawer || !filterDrawer.style) {
+				return;
+			}
+
+			[
+				'position',
+				'z-index',
+				'top',
+				'right',
+				'bottom',
+				'left',
+				'width',
+				'max-width',
+				'min-width',
+				'height',
+				'max-height',
+				'margin',
+				'border',
+				'border-radius',
+				'transform',
+				'overflow-x',
+				'overflow-y',
+				'box-sizing'
+			].forEach(function (property) {
+				filterDrawer.style.removeProperty(property);
+			});
+		}
+
+		function lockDrawerToViewport() {
+			if (!filterDrawer) {
+				return;
+			}
+
+			var viewportWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+			var viewportHeight = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+			var width = viewportWidth ? viewportWidth + 'px' : '100vw';
+			var height = viewportHeight ? viewportHeight + 'px' : '100vh';
+
+			setImportantStyle(filterDrawer, 'position', 'fixed');
+			setImportantStyle(filterDrawer, 'z-index', '10001');
+			setImportantStyle(filterDrawer, 'top', '0');
+			setImportantStyle(filterDrawer, 'right', '0');
+			setImportantStyle(filterDrawer, 'bottom', '0');
+			setImportantStyle(filterDrawer, 'left', '0');
+			setImportantStyle(filterDrawer, 'width', width);
+			setImportantStyle(filterDrawer, 'max-width', width);
+			setImportantStyle(filterDrawer, 'min-width', '0');
+			setImportantStyle(filterDrawer, 'height', height);
+			setImportantStyle(filterDrawer, 'max-height', height);
+			setImportantStyle(filterDrawer, 'margin', '0');
+			setImportantStyle(filterDrawer, 'border', '0');
+			setImportantStyle(filterDrawer, 'border-radius', '0');
+			setImportantStyle(filterDrawer, 'transform', 'translateX(0)');
+			setImportantStyle(filterDrawer, 'overflow-x', 'hidden');
+			setImportantStyle(filterDrawer, 'overflow-y', 'auto');
+			setImportantStyle(filterDrawer, 'box-sizing', 'border-box');
+		}
+
 		function setFilterDrawerState(isOpen) {
 			widget.classList.toggle('is-filters-open', isOpen);
 			if (document.body) {
 				document.body.classList.toggle('phtf-drawer-open', isOpen);
+			}
+			if (isOpen) {
+				lockDrawerToViewport();
+			} else {
+				clearDrawerViewportLock();
 			}
 			if (filterOverlay) {
 				filterOverlay.hidden = !isOpen;
@@ -667,6 +738,8 @@
 			if (!isMobileFilters()) {
 				closeFiltersDrawer();
 				resetFilterGroups();
+			} else if (widget.classList.contains('is-filters-open')) {
+				lockDrawerToViewport();
 			}
 		});
 

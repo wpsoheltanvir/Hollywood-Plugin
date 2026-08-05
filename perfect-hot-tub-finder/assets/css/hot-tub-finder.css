@@ -6096,3 +6096,24 @@ body > .phtf-price-note-popup.phtf-popup-detached {
 	padding-right: clamp(16px, 5vw, 24px) !important;
 	padding-left: clamp(16px, 5vw, 24px) !important;
 }
+
+/* v1.0.159: match the same full-screen drawer behavior without requiring the classic class. */
+body.phtf-drawer-open .phtf-widget.is-filters-open .phtf-filters,
+.phtf-widget.is-filters-open .phtf-filters {
+	position: fixed !important;
+	z-index: 10001 !important;
+	top: 0 !important;
+	right: 0 !important;
+	bottom: 0 !important;
+	left: 0 !important;
+	width: 100vw !important;
+	max-width: 100vw !important;
+	min-width: 0 !important;
+	height: 100vh !important;
+	height: 100dvh !important;
+	max-height: 100dvh !important;
+	margin: 0 !important;
+	border: 0 !important;
+	border-radius: 0 !important;
+	transform: translateX(0) !important;
+}

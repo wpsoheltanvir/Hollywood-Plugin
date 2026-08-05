@@ -35,6 +35,9 @@ This plugin uses the default Elementor/WordPress image placeholder when no image
 
 Changelog
 ---------
+= 1.0.159 =
+* Added a JavaScript viewport lock so the filter drawer fills tablet and mobile previews consistently.
+
 = 1.0.158 =
 * Forced the opened tablet/mobile filter drawer to fill the whole device preview instead of showing as a narrow side panel.
 
