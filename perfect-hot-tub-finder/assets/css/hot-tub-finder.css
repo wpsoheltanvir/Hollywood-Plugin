@@ -6117,3 +6117,40 @@ body.phtf-drawer-open .phtf-widget.is-filters-open .phtf-filters,
 	border-radius: 0 !important;
 	transform: translateX(0) !important;
 }
+
+/* v1.0.163: keep mobile/tablet drawer action buttons fully visible. */
+@media (max-width: 1024px) {
+	body.phtf-drawer-open .phtf-widget.is-filters-open .phtf-filters,
+	.phtf-widget.is-filters-open .phtf-filters {
+		padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)) !important;
+		overscroll-behavior: contain;
+	}
+
+	body.phtf-drawer-open .phtf-widget.is-filters-open .phtf-filters-mobile-actions,
+	.phtf-widget.is-filters-open .phtf-filters-mobile-actions {
+		display: grid !important;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		gap: 12px !important;
+		position: fixed !important;
+		z-index: 10003 !important;
+		right: 0 !important;
+		bottom: 0 !important;
+		left: 0 !important;
+		width: 100vw !important;
+		max-width: 100vw !important;
+		margin: 0 !important;
+		padding: 14px clamp(16px, 5vw, 24px) calc(14px + env(safe-area-inset-bottom, 0px)) !important;
+		background: var(--phtf-mobile-filter-drawer-bg, #FFFFFF) !important;
+		border-top: 1px solid var(--phtf-mobile-filter-divider, #E4E4E4) !important;
+		box-shadow: 0 -12px 24px rgba(0, 38, 61, 0.08) !important;
+		box-sizing: border-box !important;
+		overflow: visible !important;
+	}
+
+	body.phtf-drawer-open .phtf-widget.is-filters-open .phtf-mobile-filter-action,
+	.phtf-widget.is-filters-open .phtf-mobile-filter-action {
+		min-height: 44px !important;
+		padding-top: 10px !important;
+		padding-bottom: 10px !important;
+	}
+}

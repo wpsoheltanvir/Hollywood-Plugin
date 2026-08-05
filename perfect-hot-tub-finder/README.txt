@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.163 =
+* Fixed the tablet/mobile filter drawer footer so Show Results and Reset Filters stay fully visible.
+
 = 1.0.162 =
 * Updated the GitHub release workflow so pushing code to main creates the WordPress update release automatically.
 
