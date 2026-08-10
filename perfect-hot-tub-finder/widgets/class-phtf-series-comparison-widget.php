@@ -1067,11 +1067,60 @@ class PHTF_Series_Comparison_Widget extends \Elementor\Widget_Base {
 		return $rowspans;
 	}
 
+	private function render_table( $settings, $rows, $rowspans, $mobile = false ) {
+		$group_index = -1;
+		?>
+		<div class="phtc-table-wrap">
+			<table class="phtc-table">
+				<colgroup>
+					<col class="phtc-col-benefits">
+					<col class="phtc-col-features">
+					<col class="phtc-col-series">
+					<col class="phtc-col-series">
+					<col class="phtc-col-series">
+					<col class="phtc-col-series">
+				</colgroup>
+				<thead>
+					<tr>
+						<th class="phtc-benefit-heading" scope="col"><?php echo esc_html( $settings['benefits_heading'] ?? esc_html__( 'Benefits', 'perfect-hot-tub-finder' ) ); ?></th>
+						<th class="phtc-feature-heading" scope="col"><?php echo esc_html( $settings['features_heading'] ?? esc_html__( 'Features', 'perfect-hot-tub-finder' ) ); ?></th>
+						<th scope="col"><?php echo esc_html( $settings['series_1_heading'] ?? esc_html__( 'Utopia® Series', 'perfect-hot-tub-finder' ) ); ?></th>
+						<th scope="col"><?php echo esc_html( $settings['series_2_heading'] ?? esc_html__( 'Paradise® Series', 'perfect-hot-tub-finder' ) ); ?></th>
+						<th scope="col"><?php echo esc_html( $settings['series_3_heading'] ?? esc_html__( 'Vacanza® Series', 'perfect-hot-tub-finder' ) ); ?></th>
+						<th scope="col"><?php echo esc_html( $settings['series_4_heading'] ?? esc_html__( 'Fantasy™ Series', 'perfect-hot-tub-finder' ) ); ?></th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ( $rows as $index => $row ) :
+						$group = $row['benefit_group'] ?? '';
+						if ( $mobile && isset( $rowspans[ $index ] ) ) :
+							$group_index++;
+							?>
+							<tr class="phtc-mobile-group-row"><td colspan="6"><button type="button" data-phtc-mobile-group-toggle="<?php echo esc_attr( $group_index ); ?>" aria-expanded="<?php echo 0 === $group_index ? 'true' : 'false'; ?>"><?php echo esc_html( $group ); ?><span aria-hidden="true"></span></button></td></tr>
+						<?php endif; ?>
+						<tr<?php echo $mobile ? ' data-phtc-mobile-group="' . esc_attr( $group_index ) . '"' . ( 0 === $group_index ? '' : ' hidden' ) : ''; ?>>
+							<?php if ( isset( $rowspans[ $index ] ) ) :
+								$benefit_class = $mobile && 0 === $group_index % 2 ? ' phtc-benefit-cell--alt' : '';
+								?>
+								<td class="phtc-benefit-cell<?php echo esc_attr( $benefit_class ); ?>" rowspan="<?php echo esc_attr( $rowspans[ $index ] ); ?>"><span class="phtc-benefit-label"><?php echo esc_html( $group ); ?></span></td>
+							<?php endif; ?>
+							<td class="phtc-feature-cell"><?php echo $this->render_cell_content( $row['feature'] ?? '' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></td>
+							<td class="phtc-series-cell"><?php echo $this->render_cell_content( $row['series_1_cell'] ?? '' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></td>
+							<td class="phtc-series-cell"><?php echo $this->render_cell_content( $row['series_2_cell'] ?? '' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></td>
+							<td class="phtc-series-cell"><?php echo $this->render_cell_content( $row['series_3_cell'] ?? '' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></td>
+							<td class="phtc-series-cell"><?php echo $this->render_cell_content( $row['series_4_cell'] ?? '' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></td>
+						</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table>
+		</div>
+		<?php
+	}
+
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 		$rows     = ! empty( $settings['comparison_rows_v2'] ) && is_array( $settings['comparison_rows_v2'] ) ? $settings['comparison_rows_v2'] : ( ! empty( $settings['comparison_rows'] ) && is_array( $settings['comparison_rows'] ) ? $settings['comparison_rows'] : $this->get_default_rows() );
-		$rowspans    = $this->get_group_rowspans( $rows );
-		$group_index = -1;
+		$rowspans = $this->get_group_rowspans( $rows );
 		$widget_classes = [ 'phtc-widget' ];
 		if ( 'yes' === ( $settings['enable_sticky_header'] ?? 'yes' ) ) {
 			$widget_classes[] = 'phtc--sticky-head';
@@ -1084,6 +1133,10 @@ class PHTF_Series_Comparison_Widget extends \Elementor\Widget_Base {
 			<?php if ( 'yes' === ( $settings['show_title'] ?? 'yes' ) && ! empty( $settings['title'] ) ) : ?>
 				<h2 class="phtc-title"><?php echo esc_html( $settings['title'] ); ?></h2>
 			<?php endif; ?>
+
+			<div class="phtc-desktop-table">
+				<?php $this->render_table( $settings, $rows, $rowspans ); ?>
+			</div>
 
 			<div class="phtc-mobile-summary">
 				<?php if ( ! empty( $settings['title'] ) ) : ?>
@@ -1100,53 +1153,7 @@ class PHTF_Series_Comparison_Widget extends \Elementor\Widget_Base {
 				<div class="phtc-mobile-series-headings" aria-hidden="true">
 					<span><?php echo esc_html( $settings['series_1_heading'] ?? '' ); ?></span><span><?php echo esc_html( $settings['series_2_heading'] ?? '' ); ?></span><span><?php echo esc_html( $settings['series_3_heading'] ?? '' ); ?></span><span><?php echo esc_html( $settings['series_4_heading'] ?? '' ); ?></span>
 				</div>
-			<div class="phtc-table-wrap">
-				<table class="phtc-table">
-					<colgroup>
-						<col class="phtc-col-benefits">
-						<col class="phtc-col-features">
-						<col class="phtc-col-series">
-						<col class="phtc-col-series">
-						<col class="phtc-col-series">
-						<col class="phtc-col-series">
-					</colgroup>
-					<thead>
-						<tr>
-							<th class="phtc-benefit-heading" scope="col"><?php echo esc_html( $settings['benefits_heading'] ?? esc_html__( 'Benefits', 'perfect-hot-tub-finder' ) ); ?></th>
-							<th class="phtc-feature-heading" scope="col"><?php echo esc_html( $settings['features_heading'] ?? esc_html__( 'Features', 'perfect-hot-tub-finder' ) ); ?></th>
-							<th scope="col"><?php echo esc_html( $settings['series_1_heading'] ?? esc_html__( 'Utopia® Series', 'perfect-hot-tub-finder' ) ); ?></th>
-							<th scope="col"><?php echo esc_html( $settings['series_2_heading'] ?? esc_html__( 'Paradise® Series', 'perfect-hot-tub-finder' ) ); ?></th>
-							<th scope="col"><?php echo esc_html( $settings['series_3_heading'] ?? esc_html__( 'Vacanza® Series', 'perfect-hot-tub-finder' ) ); ?></th>
-							<th scope="col"><?php echo esc_html( $settings['series_4_heading'] ?? esc_html__( 'Fantasy™ Series', 'perfect-hot-tub-finder' ) ); ?></th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php foreach ( $rows as $index => $row ) :
-							$group = $row['benefit_group'] ?? '';
-							if ( isset( $rowspans[ $index ] ) ) :
-								$group_index++;
-								?>
-								<tr class="phtc-mobile-group-row"><td colspan="6"><button type="button" data-phtc-mobile-group-toggle="<?php echo esc_attr( $group_index ); ?>" aria-expanded="<?php echo 0 === $group_index ? 'true' : 'false'; ?>"><?php echo esc_html( $group ); ?><span aria-hidden="true"></span></button></td></tr>
-							<?php endif; ?>
-							?>
-							<tr data-phtc-mobile-group="<?php echo esc_attr( $group_index ); ?>"<?php echo 0 === $group_index ? '' : ' hidden'; ?>>
-								<?php if ( isset( $rowspans[ $index ] ) ) :
-									$benefit_class = 0 === $group_index % 2 ? ' phtc-benefit-cell--alt' : '';
-									?>
-									<td class="phtc-benefit-cell<?php echo esc_attr( $benefit_class ); ?>" rowspan="<?php echo esc_attr( $rowspans[ $index ] ); ?>">
-										<span class="phtc-benefit-label"><?php echo esc_html( $group ); ?></span>
-									</td>
-								<?php endif; ?>
-								<td class="phtc-feature-cell"><?php echo $this->render_cell_content( $row['feature'] ?? '' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></td>
-								<td class="phtc-series-cell"><?php echo $this->render_cell_content( $row['series_1_cell'] ?? '' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></td>
-								<td class="phtc-series-cell"><?php echo $this->render_cell_content( $row['series_2_cell'] ?? '' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></td>
-								<td class="phtc-series-cell"><?php echo $this->render_cell_content( $row['series_3_cell'] ?? '' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></td>
-								<td class="phtc-series-cell"><?php echo $this->render_cell_content( $row['series_4_cell'] ?? '' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></td>
-							</tr>
-						<?php endforeach; ?>
-					</tbody>
-				</table>
-			</div>
+				<?php $this->render_table( $settings, $rows, $rowspans, true ); ?>
 			</div>
 		</section>
 		<?php

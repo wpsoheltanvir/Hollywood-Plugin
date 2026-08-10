@@ -1767,6 +1767,7 @@
 
 /* v1.0.178: Caldera-style tablet/mobile series comparison drawer. */
 .phtc-mobile-summary,
+.phtc-mobile-drawer,
 .phtc-mobile-drawer-header,
 .phtc-mobile-series-headings,
 .phtc-mobile-group-row {
@@ -1774,6 +1775,10 @@
 }
 
 @media (max-width: 1024px) {
+	.phtc-widget > .phtc-desktop-table {
+		display: none;
+	}
+
 	.phtc-widget > .phtc-title {
 		display: none;
 	}

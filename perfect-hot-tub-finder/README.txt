@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.180 =
+* Restored the unchanged desktop and laptop series comparison table while keeping the See the Differences drawer exclusive to tablet and mobile.
+
 = 1.0.179 =
 * Restored Elementor Style-panel control of Explore Our Models tabs, card sizes, cards per view, and slider arrows on desktop, tablet, and mobile.
 
