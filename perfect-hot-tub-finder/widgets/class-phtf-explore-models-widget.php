@@ -1042,8 +1042,8 @@ class PHTF_Explore_Models_Widget extends \Elementor\Widget_Base {
 					'explore_categories'   => $model['explore_categories'] ?? '',
 					'product_image'        => $model['image'] ?? '',
 					'post_url'             => $model['url'] ?? '',
-					'view_url'             => $model['url'] ?? '',
-					'reviews_url'          => $model['url'] ?? '',
+					'view_url'             => ! empty( $model['view_model_url'] ) ? $model['view_model_url'] : ( $model['url'] ?? '' ),
+					'reviews_url'          => ! empty( $model['reviews_url'] ) ? $model['reviews_url'] : ( $model['url'] ?? '' ),
 					'price_note_popup_content' => ! empty( $model['price_note_popup_content'] ) ? $model['price_note_popup_content'] : ( function_exists( 'phtf_default_price_note_popup_content' ) ? phtf_default_price_note_popup_content( '1' ) : '' ),
 				];
 			}

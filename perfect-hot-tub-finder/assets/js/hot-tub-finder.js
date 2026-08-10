@@ -177,7 +177,6 @@
 
 	function renderExplorePrice(product) {
 		var msrp = String(product.msrp || '');
-		var postUrl = product.post_url || product.url || product.view_url || (product.view_link && product.view_link.url) || '';
 		var popupContent = String(product.price_note_popup_content || '').trim();
 
 		if (!msrp) {
@@ -186,14 +185,11 @@
 
 		// Spa Models often store MSRP without a visible superscript. Add the
 		// first-price marker whenever a popup is available so it remains usable.
-		if ((popupContent || postUrl) && !/[\u00b9\u00b2]/.test(msrp)) {
+		if (popupContent && !/[\u00b9\u00b2]/.test(msrp)) {
 			msrp += '\u00b9';
 		}
 
 		return escapeHtml(msrp).replace(/[\u00b9\u00b2]/g, function (marker) {
-			if (postUrl) {
-				return '<a class="phtf-explore-price-link" href="' + escapeHtml(postUrl) + '"><sup>' + marker + '</sup></a>';
-			}
 			if (!popupContent) {
 				return '<sup>' + marker + '</sup>';
 			}
@@ -216,9 +212,9 @@
 		var categories = makeCategoryAttr(product);
 		var image = (product.product_image && product.product_image.url) || product.product_image || '';
 		var brand = product.brand || '';
-		var postUrl = product.post_url || product.url || product.view_url || (product.view_link && product.view_link.url) || '';
-		var link = postUrl;
-		var reviewsLink = postUrl;
+		var postUrl = product.post_url || product.url || '';
+		var link = product.view_url || (product.view_link && product.view_link.url) || postUrl;
+		var reviewsLink = product.reviews_url || (product.reviews_link && product.reviews_link.url) || postUrl;
 		var cardOpen = link ? '<a class="phtf-explore-card-link" href="' + escapeHtml(link) + '">' : '<div class="phtf-explore-card-link">';
 		var cardClose = link ? '</a>' : '</div>';
 		var price = renderExplorePrice(product);

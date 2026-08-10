@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.186 =
+* Restored independent View Model URL, Reviews Link URL, and price footnote popup behavior for dynamic Explore Our Models cards, with post permalink fallbacks.
+
 = 1.0.185 =
 * Made dynamic Explore Our Models cards, ratings, and price footnote markers link directly to each Spa Model post permalink.
 
