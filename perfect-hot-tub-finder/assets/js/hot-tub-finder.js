@@ -826,12 +826,8 @@
 			toggle.addEventListener('click', function () {
 				var group = toggle.getAttribute('data-phtc-mobile-group-toggle');
 				var expanded = toggle.getAttribute('aria-expanded') === 'true';
-				widget.querySelectorAll('[data-phtc-mobile-group-toggle]').forEach(function (button) { button.setAttribute('aria-expanded', 'false'); });
-				widget.querySelectorAll('[data-phtc-mobile-group]').forEach(function (row) { row.hidden = true; });
-				if (!expanded) {
-					toggle.setAttribute('aria-expanded', 'true');
-					widget.querySelectorAll('[data-phtc-mobile-group="' + group + '"]').forEach(function (row) { row.hidden = false; });
-				}
+				toggle.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+				widget.querySelectorAll('[data-phtc-mobile-group="' + group + '"]').forEach(function (row) { row.hidden = expanded; });
 			});
 		});
 		window.addEventListener('keydown', function (event) { if (event.key === 'Escape') { closeDrawer(); } });

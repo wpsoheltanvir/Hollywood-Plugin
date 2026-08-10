@@ -1872,13 +1872,17 @@
 
 	.phtc-mobile-series-headings {
 		display: grid;
-		grid-template-columns: repeat(4, minmax(0, 1fr));
+		grid-template-columns: 30% repeat(4, minmax(0, 1fr));
 		gap: 0;
 		position: sticky;
 		top: 50px;
 		z-index: 3;
 		background: #FFFFFF;
 		box-shadow: 0 2px 5px rgba(0, 38, 61, .12);
+	}
+
+	.phtc-mobile-series-headings::before {
+		content: "";
 	}
 
 	.phtc-mobile-series-headings span {
@@ -1892,58 +1896,60 @@
 		color: var(--phtc-text, #7A7A7A);
 	}
 
-	.phtc-widget .phtc-table-wrap {
-		overflow: visible;
+	.phtc-mobile-drawer .phtc-table-wrap {
+		overflow-x: auto;
+		overflow-y: hidden;
 		border-radius: 0;
 		box-shadow: none;
+		-webkit-overflow-scrolling: touch;
 	}
 
-	.phtc-widget .phtc-table {
+	.phtc-mobile-drawer .phtc-table {
 		width: 100%;
-		min-width: 0 !important;
+		min-width: 520px !important;
 		table-layout: fixed;
-		font-size: 12px;
+		font-size: 13px;
 	}
 
-	.phtc-widget .phtc-table thead,
-	.phtc-widget .phtc-benefit-cell {
+	.phtc-mobile-drawer .phtc-table thead,
+	.phtc-mobile-drawer .phtc-benefit-cell {
 		display: none;
 	}
 
-	.phtc-widget .phtc-col-benefits {
+	.phtc-mobile-drawer .phtc-col-benefits {
 		width: 0 !important;
 	}
 
-	.phtc-widget .phtc-col-features {
+	.phtc-mobile-drawer .phtc-col-features {
 		width: 30% !important;
 	}
 
-	.phtc-widget .phtc-col-series {
+	.phtc-mobile-drawer .phtc-col-series {
 		width: 17.5% !important;
 	}
 
-	.phtc-widget .phtc-table td {
-		padding: 10px 5px;
-		font-size: 12px;
-		line-height: 1.2;
+	.phtc-mobile-drawer .phtc-table td {
+		padding: 10px 8px;
+		font-size: 13px;
+		line-height: 1.3;
 	}
 
-	.phtc-widget .phtc-feature-cell {
+	.phtc-mobile-drawer .phtc-feature-cell {
 		position: static !important;
 		padding-left: 16px !important;
 		text-align: left !important;
 	}
 
-	.phtc-widget .phtc-series-cell {
+	.phtc-mobile-drawer .phtc-series-cell {
 		position: static !important;
 		text-align: center !important;
 	}
 
-	.phtc-widget .phtc-mobile-group-row {
+	.phtc-mobile-drawer .phtc-mobile-group-row {
 		display: table-row;
 	}
 
-	.phtc-widget .phtc-mobile-group-row td {
+	.phtc-mobile-drawer .phtc-mobile-group-row td {
 		display: table-cell;
 		padding: 0;
 		background: #FFFFFF !important;

@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.181 =
+* Improved tablet and mobile comparison drawer readability with stable table columns, aligned series headings, horizontal overflow for narrow screens, and independent section dropdowns.
+
 = 1.0.180 =
 * Restored the unchanged desktop and laptop series comparison table while keeping the See the Differences drawer exclusive to tablet and mobile.
 
