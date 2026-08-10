@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.175 =
+* Restored the Elementor widget labels Hollywood Spa Series Slide and Hollywood Spa Model Slide.
+
 = 1.0.174 =
 * Always show the matching price footnote marker in Explore Our Models when a price popup is available.
 
