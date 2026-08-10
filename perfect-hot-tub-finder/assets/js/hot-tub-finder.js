@@ -1165,7 +1165,7 @@
 		}
 
 		function copyPopupVars(wrap, popup) {
-			var widget = wrap && wrap.closest ? wrap.closest('.phtf-widget') : null;
+			var widget = wrap && wrap.closest ? wrap.closest('.phtf-widget, [data-phtf-explore]') : null;
 			if (!widget || !popup || !window.getComputedStyle) {
 				return;
 			}

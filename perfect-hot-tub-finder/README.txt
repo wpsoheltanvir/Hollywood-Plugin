@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.176 =
+* Added dedicated Explore Our Models price and footnote styling, with a secondary-color 1.18em marker and a phone-safe one-card layout.
+
 = 1.0.175 =
 * Restored the Elementor widget labels Hollywood Spa Series Slide and Hollywood Spa Model Slide.
 

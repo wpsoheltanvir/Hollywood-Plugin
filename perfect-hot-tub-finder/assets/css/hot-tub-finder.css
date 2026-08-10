@@ -6615,3 +6615,19 @@ body .elementor-widget-phtf_hot_tub_finder {
 		font-size: 42px !important;
 	}
 }
+
+/* Phones always show one complete model card instead of squeezing two cards. */
+@media (max-width: 767px) {
+	.phtf-explore.phtf-explore--standalone {
+		--phtf-explore-per-page: 1 !important;
+	}
+
+	.phtf-explore.phtf-explore--standalone .phtf-explore-track {
+		justify-content: center !important;
+	}
+
+	.phtf-explore.phtf-explore--standalone .phtf-explore-card {
+		flex: 0 1 min(260px, 100%) !important;
+		max-width: min(260px, 100%) !important;
+	}
+}

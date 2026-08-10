@@ -863,6 +863,86 @@ class PHTF_Explore_Models_Widget extends \Elementor\Widget_Base {
 		$this->end_controls_section();
 
 		$this->start_controls_section(
+			'section_price_footnote_style',
+			[
+				'label' => esc_html__( 'Price Text & Footnotes', 'perfect-hot-tub-finder' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_control(
+			'explore_price_text_color',
+			[
+				'label'     => esc_html__( 'MSRP Text Color', 'perfect-hot-tub-finder' ),
+				'type'      => Controls_Manager::COLOR,
+				'global'    => [ 'default' => 'globals/colors?id=text' ],
+				'default'   => '#7A7A7A',
+				'selectors' => [ '{{WRAPPER}} .phtf-explore-meta' => 'color: {{VALUE}};' ],
+			]
+		);
+
+		$this->add_control(
+			'explore_footnote_color',
+			[
+				'label'     => esc_html__( 'Footnote 1 / 2 Color', 'perfect-hot-tub-finder' ),
+				'type'      => Controls_Manager::COLOR,
+				'global'    => [ 'default' => 'globals/colors?id=secondary' ],
+				'default'   => '#85D9DE',
+				'selectors' => [ '{{WRAPPER}} .phtf-explore-meta .phtf-price-note-trigger, {{WRAPPER}} .phtf-explore-meta .phtf-price-note-trigger sup' => 'color: {{VALUE}} !important;' ],
+			]
+		);
+
+		$this->add_responsive_control(
+			'explore_footnote_size',
+			[
+				'label'      => esc_html__( 'Footnote 1 / 2 Size', 'perfect-hot-tub-finder' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'em' ],
+				'range'      => [ 'em' => [ 'min' => 0.4, 'max' => 2, 'step' => 0.01 ] ],
+				'default'    => [ 'size' => 1.18, 'unit' => 'em' ],
+				'selectors'  => [ '{{WRAPPER}} .phtf-explore-meta .phtf-price-note-trigger sup' => 'font-size: {{SIZE}}{{UNIT}} !important;' ],
+			]
+		);
+
+		$this->add_responsive_control(
+			'explore_footnote_top_offset',
+			[
+				'label'      => esc_html__( 'Footnote 1 / 2 Top Offset', 'perfect-hot-tub-finder' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'em' ],
+				'range'      => [ 'em' => [ 'min' => -1, 'max' => 1, 'step' => 0.01 ] ],
+				'default'    => [ 'size' => 0.35, 'unit' => 'em' ],
+				'selectors'  => [ '{{WRAPPER}} .phtf-explore-meta .phtf-price-note-trigger sup' => 'position: relative; top: {{SIZE}}{{UNIT}};' ],
+			]
+		);
+
+		$this->add_responsive_control(
+			'explore_price_popup_width',
+			[
+				'label'      => esc_html__( 'Popup Width', 'perfect-hot-tub-finder' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px' ],
+				'range'      => [ 'px' => [ 'min' => 280, 'max' => 760 ] ],
+				'default'    => [ 'size' => 540, 'unit' => 'px' ],
+				'selectors'  => [ '{{WRAPPER}} .phtf-explore' => '--phtf-price-popup-width: {{SIZE}}{{UNIT}};' ],
+			]
+		);
+
+		$this->add_responsive_control(
+			'explore_price_popup_max_height',
+			[
+				'label'      => esc_html__( 'Popup Max Height', 'perfect-hot-tub-finder' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px' ],
+				'range'      => [ 'px' => [ 'min' => 180, 'max' => 900 ] ],
+				'default'    => [ 'size' => 520, 'unit' => 'px' ],
+				'selectors'  => [ '{{WRAPPER}} .phtf-explore' => '--phtf-price-popup-max-height: {{SIZE}}{{UNIT}};' ],
+			]
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
 			'section_button_style',
 			[
 				'label' => esc_html__( 'Button', 'perfect-hot-tub-finder' ),
