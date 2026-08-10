@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.187 =
+* Restored Seating and Price accordion dropdowns in the tablet/mobile filter drawer and reduced the mobile price disclaimer text size.
+
 = 1.0.186 =
 * Restored independent View Model URL, Reviews Link URL, and price footnote popup behavior for dynamic Explore Our Models cards, with post permalink fallbacks.
 
