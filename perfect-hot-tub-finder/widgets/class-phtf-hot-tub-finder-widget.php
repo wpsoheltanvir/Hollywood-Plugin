@@ -3307,7 +3307,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 					'reviews_link'          => [ 'url' => ! empty( $model['reviews_url'] ) ? $model['reviews_url'] : '' ],
 					'price_note_link'       => [ 'url' => ! empty( $model['price_note_url'] ) ? $model['price_note_url'] : '' ],
 					'price_note_link_2'     => [ 'url' => ! empty( $model['price_note_url_2'] ) ? $model['price_note_url_2'] : '' ],
-					'price_note_popup_content'   => $model['price_note_popup_content'] ?? '',
+					'price_note_popup_content'   => ! empty( $model['price_note_popup_content'] ) ? $model['price_note_popup_content'] : $this->get_default_price_note_popup_content( '1' ),
 					'price_note_popup_content_2' => $model['price_note_popup_content_2'] ?? '',
 				];
 			}
@@ -3358,7 +3358,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 					'reviews_link'          => $item['reviews_link'] ?? [ 'url' => $item['reviews_url'] ?? '' ],
 					'price_note_link'       => $item['price_note_link'] ?? [ 'url' => $item['price_note_url'] ?? '' ],
 					'price_note_link_2'     => $item['price_note_link_2'] ?? [ 'url' => $item['price_note_url_2'] ?? '' ],
-					'price_note_popup_content'   => $item['price_note_popup_content'] ?? $this->get_default_price_note_popup_content( '1' ),
+					'price_note_popup_content'   => ! empty( $item['price_note_popup_content'] ) ? $item['price_note_popup_content'] : $this->get_default_price_note_popup_content( '1' ),
 					'price_note_popup_content_2' => $item['price_note_popup_content_2'] ?? $this->get_default_price_note_popup_content( '2' ),
 				];
 			}

@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.173 =
+* Added the Spa Model price footnote popup to Explore Our Models cards.
+
 = 1.0.172 =
 * Fixed Explore Our Models responsive rendering and made model cards link to their configured View Model URL.
 

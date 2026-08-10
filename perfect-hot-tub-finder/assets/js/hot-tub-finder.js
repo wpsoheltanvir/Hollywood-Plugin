@@ -173,6 +173,32 @@
 		}).join(',');
 	}
 
+	var explorePopupId = 0;
+
+	function renderExplorePrice(product) {
+		var msrp = String(product.msrp || '');
+		var popupContent = String(product.price_note_popup_content || '').trim();
+
+		if (!msrp) {
+			return '';
+		}
+
+		return escapeHtml(msrp).replace(/[\u00b9\u00b2]/g, function (marker) {
+			if (!popupContent) {
+				return '<sup>' + marker + '</sup>';
+			}
+
+			var popupId = 'phtf-explore-price-note-' + String(++explorePopupId);
+			var paragraphs = popupContent.split(/\r?\n\s*\r?\n/).filter(function (paragraph) {
+				return paragraph.trim();
+			}).map(function (paragraph, index) {
+				return '<p class="' + (index === 0 ? 'phtf-price-note-intro' : 'phtf-price-note-body') + '">' + escapeHtml(paragraph.trim()).replace(/\r?\n/g, '<br>') + '</p>';
+			}).join('');
+
+			return '<span class="phtf-price-note-wrap"><button type="button" class="phtf-price-note-trigger" aria-expanded="false" aria-describedby="' + popupId + '" aria-label="Pricing footnote"><sup>' + marker + '</sup></button><span id="' + popupId + '" class="phtf-price-note-popup" role="tooltip"><button type="button" class="phtf-price-note-close" aria-label="Close pricing note">&times;</button><span class="phtf-price-note-popup-scroll">' + paragraphs + '</span></span></span>';
+		});
+	}
+
 	function renderExploreCard(product) {
 		var seriesLabel = makeSeriesLabel(product);
 		var reviewsLabel = makeReviewsLabel(product);
@@ -183,6 +209,7 @@
 		var link = product.view_url || (product.view_link && product.view_link.url) || '';
 		var cardOpen = link ? '<a class="phtf-explore-card-link" href="' + escapeHtml(link) + '">' : '<div class="phtf-explore-card-link">';
 		var cardClose = link ? '</a>' : '</div>';
+		var price = renderExplorePrice(product);
 
 		return [
 			'<article class="phtf-explore-card" data-phtf-explore-item data-phtf-explore-cats="' + escapeHtml(categories) + '">',
@@ -193,8 +220,8 @@
 				seriesLabel ? '<div class="phtf-explore-card-series">' + escapeHtml(seriesLabel) + '</div>' : '',
 				'<h3 class="phtf-explore-card-title">' + escapeHtml(brand) + '</h3>',
 				'<div class="phtf-explore-rating"><span class="phtf-stars">' + renderRating(product.rating) + '</span>' + (reviewsLabel ? '<span class="phtf-explore-reviews">' + escapeHtml(reviewsLabel) + '</span>' : '') + '</div>',
-				'<div class="phtf-explore-meta">' + (seatsLabel ? '<span>' + escapeHtml(seatsLabel) + '</span>' : '') + (product.msrp ? '<span>MSRP: <strong>' + escapeHtml(product.msrp) + '</strong></span>' : '') + '</div>',
 				cardClose,
+				'<div class="phtf-explore-meta">' + (seatsLabel ? '<span>' + escapeHtml(seatsLabel) + '</span>' : '') + (price ? '<span>MSRP: <strong>' + price + '</strong></span>' : '') + '</div>',
 			'</article>'
 		].join('');
 	}
@@ -219,6 +246,7 @@
 
 		track.innerHTML = products.map(renderExploreCard).join('');
 		applySpecialCharSuperscripts(track);
+		initPricePopups(track);
 
 		if (!products.length) {
 			if (empty) {
