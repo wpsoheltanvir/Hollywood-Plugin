@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.178 =
+* Added a full-screen, grouped tablet/mobile comparison drawer with a See the Differences button.
+
 = 1.0.177 =
 * Matched Seating and Price filter option text sizes across desktop, tablet, and phone layouts.
 

@@ -1765,6 +1765,234 @@
 	}
 }
 
+/* v1.0.178: Caldera-style tablet/mobile series comparison drawer. */
+.phtc-mobile-summary,
+.phtc-mobile-drawer-header,
+.phtc-mobile-series-headings,
+.phtc-mobile-group-row {
+	display: none;
+}
+
+@media (max-width: 1024px) {
+	.phtc-widget > .phtc-title {
+		display: none;
+	}
+
+	.phtc-widget .phtc-mobile-summary {
+		display: block;
+		padding: 42px 24px;
+		text-align: center;
+	}
+
+	.phtc-mobile-summary-title {
+		margin: 0 0 20px;
+		font-size: 28px;
+		line-height: 1.2;
+		font-weight: 700;
+		color: var(--phtc-primary, #00263D);
+	}
+
+	.phtc-mobile-summary-copy {
+		margin: 0 auto 28px;
+		max-width: 460px;
+		font-size: 18px;
+		line-height: 1.45;
+		color: var(--phtc-text, #7A7A7A);
+	}
+
+	.phtc-mobile-open,
+	.phtc-mobile-close {
+		appearance: none;
+		border: 0;
+		font-family: "Questrial", sans-serif;
+		font-weight: 700;
+		cursor: pointer;
+	}
+
+	.phtc-mobile-open {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 8px;
+		min-height: 44px;
+		padding: 10px 24px;
+		border-radius: 999px;
+		background: #F2705F;
+		color: #FFFFFF;
+		font-size: 18px;
+	}
+
+	.phtc-mobile-open:hover,
+	.phtc-mobile-open:focus-visible {
+		background: var(--phtc-primary, #00263D);
+		outline: none;
+	}
+
+	.phtc-widget .phtc-mobile-drawer {
+		display: none;
+		position: fixed;
+		inset: 0;
+		z-index: 2147483000;
+		width: 100vw;
+		height: 100dvh;
+		margin: 0;
+		padding: 0;
+		overflow-y: auto;
+		background: #FFFFFF;
+		font-family: "Questrial", sans-serif;
+	}
+
+	.phtc-widget.is-phtc-mobile-open .phtc-mobile-drawer {
+		display: block;
+	}
+
+	.phtc-mobile-drawer-header {
+		display: block;
+		position: sticky;
+		top: 0;
+		z-index: 4;
+		background: #F2705F;
+	}
+
+	.phtc-mobile-close {
+		display: block;
+		width: 100%;
+		height: 50px;
+		padding: 0 16px;
+		background: transparent;
+		color: #FFFFFF;
+		font-size: 18px;
+		text-align: left;
+	}
+
+	.phtc-mobile-series-headings {
+		display: grid;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		gap: 0;
+		position: sticky;
+		top: 50px;
+		z-index: 3;
+		background: #FFFFFF;
+		box-shadow: 0 2px 5px rgba(0, 38, 61, .12);
+	}
+
+	.phtc-mobile-series-headings span {
+		padding: 10px 5px;
+		font-size: 11px;
+		line-height: 1.2;
+		font-weight: 700;
+		letter-spacing: .12em;
+		text-align: center;
+		text-transform: uppercase;
+		color: var(--phtc-text, #7A7A7A);
+	}
+
+	.phtc-widget .phtc-table-wrap {
+		overflow: visible;
+		border-radius: 0;
+		box-shadow: none;
+	}
+
+	.phtc-widget .phtc-table {
+		width: 100%;
+		min-width: 0 !important;
+		table-layout: fixed;
+		font-size: 12px;
+	}
+
+	.phtc-widget .phtc-table thead,
+	.phtc-widget .phtc-benefit-cell {
+		display: none;
+	}
+
+	.phtc-widget .phtc-col-benefits {
+		width: 0 !important;
+	}
+
+	.phtc-widget .phtc-col-features {
+		width: 30% !important;
+	}
+
+	.phtc-widget .phtc-col-series {
+		width: 17.5% !important;
+	}
+
+	.phtc-widget .phtc-table td {
+		padding: 10px 5px;
+		font-size: 12px;
+		line-height: 1.2;
+	}
+
+	.phtc-widget .phtc-feature-cell {
+		position: static !important;
+		padding-left: 16px !important;
+		text-align: left !important;
+	}
+
+	.phtc-widget .phtc-series-cell {
+		position: static !important;
+		text-align: center !important;
+	}
+
+	.phtc-widget .phtc-mobile-group-row {
+		display: table-row;
+	}
+
+	.phtc-widget .phtc-mobile-group-row td {
+		display: table-cell;
+		padding: 0;
+		background: #FFFFFF !important;
+		border: 0;
+	}
+
+	.phtc-mobile-group-row button {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+		padding: 16px;
+		border: 0;
+		border-bottom: 1px solid #E4E4E4;
+		background: #FFFFFF;
+		color: var(--phtc-primary, #00263D);
+		font: 700 18px/1.2 "Questrial", sans-serif;
+		text-align: left;
+		cursor: pointer;
+	}
+
+	.phtc-mobile-group-row button span {
+		width: 11px;
+		height: 11px;
+		margin-right: 4px;
+		border: solid var(--phtc-text, #7A7A7A);
+		border-width: 0 2px 2px 0;
+		transform: rotate(45deg);
+		transition: transform .2s ease;
+	}
+
+	.phtc-mobile-group-row button[aria-expanded="true"] span {
+		transform: rotate(-135deg);
+	}
+
+	.phtc-widget .phtc-check {
+		--phtc-size: 17px;
+	}
+}
+
+@media (max-width: 520px) {
+	.phtc-widget .phtc-mobile-summary {
+		padding: 38px 16px;
+	}
+
+	.phtc-mobile-summary-title {
+		font-size: 24px;
+	}
+
+	.phtc-mobile-summary-copy {
+		font-size: 17px;
+	}
+}
+
 
 @media (max-width: 980px) {
 	.phtf-explore {

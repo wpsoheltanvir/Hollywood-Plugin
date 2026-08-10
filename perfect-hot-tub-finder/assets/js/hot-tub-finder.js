@@ -798,6 +798,45 @@
 		document.dispatchEvent(new CustomEvent('phtfProductSourcesReady'));
 	}
 
+	function initSeriesComparison(root) {
+		var widget = root && root.matches && root.matches('.phtc-widget') ? root : (root ? root.querySelector('.phtc-widget') : null);
+		if (!widget || widget.getAttribute('data-phtc-mobile-initialized') === 'true') {
+			return;
+		}
+		widget.setAttribute('data-phtc-mobile-initialized', 'true');
+
+		var drawer = widget.querySelector('[data-phtc-mobile-drawer]');
+		var opener = widget.querySelector('[data-phtc-mobile-open]');
+		var closer = widget.querySelector('[data-phtc-mobile-close]');
+		function closeDrawer() {
+			widget.classList.remove('is-phtc-mobile-open');
+			document.body.classList.remove('phtc-mobile-open');
+			if (drawer) { drawer.setAttribute('aria-hidden', 'true'); }
+			if (opener) { opener.setAttribute('aria-expanded', 'false'); }
+		}
+		function openDrawer() {
+			widget.classList.add('is-phtc-mobile-open');
+			document.body.classList.add('phtc-mobile-open');
+			if (drawer) { drawer.setAttribute('aria-hidden', 'false'); }
+			if (opener) { opener.setAttribute('aria-expanded', 'true'); }
+		}
+		if (opener) { opener.addEventListener('click', openDrawer); }
+		if (closer) { closer.addEventListener('click', closeDrawer); }
+		widget.querySelectorAll('[data-phtc-mobile-group-toggle]').forEach(function (toggle) {
+			toggle.addEventListener('click', function () {
+				var group = toggle.getAttribute('data-phtc-mobile-group-toggle');
+				var expanded = toggle.getAttribute('aria-expanded') === 'true';
+				widget.querySelectorAll('[data-phtc-mobile-group-toggle]').forEach(function (button) { button.setAttribute('aria-expanded', 'false'); });
+				widget.querySelectorAll('[data-phtc-mobile-group]').forEach(function (row) { row.hidden = true; });
+				if (!expanded) {
+					toggle.setAttribute('aria-expanded', 'true');
+					widget.querySelectorAll('[data-phtc-mobile-group="' + group + '"]').forEach(function (row) { row.hidden = false; });
+				}
+			});
+		});
+		window.addEventListener('keydown', function (event) { if (event.key === 'Escape') { closeDrawer(); } });
+	}
+
 
 	function initSpaColors(root) {
 		var customizer = root && root.matches && root.matches('[data-phtf-spa-colors]') ? root : (root ? root.querySelector('[data-phtf-spa-colors]') : null);
@@ -1499,6 +1538,7 @@
 		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-delight]')).forEach(initDelight);
 		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-reviews]')).forEach(initReviews);
 		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-compare]')).forEach(initCompareSpaModels);
+		Array.prototype.slice.call(document.querySelectorAll('.phtc-widget')).forEach(initSeriesComparison);
 		applySpecialCharSuperscripts(document);
 		initPricePopups(document);
 	}
@@ -1588,6 +1628,9 @@
 				if (root) {
 					initCompareSpaModels(root);
 				}
+			});
+			window.elementorFrontend.hooks.addAction('frontend/element_ready/phtf_series_comparison.default', function ($scope) {
+				initSeriesComparison($scope && $scope[0] ? $scope[0] : document);
 			});
 
 			[

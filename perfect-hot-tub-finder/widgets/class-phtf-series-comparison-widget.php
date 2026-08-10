@@ -35,6 +35,10 @@ class PHTF_Series_Comparison_Widget extends \Elementor\Widget_Base {
 		return [ 'phtf-hot-tub-finder' ];
 	}
 
+	public function get_script_depends() {
+		return [ 'phtf-hot-tub-finder' ];
+	}
+
 	protected function register_controls() {
 		$this->register_content_controls();
 		$this->register_style_controls();
@@ -69,6 +73,27 @@ class PHTF_Series_Comparison_Widget extends \Elementor\Widget_Base {
 				'default'     => esc_html__( 'Hot Tub Series Comparison.', 'perfect-hot-tub-finder' ),
 				'label_block' => true,
 				'condition'   => [ 'show_title' => 'yes' ],
+			]
+		);
+
+		$this->add_control(
+			'mobile_intro_text',
+			[
+				'label'       => esc_html__( 'Tablet / Mobile Intro Text', 'perfect-hot-tub-finder' ),
+				'type'        => Controls_Manager::TEXTAREA,
+				'default'     => esc_html__( 'Want to go into more detail on each of our series?', 'perfect-hot-tub-finder' ),
+				'rows'        => 3,
+				'label_block' => true,
+			]
+		);
+
+		$this->add_control(
+			'mobile_open_text',
+			[
+				'label'       => esc_html__( 'Tablet / Mobile Button Text', 'perfect-hot-tub-finder' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => esc_html__( 'See the Differences', 'perfect-hot-tub-finder' ),
+				'label_block' => true,
 			]
 		);
 
@@ -1060,6 +1085,21 @@ class PHTF_Series_Comparison_Widget extends \Elementor\Widget_Base {
 				<h2 class="phtc-title"><?php echo esc_html( $settings['title'] ); ?></h2>
 			<?php endif; ?>
 
+			<div class="phtc-mobile-summary">
+				<?php if ( ! empty( $settings['title'] ) ) : ?>
+					<h2 class="phtc-mobile-summary-title"><?php echo esc_html( $settings['title'] ); ?></h2>
+				<?php endif; ?>
+				<?php if ( ! empty( $settings['mobile_intro_text'] ) ) : ?>
+					<p class="phtc-mobile-summary-copy"><?php echo esc_html( $settings['mobile_intro_text'] ); ?></p>
+				<?php endif; ?>
+				<button type="button" class="phtc-mobile-open" data-phtc-mobile-open aria-expanded="false"><?php echo esc_html( $settings['mobile_open_text'] ?? esc_html__( 'See the Differences', 'perfect-hot-tub-finder' ) ); ?> <span aria-hidden="true">›</span></button>
+			</div>
+
+			<div class="phtc-mobile-drawer" data-phtc-mobile-drawer aria-hidden="true">
+				<div class="phtc-mobile-drawer-header"><button type="button" class="phtc-mobile-close" data-phtc-mobile-close aria-label="<?php esc_attr_e( 'Close comparison', 'perfect-hot-tub-finder' ); ?>">‹ <?php esc_html_e( 'Back', 'perfect-hot-tub-finder' ); ?></button></div>
+				<div class="phtc-mobile-series-headings" aria-hidden="true">
+					<span><?php echo esc_html( $settings['series_1_heading'] ?? '' ); ?></span><span><?php echo esc_html( $settings['series_2_heading'] ?? '' ); ?></span><span><?php echo esc_html( $settings['series_3_heading'] ?? '' ); ?></span><span><?php echo esc_html( $settings['series_4_heading'] ?? '' ); ?></span>
+				</div>
 			<div class="phtc-table-wrap">
 				<table class="phtc-table">
 					<colgroup>
@@ -1083,10 +1123,14 @@ class PHTF_Series_Comparison_Widget extends \Elementor\Widget_Base {
 					<tbody>
 						<?php foreach ( $rows as $index => $row ) :
 							$group = $row['benefit_group'] ?? '';
+							if ( isset( $rowspans[ $index ] ) ) :
+								$group_index++;
+								?>
+								<tr class="phtc-mobile-group-row"><td colspan="6"><button type="button" data-phtc-mobile-group-toggle="<?php echo esc_attr( $group_index ); ?>" aria-expanded="<?php echo 0 === $group_index ? 'true' : 'false'; ?>"><?php echo esc_html( $group ); ?><span aria-hidden="true"></span></button></td></tr>
+							<?php endif; ?>
 							?>
-							<tr>
+							<tr data-phtc-mobile-group="<?php echo esc_attr( $group_index ); ?>"<?php echo 0 === $group_index ? '' : ' hidden'; ?>>
 								<?php if ( isset( $rowspans[ $index ] ) ) :
-									$group_index++;
 									$benefit_class = 0 === $group_index % 2 ? ' phtc-benefit-cell--alt' : '';
 									?>
 									<td class="phtc-benefit-cell<?php echo esc_attr( $benefit_class ); ?>" rowspan="<?php echo esc_attr( $rowspans[ $index ] ); ?>">
@@ -1102,6 +1146,7 @@ class PHTF_Series_Comparison_Widget extends \Elementor\Widget_Base {
 						<?php endforeach; ?>
 					</tbody>
 				</table>
+			</div>
 			</div>
 		</section>
 		<?php
