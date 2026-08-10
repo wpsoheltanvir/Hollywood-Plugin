@@ -6518,3 +6518,84 @@ body .elementor-widget-phtf_hot_tub_finder {
 	--container-widget-width: 100% !important;
 	--container-widget-flex-grow: 0 !important;
 }
+
+/* v1.0.172: prevent Explore Our Models from retaining a desktop-sized empty carousel on smaller screens. */
+.phtf-explore-card-link {
+	display: block;
+	color: inherit;
+	text-decoration: none !important;
+}
+
+.phtf-explore-card-link:focus-visible {
+	outline: 2px solid var(--phtf-secondary, #85D9DE);
+	outline-offset: 5px;
+}
+
+@media (max-width: 1024px) {
+	body .elementor-widget-phtf_explore_models,
+	body .elementor-widget-phtf_explore_models > .elementor-widget-container,
+	body .phtf-explore.phtf-explore--standalone {
+		width: 100% !important;
+		min-height: 0 !important;
+		height: auto !important;
+		max-height: none !important;
+		box-sizing: border-box !important;
+	}
+
+	.phtf-explore.phtf-explore--standalone .phtf-explore-carousel {
+		display: grid !important;
+		grid-template-columns: 44px minmax(0, 1fr) 44px !important;
+		align-items: center !important;
+		min-height: 0 !important;
+		height: auto !important;
+	}
+
+	.phtf-explore.phtf-explore--standalone .phtf-explore-viewport,
+	.phtf-explore.phtf-explore--standalone .phtf-explore-track {
+		min-height: 0 !important;
+		height: auto !important;
+	}
+
+	.phtf-explore.phtf-explore--standalone .phtf-explore-arrow {
+		align-self: center !important;
+		justify-self: center !important;
+		width: 44px !important;
+		height: 44px !important;
+		min-height: 44px !important;
+		max-height: 44px !important;
+		flex: 0 0 44px !important;
+		padding: 0 !important;
+		margin: 0 !important;
+		border-radius: 8px !important;
+	}
+}
+
+@media (max-width: 640px) {
+	.phtf-explore.phtf-explore--standalone {
+		padding: 36px 14px 30px !important;
+	}
+
+	.phtf-explore.phtf-explore--standalone .phtf-explore-tabs {
+		gap: 0 !important;
+		margin-bottom: 26px !important;
+	}
+
+	.phtf-explore.phtf-explore--standalone .phtf-explore-tab {
+		font-size: 16px !important;
+		padding: 0 10px 10px !important;
+	}
+
+	.phtf-explore.phtf-explore--standalone .phtf-explore-carousel {
+		grid-template-columns: 36px minmax(0, 1fr) 36px !important;
+		column-gap: 4px !important;
+	}
+
+	.phtf-explore.phtf-explore--standalone .phtf-explore-arrow {
+		width: 36px !important;
+		height: 36px !important;
+		min-height: 36px !important;
+		max-height: 36px !important;
+		flex-basis: 36px !important;
+		font-size: 42px !important;
+	}
+}

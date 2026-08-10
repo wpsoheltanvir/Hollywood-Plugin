@@ -178,11 +178,15 @@
 		var reviewsLabel = makeReviewsLabel(product);
 		var seatsLabel = makeSeatsLabel(product);
 		var categories = makeCategoryAttr(product);
-		var image = product.product_image || '';
+		var image = (product.product_image && product.product_image.url) || product.product_image || '';
 		var brand = product.brand || '';
+		var link = product.view_url || (product.view_link && product.view_link.url) || '';
+		var cardOpen = link ? '<a class="phtf-explore-card-link" href="' + escapeHtml(link) + '">' : '<div class="phtf-explore-card-link">';
+		var cardClose = link ? '</a>' : '</div>';
 
 		return [
 			'<article class="phtf-explore-card" data-phtf-explore-item data-phtf-explore-cats="' + escapeHtml(categories) + '">',
+				cardOpen,
 				'<div class="phtf-explore-image-wrap">',
 					'<img class="phtf-explore-image" src="' + escapeHtml(image) + '" alt="' + escapeHtml(brand) + '">',
 				'</div>',
@@ -190,6 +194,7 @@
 				'<h3 class="phtf-explore-card-title">' + escapeHtml(brand) + '</h3>',
 				'<div class="phtf-explore-rating"><span class="phtf-stars">' + renderRating(product.rating) + '</span>' + (reviewsLabel ? '<span class="phtf-explore-reviews">' + escapeHtml(reviewsLabel) + '</span>' : '') + '</div>',
 				'<div class="phtf-explore-meta">' + (seatsLabel ? '<span>' + escapeHtml(seatsLabel) + '</span>' : '') + (product.msrp ? '<span>MSRP: <strong>' + escapeHtml(product.msrp) + '</strong></span>' : '') + '</div>',
+				cardClose,
 			'</article>'
 		].join('');
 	}
@@ -246,6 +251,15 @@
 		}
 
 		if (!syncDynamicExplore(explore)) {
+			// Elementor can mount the source widget after this widget in preview mode.
+			// Keep trying briefly so the cards never remain permanently blank.
+			var retries = parseInt(explore.getAttribute('data-phtf-explore-retries') || '0', 10);
+			if (retries < 12) {
+				explore.setAttribute('data-phtf-explore-retries', String(retries + 1));
+				window.setTimeout(function () {
+					initExplore(explore);
+				}, 250);
+			}
 			return;
 		}
 

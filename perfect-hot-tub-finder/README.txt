@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.172 =
+* Fixed Explore Our Models responsive rendering and made model cards link to their configured View Model URL.
+
 = 1.0.171 =
 * Hardened external link attributes and limited automatic Elementor global color sync to site administrators.
 

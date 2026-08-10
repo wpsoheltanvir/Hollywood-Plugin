@@ -961,6 +961,7 @@ class PHTF_Explore_Models_Widget extends \Elementor\Widget_Base {
 					'explore_series_label' => $model['series'] ?? '',
 					'explore_categories'   => $model['explore_categories'] ?? '',
 					'product_image'        => $model['image'] ?? '',
+					'view_url'             => ! empty( $model['view_model_url'] ) ? $model['view_model_url'] : ( $model['url'] ?? '' ),
 				];
 			}
 		}
