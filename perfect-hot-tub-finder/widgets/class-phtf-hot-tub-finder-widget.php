@@ -3746,6 +3746,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 									}
 
 									$reviews_label = '';
+									$reviews_link  = $product['reviews_link'] ?? [ 'url' => $product['reviews_url'] ?? '' ];
 									if ( ! empty( $product['reviews'] ) ) {
 										if ( preg_match( '/\d+/', (string) $product['reviews'], $review_matches ) ) {
 											$reviews_label = '(' . $review_matches[0] . ')';
@@ -3774,12 +3775,18 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 
 										<h3 class="phtf-explore-card-title"><?php echo esc_html( $product['brand'] ?? '' ); ?></h3>
 
+										<?php if ( ! empty( $reviews_link['url'] ) ) : ?>
+											<a class="phtf-explore-review-link" <?php echo $this->render_link_attrs( $reviews_link ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+										<?php endif; ?>
 										<div class="phtf-explore-rating">
 											<span class="phtf-stars"><?php echo $this->render_rating( $product['rating'] ?? 0 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
 											<?php if ( ! empty( $reviews_label ) ) : ?>
 												<span class="phtf-explore-reviews"><?php echo esc_html( $reviews_label ); ?></span>
 											<?php endif; ?>
 										</div>
+										<?php if ( ! empty( $reviews_link['url'] ) ) : ?>
+											</a>
+										<?php endif; ?>
 
 										<div class="phtf-explore-meta">
 											<?php if ( ! empty( $seats_label ) ) : ?>

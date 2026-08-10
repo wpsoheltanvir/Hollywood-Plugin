@@ -213,9 +213,14 @@
 		var image = (product.product_image && product.product_image.url) || product.product_image || '';
 		var brand = product.brand || '';
 		var link = product.view_url || (product.view_link && product.view_link.url) || '';
+		var reviewsLink = product.reviews_url || (product.reviews_link && product.reviews_link.url) || '';
 		var cardOpen = link ? '<a class="phtf-explore-card-link" href="' + escapeHtml(link) + '">' : '<div class="phtf-explore-card-link">';
 		var cardClose = link ? '</a>' : '</div>';
 		var price = renderExplorePrice(product);
+		var rating = '<div class="phtf-explore-rating"><span class="phtf-stars">' + renderRating(product.rating) + '</span>' + (reviewsLabel ? '<span class="phtf-explore-reviews">' + escapeHtml(reviewsLabel) + '</span>' : '') + '</div>';
+		if (reviewsLink) {
+			rating = '<a class="phtf-explore-review-link" href="' + escapeHtml(reviewsLink) + '">' + rating + '</a>';
+		}
 
 		return [
 			'<article class="phtf-explore-card" data-phtf-explore-item data-phtf-explore-cats="' + escapeHtml(categories) + '">',
@@ -225,8 +230,8 @@
 				'</div>',
 				seriesLabel ? '<div class="phtf-explore-card-series">' + escapeHtml(seriesLabel) + '</div>' : '',
 				'<h3 class="phtf-explore-card-title">' + escapeHtml(brand) + '</h3>',
-				'<div class="phtf-explore-rating"><span class="phtf-stars">' + renderRating(product.rating) + '</span>' + (reviewsLabel ? '<span class="phtf-explore-reviews">' + escapeHtml(reviewsLabel) + '</span>' : '') + '</div>',
 				cardClose,
+				rating,
 				'<div class="phtf-explore-meta">' + (seatsLabel ? '<span>' + escapeHtml(seatsLabel) + '</span>' : '') + (price ? '<span>MSRP: <strong>' + price + '</strong></span>' : '') + '</div>',
 			'</article>'
 		].join('');

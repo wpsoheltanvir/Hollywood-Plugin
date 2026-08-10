@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.182 =
+* Made Explore Our Models rating and review links use each product's dedicated Reviews Link URL instead of the View Model URL.
+
 = 1.0.181 =
 * Improved tablet and mobile comparison drawer readability with stable table columns, aligned series headings, horizontal overflow for narrow screens, and independent section dropdowns.
 
