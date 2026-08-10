@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.184 =
+* Increased comparison drawer column widths and typography, with a sticky feature column for readable tablet and mobile horizontal scrolling.
+
 = 1.0.183 =
 * Restored View Model URL and automatic Spa Model post permalink links for every Explore Our Models card, while keeping review links separate.
 
