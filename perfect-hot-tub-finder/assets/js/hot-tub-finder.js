@@ -183,6 +183,12 @@
 			return '';
 		}
 
+		// Spa Models often store MSRP without a visible superscript. Add the
+		// first-price marker whenever a popup is available so it remains usable.
+		if (popupContent && !/[\u00b9\u00b2]/.test(msrp)) {
+			msrp += '\u00b9';
+		}
+
 		return escapeHtml(msrp).replace(/[\u00b9\u00b2]/g, function (marker) {
 			if (!popupContent) {
 				return '<sup>' + marker + '</sup>';

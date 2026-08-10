@@ -6531,6 +6531,22 @@ body .elementor-widget-phtf_hot_tub_finder {
 	outline-offset: 5px;
 }
 
+/* Keep Explore price markers consistent with the Spa Shop Slider markers. */
+.phtf-explore-meta .phtf-price-note-wrap {
+	vertical-align: super;
+}
+
+.phtf-explore-meta .phtf-price-note-trigger {
+	font-family: inherit;
+	font-weight: inherit;
+}
+
+.phtf-explore-meta .phtf-price-note-trigger sup {
+	font-size: .65em;
+	line-height: 0;
+	vertical-align: super;
+}
+
 @media (max-width: 1024px) {
 	body .elementor-widget-phtf_explore_models,
 	body .elementor-widget-phtf_explore_models > .elementor-widget-container,
