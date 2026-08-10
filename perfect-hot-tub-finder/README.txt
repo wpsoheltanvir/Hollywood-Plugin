@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.183 =
+* Restored View Model URL and automatic Spa Model post permalink links for every Explore Our Models card, while keeping review links separate.
+
 = 1.0.182 =
 * Made Explore Our Models rating and review links use each product's dedicated Reviews Link URL instead of the View Model URL.
 

@@ -3747,6 +3747,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 
 									$reviews_label = '';
 									$reviews_link  = $product['reviews_link'] ?? [ 'url' => $product['reviews_url'] ?? '' ];
+									$view_link     = $product['view_link'] ?? [ 'url' => $product['view_model_url'] ?? ( $product['url'] ?? '' ) ];
 									if ( ! empty( $product['reviews'] ) ) {
 										if ( preg_match( '/\d+/', (string) $product['reviews'], $review_matches ) ) {
 											$reviews_label = '(' . $review_matches[0] . ')';
@@ -3765,6 +3766,11 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 									}
 									?>
 									<article class="phtf-explore-card" data-phtf-explore-item data-phtf-explore-cats="<?php echo esc_attr( $category_attr ); ?>">
+										<?php if ( ! empty( $view_link['url'] ) ) : ?>
+											<a class="phtf-explore-card-link" <?php echo $this->render_link_attrs( $view_link ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+										<?php else : ?>
+											<div class="phtf-explore-card-link">
+										<?php endif; ?>
 										<div class="phtf-explore-image-wrap">
 											<img class="phtf-explore-image" src="<?php echo esc_url( $product_image ); ?>" alt="<?php echo esc_attr( $product['brand'] ?? '' ); ?>">
 										</div>
@@ -3774,6 +3780,11 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 										<?php endif; ?>
 
 										<h3 class="phtf-explore-card-title"><?php echo esc_html( $product['brand'] ?? '' ); ?></h3>
+										<?php if ( ! empty( $view_link['url'] ) ) : ?>
+											</a>
+										<?php else : ?>
+											</div>
+										<?php endif; ?>
 
 										<?php if ( ! empty( $reviews_link['url'] ) ) : ?>
 											<a class="phtf-explore-review-link" <?php echo $this->render_link_attrs( $reviews_link ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
