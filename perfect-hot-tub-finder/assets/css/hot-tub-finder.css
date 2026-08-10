@@ -6631,3 +6631,22 @@ body .elementor-widget-phtf_hot_tub_finder {
 		max-width: min(260px, 100%) !important;
 	}
 }
+
+/* v1.0.177: Seating and Price filter options share the same type scale. */
+.phtf-widget.phtf-widget--classic .phtf-filter-group .phtf-checkbox,
+.phtf-widget.phtf-widget--classic .phtf-filter-group--price .phtf-checkbox,
+.phtf-widget.phtf-widget--classic .phtf-price-filter-symbol,
+.phtf-widget.phtf-widget--classic .phtf-price-filter-range {
+	font-size: 18px !important;
+	line-height: 1.35 !important;
+}
+
+@media (max-width: 1024px) {
+	.phtf-widget.phtf-widget--classic .phtf-filter-group .phtf-checkbox,
+	.phtf-widget.phtf-widget--classic .phtf-filter-group--price .phtf-checkbox,
+	.phtf-widget.phtf-widget--classic .phtf-price-filter-symbol,
+	.phtf-widget.phtf-widget--classic .phtf-price-filter-range {
+		font-size: 17px !important;
+		line-height: 1.35 !important;
+	}
+}

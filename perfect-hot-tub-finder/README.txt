@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.177 =
+* Matched Seating and Price filter option text sizes across desktop, tablet, and phone layouts.
+
 = 1.0.176 =
 * Added dedicated Explore Our Models price and footnote styling, with a secondary-color 1.18em marker and a phone-safe one-card layout.
 
