@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.185 =
+* Made dynamic Explore Our Models cards, ratings, and price footnote markers link directly to each Spa Model post permalink.
+
 = 1.0.184 =
 * Increased comparison drawer column widths and typography, with a sticky feature column for readable tablet and mobile horizontal scrolling.
 
