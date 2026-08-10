@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.188 =
+* Open the tablet/mobile filter drawer with Seating and Price collapsed until the visitor selects a section.
+
 = 1.0.187 =
 * Restored Seating and Price accordion dropdowns in the tablet/mobile filter drawer and reduced the mobile price disclaimer text size.
 

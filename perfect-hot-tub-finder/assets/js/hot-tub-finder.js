@@ -565,7 +565,17 @@
 			if (!isMobileFilters()) {
 				return;
 			}
+			collapseFilterGroups();
 			setFilterDrawerState(true);
+		}
+
+		function collapseFilterGroups() {
+			Array.prototype.slice.call(widget.querySelectorAll('[data-phtf-filter-group]')).forEach(function (group) {
+				group.classList.add('is-collapsed');
+			});
+			filterGroupToggles.forEach(function (button) {
+				button.setAttribute('aria-expanded', 'false');
+			});
 		}
 
 		function resetFilterGroups() {
