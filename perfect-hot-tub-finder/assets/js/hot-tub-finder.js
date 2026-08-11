@@ -983,11 +983,14 @@
 			index = (next + images.length) % images.length;
 			images.forEach(function (image, i) { image.hidden = i !== index; image.classList.toggle('is-active', i === index); });
 			thumbs.forEach(function (thumb, i) { thumb.classList.toggle('is-active', i === index); thumb.setAttribute('aria-current', i === index ? 'true' : 'false'); });
+			hero.phtfSeriesIndex = index;
 		}
+		hero.phtfSeriesShow = show;
 		thumbs.forEach(function (thumb, i) { thumb.addEventListener('click', function () { show(i); }); });
 		var prev = hero.querySelector('[data-series-prev]'); var next = hero.querySelector('[data-series-next]');
 		if (prev) { prev.addEventListener('click', function () { show(index - 1); }); }
 		if (next) { next.addEventListener('click', function () { show(index + 1); }); }
+		show(0);
 	}
 
 	function initModelHero(root) {
@@ -1673,7 +1676,9 @@
 				initPricePopups($scope && $scope[0] ? $scope[0] : document);
 			});
 			window.elementorFrontend.hooks.addAction('frontend/element_ready/phtf_spa_series_slider.default', function ($scope) {
-				initSeriesHero($scope && $scope[0] ? $scope[0] : document);
+				var scope = $scope && $scope[0] ? $scope[0] : document;
+				initSeriesHero(scope);
+				window.setTimeout(function () { initSeriesHero(scope); }, 0);
 			});
 			window.elementorFrontend.hooks.addAction('frontend/element_ready/phtf_spa_model_slider.default', function ($scope) {
 				initModelHero($scope && $scope[0] ? $scope[0] : document);

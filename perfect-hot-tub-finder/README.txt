@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.200 =
+* Improved Series Hero only: added editable Header / Breadcrumb items and reliable gallery arrow and thumbnail initialization in Elementor.
+
 = 1.0.199 =
 * Renamed Spa Model Slide to Spa Series Models and added dynamic selected-series model loading, dedicated model and review links, and Spa Model price-footnote popups.
 

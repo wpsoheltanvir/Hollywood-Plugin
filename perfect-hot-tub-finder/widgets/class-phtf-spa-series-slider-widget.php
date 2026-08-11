@@ -16,8 +16,16 @@ class PHTF_Spa_Series_Slider_Widget extends \Elementor\Widget_Base {
 	public function get_script_depends() { return [ 'phtf-hot-tub-finder' ]; }
 
 	protected function register_controls() {
+		$this->start_controls_section( 'header', [ 'label' => esc_html__( 'Header / Breadcrumb', 'perfect-hot-tub-finder' ) ] );
+		$this->add_control( 'show_header', [ 'label' => esc_html__( 'Show Header', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::SWITCHER, 'label_on' => esc_html__( 'Yes', 'perfect-hot-tub-finder' ), 'label_off' => esc_html__( 'No', 'perfect-hot-tub-finder' ), 'return_value' => 'yes', 'default' => 'yes' ] );
+		$this->add_control( 'show_breadcrumb', [ 'label' => esc_html__( 'Show Breadcrumb', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::SWITCHER, 'label_on' => esc_html__( 'Yes', 'perfect-hot-tub-finder' ), 'label_off' => esc_html__( 'No', 'perfect-hot-tub-finder' ), 'return_value' => 'yes', 'default' => 'yes', 'condition' => [ 'show_header' => 'yes' ] ] );
+		$breadcrumb_repeater = new Repeater();
+		$breadcrumb_repeater->add_control( 'label', [ 'label' => esc_html__( 'Label', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::TEXT, 'default' => esc_html__( 'Home', 'perfect-hot-tub-finder' ), 'label_block' => true ] );
+		$breadcrumb_repeater->add_control( 'link', [ 'label' => esc_html__( 'Link', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::URL ] );
+		$this->add_control( 'breadcrumb_items', [ 'label' => esc_html__( 'Breadcrumb Items', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::REPEATER, 'fields' => $breadcrumb_repeater->get_controls(), 'title_field' => '{{{ label }}}', 'default' => [ [ 'label' => 'Home' ], [ 'label' => 'Shop' ], [ 'label' => 'Utopia Series' ] ], 'condition' => [ 'show_header' => 'yes', 'show_breadcrumb' => 'yes' ] ] );
+		$this->end_controls_section();
+
 		$this->start_controls_section( 'content', [ 'label' => esc_html__( 'Series Content', 'perfect-hot-tub-finder' ) ] );
-		$this->add_control( 'show_header', [ 'label' => esc_html__( 'Show Header / Breadcrumb', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::SWITCHER, 'label_on' => esc_html__( 'Yes', 'perfect-hot-tub-finder' ), 'label_off' => esc_html__( 'No', 'perfect-hot-tub-finder' ), 'return_value' => 'yes', 'default' => 'yes' ] );
 		$this->add_control( 'breadcrumb', [ 'label' => esc_html__( 'Breadcrumb', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::TEXT, 'default' => 'Home > Shop > Utopia® Series' ] );
 		$this->add_control( 'title', [ 'label' => esc_html__( 'Title', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::TEXT, 'default' => 'Utopia® Series', 'label_block' => true ] );
 		$this->add_control( 'reviews', [ 'label' => esc_html__( 'Reviews Text', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::TEXT, 'default' => '852 Reviews' ] );
@@ -49,7 +57,13 @@ class PHTF_Spa_Series_Slider_Widget extends \Elementor\Widget_Base {
 		?>
 		<section class="phtf-series-slider" data-phtf-series-slider>
 			<div class="phtf-series-slider__content">
-				<?php if ( 'yes' === ( $s['show_header'] ?? 'yes' ) && ! empty( $s['breadcrumb'] ?? '' ) ) : ?><div class="phtf-series-slider__breadcrumb"><?php echo esc_html( $s['breadcrumb'] ); ?></div><?php endif; ?>
+				<?php
+				$breadcrumbs = $s['breadcrumb_items'] ?? [];
+				if ( empty( $breadcrumbs ) && ! empty( $s['breadcrumb'] ?? '' ) ) {
+					$breadcrumbs = [ [ 'label' => $s['breadcrumb'] ] ];
+				}
+				if ( 'yes' === ( $s['show_header'] ?? 'yes' ) && 'yes' === ( $s['show_breadcrumb'] ?? 'yes' ) && ! empty( $breadcrumbs ) ) :
+					?><nav class="phtf-series-slider__breadcrumb" aria-label="Breadcrumb"><?php foreach ( $breadcrumbs as $index => $item ) : $label = trim( (string) ( $item['label'] ?? '' ) ); if ( '' === $label ) { continue; } ?><span class="phtf-series-slider__breadcrumb-item"><?php if ( ! empty( $item['link']['url'] ) ) : ?><a<?php echo $this->link( $item['link'] ); ?>><?php echo esc_html( $label ); ?></a><?php else : ?><?php echo esc_html( $label ); ?><?php endif; ?></span><?php if ( $index < count( $breadcrumbs ) - 1 ) : ?><span class="phtf-series-slider__breadcrumb-separator" aria-hidden="true">&gt;</span><?php endif; ?><?php endforeach; ?></nav><?php endif; ?>
 				<h1 class="phtf-series-slider__title"><?php echo wp_kses_post( $s['title'] ); ?></h1>
 				<?php if ( $s['reviews'] ) : ?><a class="phtf-series-slider__reviews"<?php echo $this->link( $s['reviews_url'] ); ?>><span aria-hidden="true">★★★★★</span> <?php echo esc_html( $s['reviews'] ); ?></a><?php endif; ?>
 				<div class="phtf-series-slider__description"><?php echo wp_kses_post( wpautop( $s['description'] ) ); ?></div>
