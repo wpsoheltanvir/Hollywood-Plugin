@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.189 =
+* Added the Hollywood Spa Series Slider Elementor widget for configurable series-page hero content, image slides, thumbnails, reviews, and calls to action.
+
 = 1.0.188 =
 * Open the tablet/mobile filter drawer with Seating and Price collapsed until the visitor selects a section.
 
