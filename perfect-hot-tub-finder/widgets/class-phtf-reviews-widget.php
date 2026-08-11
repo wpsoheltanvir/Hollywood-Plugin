@@ -691,20 +691,6 @@ class PHTF_Reviews_Widget extends \Elementor\Widget_Base {
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 		$reviews  = ! empty( $settings['reviews'] ) && is_array( $settings['reviews'] ) ? $settings['reviews'] : [];
-		if ( function_exists( 'phtf_get_spa_models' ) ) {
-			$models = phtf_get_spa_models();
-			if ( ! empty( $models ) ) {
-				$reviews = [];
-				foreach ( $models as $model ) {
-					$text = ! empty( $model['review_quote'] ) ? $model['review_quote'] : sprintf( __( '%1$s has an average rating of %2$s stars based on %3$s reviews.', 'perfect-hot-tub-finder' ), $model['title'] ?? '', $model['rating'] ?? '5', $model['reviews'] ?? '0' );
-					$reviews[] = [
-						'rating'      => $model['rating'] ?? 5,
-						'review_text' => $text,
-						'author'      => ! empty( $model['review_author'] ) ? $model['review_author'] : ( $model['title'] ?? '' ),
-					];
-				}
-			}
-		}
 		$autoplay = 'yes' === ( $settings['autoplay'] ?? '' ) ? 'yes' : 'no';
 		$speed    = ! empty( $settings['autoplay_speed'] ) ? absint( $settings['autoplay_speed'] ) : 5000;
 		?>

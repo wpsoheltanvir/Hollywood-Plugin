@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.206 =
+* Made Spa Reviews fully manual: Review Slides now always use the Elementor Review Text, Author / Location, and Rating fields instead of Spa Model data.
+
 = 1.0.205 =
 * Fixed Series Hero gallery controls after Elementor live-edit updates by rebinding arrows and thumbnails whenever gallery slide nodes change.
 
