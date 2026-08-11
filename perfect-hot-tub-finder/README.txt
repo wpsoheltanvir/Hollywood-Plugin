@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.202 =
+* Reworked Series Hero tablet and mobile layouts to show breadcrumb, full-width gallery with side arrows, then content and actions while preserving desktop and laptop styling.
+
 = 1.0.201 =
 * Matched the Series Hero Header / Breadcrumb editor defaults to the clean Home and Shop repeater layout.
 

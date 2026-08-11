@@ -62,6 +62,11 @@ class PHTF_Spa_Series_Slider_Widget extends \Elementor\Widget_Base {
 				if ( empty( $breadcrumbs ) && ! empty( $s['breadcrumb'] ?? '' ) ) {
 					$breadcrumbs = [ [ 'label' => $s['breadcrumb'] ] ];
 				}
+				$breadcrumb_title = trim( wp_strip_all_tags( $s['title'] ?? '' ) );
+				$last_breadcrumb = end( $breadcrumbs );
+				if ( '' !== $breadcrumb_title && $breadcrumb_title !== trim( wp_strip_all_tags( is_array( $last_breadcrumb ) ? ( $last_breadcrumb['label'] ?? '' ) : '' ) ) ) {
+					$breadcrumbs[] = [ 'label' => $breadcrumb_title ];
+				}
 				if ( 'yes' === ( $s['show_header'] ?? 'yes' ) && 'yes' === ( $s['show_breadcrumb'] ?? 'yes' ) && ! empty( $breadcrumbs ) ) :
 					?><nav class="phtf-series-slider__breadcrumb" aria-label="Breadcrumb"><?php foreach ( $breadcrumbs as $index => $item ) : $label = trim( (string) ( $item['label'] ?? '' ) ); if ( '' === $label ) { continue; } ?><span class="phtf-series-slider__breadcrumb-item"><?php if ( ! empty( $item['link']['url'] ) ) : ?><a<?php echo $this->link( $item['link'] ); ?>><?php echo esc_html( $label ); ?></a><?php else : ?><?php echo esc_html( $label ); ?><?php endif; ?></span><?php if ( $index < count( $breadcrumbs ) - 1 ) : ?><span class="phtf-series-slider__breadcrumb-separator" aria-hidden="true">&gt;</span><?php endif; ?><?php endforeach; ?></nav><?php endif; ?>
 				<h1 class="phtf-series-slider__title"><?php echo wp_kses_post( $s['title'] ); ?></h1>
