@@ -2568,6 +2568,12 @@
 	display: none;
 }
 
+@media (min-width: 1025px) {
+	.phtf-spa-models .phtf-spa-models-arrow {
+		display: none !important;
+	}
+}
+
 .phtf-spa-models-card {
 	display: block;
 	text-align: center;

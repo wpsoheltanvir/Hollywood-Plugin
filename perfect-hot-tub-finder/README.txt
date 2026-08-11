@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.211 =
+* Locked Spa Series Models navigation arrows to tablet and mobile widths only; desktop and laptop grids never show carousel arrows.
+
 = 1.0.210 =
 * Added Series Hero Responsive Layout style controls for per-device gallery height, image fit, content side spacing, title size, arrow size, and mobile curve height.
 
