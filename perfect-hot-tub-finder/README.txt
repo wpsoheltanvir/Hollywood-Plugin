@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.208 =
+* Made Series Hero manual-only by removing its legacy breadcrumb and gallery data fallbacks; all header, content, links, and gallery slides now come exclusively from its Elementor controls.
+
 = 1.0.207 =
 * Rebuilt the Series Hero Gallery Slides Elementor control with a fresh gallery repeater so slide images and alt text are visible and editable in the panel; legacy saved galleries remain supported.
 

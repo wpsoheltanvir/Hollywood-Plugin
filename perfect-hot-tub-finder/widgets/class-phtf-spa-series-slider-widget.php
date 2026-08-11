@@ -26,7 +26,6 @@ class PHTF_Spa_Series_Slider_Widget extends \Elementor\Widget_Base {
 		$this->end_controls_section();
 
 		$this->start_controls_section( 'content', [ 'label' => esc_html__( 'Series Content', 'perfect-hot-tub-finder' ) ] );
-		$this->add_control( 'breadcrumb', [ 'label' => esc_html__( 'Breadcrumb', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::TEXT, 'default' => 'Home > Shop > Utopia® Series' ] );
 		$this->add_control( 'title', [ 'label' => esc_html__( 'Title', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::TEXT, 'default' => 'Utopia® Series', 'label_block' => true ] );
 		$this->add_control( 'reviews', [ 'label' => esc_html__( 'Reviews Text', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::TEXT, 'default' => '852 Reviews' ] );
 		$this->add_control( 'reviews_url', [ 'label' => esc_html__( 'Reviews Link', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::URL ] );
@@ -52,16 +51,7 @@ class PHTF_Spa_Series_Slider_Widget extends \Elementor\Widget_Base {
 	protected function render() {
 		$s = $this->get_settings_for_display();
 		$gallery_slides = $s['gallery_slides'] ?? [];
-		$legacy_slides  = $s['slides'] ?? [];
-		$placeholder_url = Utils::get_placeholder_image_src();
-		$has_gallery_image = false;
-		foreach ( $gallery_slides as $gallery_slide ) {
-			if ( ! empty( $gallery_slide['image']['url'] ) && $placeholder_url !== $gallery_slide['image']['url'] ) {
-				$has_gallery_image = true;
-				break;
-			}
-		}
-		$slides = ( $has_gallery_image || empty( $legacy_slides ) ) ? $gallery_slides : $legacy_slides;
+		$slides = $gallery_slides;
 		if ( empty( $slides ) ) {
 			$slides = [ [ 'image' => [ 'url' => Utils::get_placeholder_image_src() ], 'image_alt' => $s['title'] ?? '' ] ];
 		}
@@ -70,9 +60,6 @@ class PHTF_Spa_Series_Slider_Widget extends \Elementor\Widget_Base {
 			<div class="phtf-series-slider__content">
 				<?php
 				$breadcrumbs = $s['breadcrumb_items'] ?? [];
-				if ( empty( $breadcrumbs ) && ! empty( $s['breadcrumb'] ?? '' ) ) {
-					$breadcrumbs = [ [ 'label' => $s['breadcrumb'] ] ];
-				}
 				$breadcrumb_title = trim( wp_strip_all_tags( $s['title'] ?? '' ) );
 				$last_breadcrumb = end( $breadcrumbs );
 				if ( '' !== $breadcrumb_title && $breadcrumb_title !== trim( wp_strip_all_tags( is_array( $last_breadcrumb ) ? ( $last_breadcrumb['label'] ?? '' ) : '' ) ) ) {
