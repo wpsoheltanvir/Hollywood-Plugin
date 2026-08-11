@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.198 =
+* Removed Spa Model Data Source from Spa Model Hero and added Elementor style controls for content, typography, buttons, gallery, arrows, and selected thumbnails across all device sizes.
+
 = 1.0.197 =
 * Restyled Series Hero with the site Questrial typography and navy/cyan brand palette, an uncropped product gallery, and an enabled header/breadcrumb control.
 
