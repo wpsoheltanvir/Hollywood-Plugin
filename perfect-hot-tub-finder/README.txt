@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.197 =
+* Restyled Series Hero with the site Questrial typography and navy/cyan brand palette, an uncropped product gallery, and an enabled header/breadcrumb control.
+
 = 1.0.196 =
 * Prevented Series Hero and Spa Model Hero from rendering blank when Elementor has no saved gallery slide or a selected model has incomplete gallery data.
 
