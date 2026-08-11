@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.215 =
+* Added complete Series Hero Elementor styling for layout, breadcrumb, title, reviews, description, buttons, gallery curves, arrows, thumbnails, hover states, and responsive spacing.
+
 = 1.0.214 =
 * Matched the Series Hero desktop gallery and tablet/mobile composition with stable full-bleed images, overlaid navigation, responsive curves, and reliable content ordering.
 

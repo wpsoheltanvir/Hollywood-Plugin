@@ -2,6 +2,9 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 use Elementor\Controls_Manager;
+use Elementor\Group_Control_Border;
+use Elementor\Group_Control_Box_Shadow;
+use Elementor\Group_Control_Typography;
 use Elementor\Repeater;
 use Elementor\Utils;
 
@@ -43,7 +46,96 @@ class PHTF_Spa_Series_Slider_Widget extends \Elementor\Widget_Base {
 		$this->add_control( 'gallery_slides', [ 'label' => esc_html__( 'Gallery Slides', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::REPEATER, 'fields' => $repeater->get_controls(), 'title_field' => '{{{ image_alt }}}', 'default' => [ [ 'image' => [ 'url' => Utils::get_placeholder_image_src() ], 'image_alt' => 'Gallery Slide 1' ], [ 'image' => [ 'url' => Utils::get_placeholder_image_src() ], 'image_alt' => 'Gallery Slide 2' ], [ 'image' => [ 'url' => Utils::get_placeholder_image_src() ], 'image_alt' => 'Gallery Slide 3' ] ] ] );
 		$this->end_controls_section();
 
+		$this->register_complete_style_controls();
 		$this->register_responsive_style_controls();
+	}
+
+	private function register_complete_style_controls() {
+		$this->start_controls_section( 'style_layout', [ 'label' => esc_html__( 'Layout', 'perfect-hot-tub-finder' ), 'tab' => Controls_Manager::TAB_STYLE ] );
+		$this->add_control( 'layout_background', [ 'label' => esc_html__( 'Background Color', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .phtf-series-slider, {{WRAPPER}} .phtf-series-slider__content' => 'background-color: {{VALUE}};' ] ] );
+		$this->add_responsive_control( 'layout_content_width', [ 'label' => esc_html__( 'Desktop Content Width', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::SLIDER, 'size_units' => [ '%' ], 'range' => [ '%' => [ 'min' => 30, 'max' => 65 ] ], 'selectors' => [ '{{WRAPPER}} .phtf-series-slider' => '--phtf-series-content-width: {{SIZE}}%;' ] ] );
+		$this->add_responsive_control( 'layout_content_padding', [ 'label' => esc_html__( 'Content Padding', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::DIMENSIONS, 'size_units' => [ 'px', '%', 'em' ], 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__content' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ] ] );
+		$this->add_responsive_control( 'layout_radius', [ 'label' => esc_html__( 'Container Radius', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::DIMENSIONS, 'size_units' => [ 'px', '%' ], 'selectors' => [ '{{WRAPPER}} .phtf-series-slider' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ] ] );
+		$this->add_group_control( Group_Control_Border::get_type(), [ 'name' => 'layout_border', 'selector' => '{{WRAPPER}} .phtf-series-slider' ] );
+		$this->add_group_control( Group_Control_Box_Shadow::get_type(), [ 'name' => 'layout_shadow', 'selector' => '{{WRAPPER}} .phtf-series-slider' ] );
+		$this->end_controls_section();
+
+		$this->start_controls_section( 'style_breadcrumb', [ 'label' => esc_html__( 'Breadcrumb', 'perfect-hot-tub-finder' ), 'tab' => Controls_Manager::TAB_STYLE ] );
+		$this->add_control( 'breadcrumb_background', [ 'label' => esc_html__( 'Background Color', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__breadcrumb' => 'background-color: {{VALUE}};' ] ] );
+		$this->add_control( 'breadcrumb_color', [ 'label' => esc_html__( 'Text Color', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__breadcrumb' => 'color: {{VALUE}};' ] ] );
+		$this->add_control( 'breadcrumb_link_color', [ 'label' => esc_html__( 'Link Color', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__breadcrumb-item a' => 'color: {{VALUE}};' ] ] );
+		$this->add_control( 'breadcrumb_link_hover_color', [ 'label' => esc_html__( 'Link Hover Color', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__breadcrumb-item a:hover, {{WRAPPER}} .phtf-series-slider__breadcrumb-item a:focus' => 'color: {{VALUE}};' ] ] );
+		$this->add_control( 'breadcrumb_separator_color', [ 'label' => esc_html__( 'Separator Color', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__breadcrumb-separator' => 'color: {{VALUE}};' ] ] );
+		$this->add_group_control( Group_Control_Typography::get_type(), [ 'name' => 'breadcrumb_typography', 'selector' => '{{WRAPPER}} .phtf-series-slider__breadcrumb' ] );
+		$this->add_responsive_control( 'breadcrumb_gap', [ 'label' => esc_html__( 'Item Gap', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::SLIDER, 'range' => [ 'px' => [ 'min' => 0, 'max' => 40 ] ], 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__breadcrumb' => 'gap: {{SIZE}}{{UNIT}};' ] ] );
+		$this->add_responsive_control( 'breadcrumb_margin', [ 'label' => esc_html__( 'Margin', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::DIMENSIONS, 'size_units' => [ 'px', '%', 'em' ], 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__breadcrumb' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ] ] );
+		$this->add_responsive_control( 'breadcrumb_padding', [ 'label' => esc_html__( 'Padding', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::DIMENSIONS, 'size_units' => [ 'px', '%', 'em' ], 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__breadcrumb' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ] ] );
+		$this->end_controls_section();
+
+		$this->start_controls_section( 'style_title', [ 'label' => esc_html__( 'Title', 'perfect-hot-tub-finder' ), 'tab' => Controls_Manager::TAB_STYLE ] );
+		$this->add_control( 'title_color', [ 'label' => esc_html__( 'Color', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__title' => 'color: {{VALUE}};' ] ] );
+		$this->add_group_control( Group_Control_Typography::get_type(), [ 'name' => 'title_typography', 'selector' => '{{WRAPPER}} .phtf-series-slider__title' ] );
+		$this->add_responsive_control( 'title_margin', [ 'label' => esc_html__( 'Margin', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::DIMENSIONS, 'size_units' => [ 'px', '%', 'em' ], 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__title' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ] ] );
+		$this->add_responsive_control( 'title_padding', [ 'label' => esc_html__( 'Padding', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::DIMENSIONS, 'size_units' => [ 'px', '%', 'em' ], 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__title' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ] ] );
+		$this->end_controls_section();
+
+		$this->start_controls_section( 'style_reviews', [ 'label' => esc_html__( 'Reviews', 'perfect-hot-tub-finder' ), 'tab' => Controls_Manager::TAB_STYLE ] );
+		$this->add_control( 'reviews_color', [ 'label' => esc_html__( 'Text Color', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__reviews' => 'color: {{VALUE}};' ] ] );
+		$this->add_control( 'reviews_hover_color', [ 'label' => esc_html__( 'Hover Color', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__reviews:hover, {{WRAPPER}} .phtf-series-slider__reviews:focus' => 'color: {{VALUE}};' ] ] );
+		$this->add_control( 'reviews_stars_color', [ 'label' => esc_html__( 'Stars Color', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__reviews span' => 'color: {{VALUE}};' ] ] );
+		$this->add_group_control( Group_Control_Typography::get_type(), [ 'name' => 'reviews_typography', 'selector' => '{{WRAPPER}} .phtf-series-slider__reviews' ] );
+		$this->add_responsive_control( 'reviews_padding', [ 'label' => esc_html__( 'Padding', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::DIMENSIONS, 'size_units' => [ 'px', '%', 'em' ], 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__reviews' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ] ] );
+		$this->end_controls_section();
+
+		$this->start_controls_section( 'style_description', [ 'label' => esc_html__( 'Description', 'perfect-hot-tub-finder' ), 'tab' => Controls_Manager::TAB_STYLE ] );
+		$this->add_control( 'description_color', [ 'label' => esc_html__( 'Color', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__description' => 'color: {{VALUE}};' ] ] );
+		$this->add_group_control( Group_Control_Typography::get_type(), [ 'name' => 'description_typography', 'selector' => '{{WRAPPER}} .phtf-series-slider__description' ] );
+		$this->add_responsive_control( 'description_width', [ 'label' => esc_html__( 'Maximum Width', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::SLIDER, 'size_units' => [ 'px', '%' ], 'range' => [ 'px' => [ 'min' => 200, 'max' => 900 ], '%' => [ 'min' => 30, 'max' => 100 ] ], 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__description' => 'max-width: {{SIZE}}{{UNIT}};' ] ] );
+		$this->add_responsive_control( 'description_margin', [ 'label' => esc_html__( 'Margin', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::DIMENSIONS, 'size_units' => [ 'px', '%', 'em' ], 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__description' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ] ] );
+		$this->add_responsive_control( 'description_padding', [ 'label' => esc_html__( 'Padding', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::DIMENSIONS, 'size_units' => [ 'px', '%', 'em' ], 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__description' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ] ] );
+		$this->end_controls_section();
+
+		$this->start_controls_section( 'style_buttons', [ 'label' => esc_html__( 'Buttons', 'perfect-hot-tub-finder' ), 'tab' => Controls_Manager::TAB_STYLE ] );
+		$this->add_group_control( Group_Control_Typography::get_type(), [ 'name' => 'buttons_typography', 'selector' => '{{WRAPPER}} .phtf-series-slider__button' ] );
+		$this->add_responsive_control( 'buttons_gap', [ 'label' => esc_html__( 'Button Gap', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::SLIDER, 'range' => [ 'px' => [ 'min' => 0, 'max' => 60 ] ], 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__actions' => 'gap: {{SIZE}}{{UNIT}};' ] ] );
+		$this->add_responsive_control( 'buttons_padding', [ 'label' => esc_html__( 'Button Padding', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::DIMENSIONS, 'size_units' => [ 'px', 'em' ], 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__button' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ] ] );
+		$this->add_responsive_control( 'buttons_radius', [ 'label' => esc_html__( 'Border Radius', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::DIMENSIONS, 'size_units' => [ 'px', '%' ], 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__button' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ] ] );
+		$this->add_responsive_control( 'actions_padding', [ 'label' => esc_html__( 'Button Row Padding', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::DIMENSIONS, 'size_units' => [ 'px', '%', 'em' ], 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__actions' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ] ] );
+		$this->start_controls_tabs( 'button_style_tabs' );
+		$this->start_controls_tab( 'button_primary_tab', [ 'label' => esc_html__( 'Primary', 'perfect-hot-tub-finder' ) ] );
+		$this->add_control( 'primary_text_color', [ 'label' => esc_html__( 'Text Color', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__button--solid' => 'color: {{VALUE}};' ] ] );
+		$this->add_control( 'primary_background', [ 'label' => esc_html__( 'Background', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__button--solid' => 'background-color: {{VALUE}}; border-color: {{VALUE}};' ] ] );
+		$this->add_control( 'primary_hover_text_color', [ 'label' => esc_html__( 'Hover Text', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__button--solid:hover, {{WRAPPER}} .phtf-series-slider__button--solid:focus' => 'color: {{VALUE}};' ] ] );
+		$this->add_control( 'primary_hover_background', [ 'label' => esc_html__( 'Hover Background', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__button--solid:hover, {{WRAPPER}} .phtf-series-slider__button--solid:focus' => 'background-color: {{VALUE}}; border-color: {{VALUE}};' ] ] );
+		$this->end_controls_tab();
+		$this->start_controls_tab( 'button_secondary_tab', [ 'label' => esc_html__( 'Secondary', 'perfect-hot-tub-finder' ) ] );
+		$this->add_control( 'secondary_text_color', [ 'label' => esc_html__( 'Text Color', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__button--outline' => 'color: {{VALUE}}; border-color: {{VALUE}};' ] ] );
+		$this->add_control( 'secondary_background', [ 'label' => esc_html__( 'Background', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__button--outline' => 'background-color: {{VALUE}};' ] ] );
+		$this->add_control( 'secondary_hover_text_color', [ 'label' => esc_html__( 'Hover Text', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__button--outline:hover, {{WRAPPER}} .phtf-series-slider__button--outline:focus' => 'color: {{VALUE}}; border-color: {{VALUE}};' ] ] );
+		$this->add_control( 'secondary_hover_background', [ 'label' => esc_html__( 'Hover Background', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__button--outline:hover, {{WRAPPER}} .phtf-series-slider__button--outline:focus' => 'background-color: {{VALUE}};' ] ] );
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
+		$this->end_controls_section();
+
+		$this->start_controls_section( 'style_gallery', [ 'label' => esc_html__( 'Gallery & Curve', 'perfect-hot-tub-finder' ), 'tab' => Controls_Manager::TAB_STYLE ] );
+		$this->add_control( 'gallery_background', [ 'label' => esc_html__( 'Gallery Background', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__gallery' => 'background-color: {{VALUE}};' ] ] );
+		$this->add_responsive_control( 'gallery_image_position', [ 'label' => esc_html__( 'Image Position', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::SELECT, 'options' => [ 'center center' => esc_html__( 'Center', 'perfect-hot-tub-finder' ), 'center top' => esc_html__( 'Top', 'perfect-hot-tub-finder' ), 'center bottom' => esc_html__( 'Bottom', 'perfect-hot-tub-finder' ), 'left center' => esc_html__( 'Left', 'perfect-hot-tub-finder' ), 'right center' => esc_html__( 'Right', 'perfect-hot-tub-finder' ) ], 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__image' => 'object-position: {{VALUE}};' ] ] );
+		$this->add_control( 'curve_color', [ 'label' => esc_html__( 'Curve Color', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .phtf-series-slider' => '--phtf-series-curve-color: {{VALUE}};' ] ] );
+		$this->add_responsive_control( 'desktop_curve_width', [ 'label' => esc_html__( 'Desktop Curve Width', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::SLIDER, 'range' => [ 'px' => [ 'min' => 40, 'max' => 320 ] ], 'selectors' => [ '{{WRAPPER}} .phtf-series-slider' => '--phtf-series-desktop-curve-width: {{SIZE}}{{UNIT}};' ] ] );
+		$this->end_controls_section();
+
+		$this->start_controls_section( 'style_navigation', [ 'label' => esc_html__( 'Arrows & Thumbnails', 'perfect-hot-tub-finder' ), 'tab' => Controls_Manager::TAB_STYLE ] );
+		$this->add_control( 'arrow_color', [ 'label' => esc_html__( 'Arrow Color', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__arrow' => 'color: {{VALUE}};' ] ] );
+		$this->add_control( 'arrow_background', [ 'label' => esc_html__( 'Arrow Background', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__arrow' => 'background-color: {{VALUE}};' ] ] );
+		$this->add_control( 'arrow_hover_color', [ 'label' => esc_html__( 'Arrow Hover Color', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__arrow:hover, {{WRAPPER}} .phtf-series-slider__arrow:focus' => 'color: {{VALUE}};' ] ] );
+		$this->add_control( 'arrow_hover_background', [ 'label' => esc_html__( 'Arrow Hover Background', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__arrow:hover, {{WRAPPER}} .phtf-series-slider__arrow:focus' => 'background-color: {{VALUE}};' ] ] );
+		$this->add_responsive_control( 'navigation_bottom', [ 'label' => esc_html__( 'Desktop Bottom Offset', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::SLIDER, 'range' => [ 'px' => [ 'min' => 0, 'max' => 180 ] ], 'selectors' => [ '{{WRAPPER}} .phtf-series-slider' => '--phtf-series-controls-bottom: {{SIZE}}{{UNIT}};' ] ] );
+		$this->add_responsive_control( 'mobile_navigation_top', [ 'label' => esc_html__( 'Mobile Vertical Position', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::SLIDER, 'size_units' => [ '%' ], 'range' => [ '%' => [ 'min' => 10, 'max' => 90 ] ], 'selectors' => [ '{{WRAPPER}} .phtf-series-slider' => '--phtf-series-controls-top: {{SIZE}}%;' ] ] );
+		$this->add_responsive_control( 'thumbnail_size', [ 'label' => esc_html__( 'Thumbnail Size', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::SLIDER, 'range' => [ 'px' => [ 'min' => 30, 'max' => 120 ] ], 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__thumb' => 'flex-basis: {{SIZE}}{{UNIT}}; width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};' ] ] );
+		$this->add_responsive_control( 'thumbnail_gap', [ 'label' => esc_html__( 'Thumbnail Gap', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::SLIDER, 'range' => [ 'px' => [ 'min' => 0, 'max' => 50 ] ], 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__thumbs' => 'gap: {{SIZE}}{{UNIT}};' ] ] );
+		$this->add_control( 'thumbnail_border_color', [ 'label' => esc_html__( 'Active Border Color', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__thumb.is-active' => 'border-color: {{VALUE}};' ] ] );
+		$this->add_responsive_control( 'thumbnail_radius', [ 'label' => esc_html__( 'Thumbnail Radius', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::DIMENSIONS, 'size_units' => [ 'px', '%' ], 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__thumb' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ] ] );
+		$this->end_controls_section();
 	}
 
 	private function register_responsive_style_controls() {
