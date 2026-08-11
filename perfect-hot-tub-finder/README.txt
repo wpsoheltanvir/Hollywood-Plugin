@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.214 =
+* Matched the Series Hero desktop gallery and tablet/mobile composition with stable full-bleed images, overlaid navigation, responsive curves, and reliable content ordering.
+
 = 1.0.213 =
 * Audited all Elementor widgets and fixed live-preview reinitialization, standalone Spa Series Models scripting, single-item slider controls, responsive comparison overflow, dynamic price popup cleanup, slider accessibility, external-link protection, and plugin version synchronization.
 
