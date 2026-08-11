@@ -37,11 +37,11 @@ class PHTF_Spa_Series_Slider_Widget extends \Elementor\Widget_Base {
 		$this->add_control( 'pricing_url', [ 'label' => esc_html__( 'Pricing Link', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::URL ] );
 		$this->end_controls_section();
 
-		$this->start_controls_section( 'slides', [ 'label' => esc_html__( 'Gallery Slides', 'perfect-hot-tub-finder' ) ] );
+		$this->start_controls_section( 'gallery', [ 'label' => esc_html__( 'Gallery Slides', 'perfect-hot-tub-finder' ) ] );
 		$repeater = new Repeater();
 		$repeater->add_control( 'image', [ 'label' => esc_html__( 'Image', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::MEDIA, 'default' => [ 'url' => Utils::get_placeholder_image_src() ] ] );
 		$repeater->add_control( 'image_alt', [ 'label' => esc_html__( 'Image Alt Text', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::TEXT, 'default' => 'Spa series image' ] );
-		$this->add_control( 'slides', [ 'label' => esc_html__( 'Slides', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::REPEATER, 'fields' => $repeater->get_controls(), 'title_field' => '{{{ image_alt }}}', 'default' => [ [ 'image' => [ 'url' => Utils::get_placeholder_image_src() ] ], [ 'image' => [ 'url' => Utils::get_placeholder_image_src() ] ], [ 'image' => [ 'url' => Utils::get_placeholder_image_src() ] ] ] ] );
+		$this->add_control( 'gallery_slides', [ 'label' => esc_html__( 'Gallery Slides', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::REPEATER, 'fields' => $repeater->get_controls(), 'title_field' => '{{{ image_alt }}}', 'default' => [ [ 'image' => [ 'url' => Utils::get_placeholder_image_src() ], 'image_alt' => 'Gallery Slide 1' ], [ 'image' => [ 'url' => Utils::get_placeholder_image_src() ], 'image_alt' => 'Gallery Slide 2' ], [ 'image' => [ 'url' => Utils::get_placeholder_image_src() ], 'image_alt' => 'Gallery Slide 3' ] ] ] );
 		$this->end_controls_section();
 	}
 
@@ -50,7 +50,18 @@ class PHTF_Spa_Series_Slider_Widget extends \Elementor\Widget_Base {
 	}
 
 	protected function render() {
-		$s = $this->get_settings_for_display(); $slides = $s['slides'] ?? [];
+		$s = $this->get_settings_for_display();
+		$gallery_slides = $s['gallery_slides'] ?? [];
+		$legacy_slides  = $s['slides'] ?? [];
+		$placeholder_url = Utils::get_placeholder_image_src();
+		$has_gallery_image = false;
+		foreach ( $gallery_slides as $gallery_slide ) {
+			if ( ! empty( $gallery_slide['image']['url'] ) && $placeholder_url !== $gallery_slide['image']['url'] ) {
+				$has_gallery_image = true;
+				break;
+			}
+		}
+		$slides = ( $has_gallery_image || empty( $legacy_slides ) ) ? $gallery_slides : $legacy_slides;
 		if ( empty( $slides ) ) {
 			$slides = [ [ 'image' => [ 'url' => Utils::get_placeholder_image_src() ], 'image_alt' => $s['title'] ?? '' ] ];
 		}
