@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.191 =
+* Added dynamic Spa Model selection to Hollywood Spa Model Specifications, using each selected model's title, featured image, full specification fields, and owner manual link.
+
 = 1.0.190 =
 * Added the Hollywood Spa Model Slider Elementor widget for individual model hero content, specifications, calls to action, and image galleries.
 

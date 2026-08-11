@@ -37,8 +37,53 @@ class PHTF_Spa_Model_Specifications_Widget extends \Elementor\Widget_Base {
 	}
 
 	protected function register_controls() {
+		$this->register_source_controls();
 		$this->register_content_controls();
 		$this->register_style_controls();
+	}
+
+	private function register_source_controls() {
+		$model_options = [ '0' => esc_html__( 'Auto: First Spa Model', 'perfect-hot-tub-finder' ) ];
+		if ( function_exists( 'phtf_get_spa_models' ) ) {
+			foreach ( phtf_get_spa_models() as $model ) {
+				$model_options[ (string) ( $model['id'] ?? 0 ) ] = $model['title'] ?? esc_html__( 'Untitled Spa Model', 'perfect-hot-tub-finder' );
+			}
+		}
+
+		$this->start_controls_section(
+			'section_data_source',
+			[
+				'label' => esc_html__( 'Spa Model Data Source', 'perfect-hot-tub-finder' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			]
+		);
+
+		$this->add_control(
+			'data_source',
+			[
+				'label'   => esc_html__( 'Content Source', 'perfect-hot-tub-finder' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'spa_model',
+				'options' => [
+					'spa_model' => esc_html__( 'Spa Model (Dynamic)', 'perfect-hot-tub-finder' ),
+					'manual'    => esc_html__( 'Manual Widget Content', 'perfect-hot-tub-finder' ),
+				],
+			]
+		);
+
+		$this->add_control(
+			'spa_model_id',
+			[
+				'label'       => esc_html__( 'Spa Model', 'perfect-hot-tub-finder' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => '0',
+				'options'     => $model_options,
+				'description' => esc_html__( 'Select the Spa Model whose image, title, specifications, and owner manual should be shown.', 'perfect-hot-tub-finder' ),
+				'condition'   => [ 'data_source' => 'spa_model' ],
+			]
+		);
+
+		$this->end_controls_section();
 	}
 
 	private function default_left_rows() {
@@ -820,8 +865,9 @@ class PHTF_Spa_Model_Specifications_Widget extends \Elementor\Widget_Base {
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-		if ( function_exists( 'phtf_get_first_spa_model_data' ) && function_exists( 'phtf_spa_model_spec_rows' ) ) {
-			$model = phtf_get_first_spa_model_data();
+		if ( 'spa_model' === ( $settings['data_source'] ?? 'spa_model' ) && function_exists( 'phtf_get_spa_model_data' ) && function_exists( 'phtf_get_first_spa_model_data' ) && function_exists( 'phtf_spa_model_spec_rows' ) ) {
+			$model_id = absint( $settings['spa_model_id'] ?? 0 );
+			$model    = $model_id ? phtf_get_spa_model_data( $model_id ) : phtf_get_first_spa_model_data();
 			if ( ! empty( $model ) ) {
 				$settings['title'] = ( $model['title'] ?? '' ) . ' ' . __( 'Specifications.', 'perfect-hot-tub-finder' );
 				if ( ! empty( $model['image'] ) ) {
