@@ -2560,6 +2560,14 @@
 	align-items: start;
 }
 
+.phtf-spa-models-carousel {
+	position: relative;
+}
+
+.phtf-spa-models-arrow {
+	display: none;
+}
+
 .phtf-spa-models-card {
 	display: block;
 	text-align: center;
@@ -2709,36 +2717,86 @@
 }
 
 @media (max-width: 1024px) {
+	.phtf-spa-models {
+		padding: 28px 20px 32px;
+	}
+
 	.phtf-spa-models-grid {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		column-gap: 56px;
-		row-gap: 70px;
+		grid-template-columns: minmax(0, 1fr);
+		column-gap: 0;
+		row-gap: 0;
 	}
 
 	.phtf-spa-models-title {
-		margin-bottom: 50px;
+		margin-bottom: 42px;
+		font-size: 28px;
 	}
+
+	.phtf-spa-models-card {
+		max-width: 360px;
+		margin: 0 auto;
+	}
+
+	.phtf-spa-models[data-phtf-series-models-initialized="true"] .phtf-spa-models-card:not(.is-active) {
+		display: none;
+	}
+
+	.phtf-spa-models-image-wrap {
+		width: 230px;
+		height: 210px;
+		margin-bottom: 26px;
+	}
+
+	.phtf-spa-models-arrow {
+		display: flex;
+		position: absolute;
+		top: 84px;
+		z-index: 2;
+		align-items: center;
+		justify-content: center;
+		width: 38px;
+		height: 38px;
+		padding: 0;
+		border: 0;
+		border-radius: 50%;
+		background: transparent;
+		color: #f16e5b;
+		font-family: Arial, sans-serif;
+		font-size: 44px;
+		font-weight: 400;
+		line-height: 1;
+		cursor: pointer;
+	}
+
+	.phtf-spa-models-arrow--prev { left: max(0px, calc(50% - 190px)); }
+	.phtf-spa-models-arrow--next { right: max(0px, calc(50% - 190px)); }
+
+	.phtf-spa-models-series { font-size: 18px; }
+	.phtf-spa-models-name { margin-bottom: 12px; font-size: 19px; }
+	.phtf-spa-models-rating { margin-bottom: 10px; font-size: 19px; }
+	.phtf-spa-models-meta { font-size: 16px; }
+	.phtf-spa-models-actions { margin-top: 22px; }
+	.phtf-spa-models-button { padding: 8px 20px; font-size: 16px; }
 }
 
 @media (max-width: 640px) {
 	.phtf-spa-models {
-		padding: 18px;
-	}
-
-	.phtf-spa-models-grid {
-		grid-template-columns: 1fr;
-		row-gap: 54px;
+		padding: 28px 16px 30px;
 	}
 
 	.phtf-spa-models-title {
 		font-size: 27px;
-		margin-bottom: 38px;
+		margin-bottom: 44px;
 	}
 
 	.phtf-spa-models-image-wrap {
-		width: 180px;
-		height: 160px;
+		width: 210px;
+		height: 190px;
 	}
+
+	.phtf-spa-models-arrow { top: 72px; width: 34px; height: 34px; font-size: 40px; }
+	.phtf-spa-models-arrow--prev { left: max(0px, calc(50% - 145px)); }
+	.phtf-spa-models-arrow--next { right: max(0px, calc(50% - 145px)); }
 
 	.phtf-spa-models-series {
 		font-size: 18px;

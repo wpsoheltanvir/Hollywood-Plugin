@@ -1583,12 +1583,33 @@
 	});
 
 
+	function initSeriesModels(root) {
+		var widget = root && root.matches && root.matches('[data-phtf-series-models]') ? root : (root ? root.querySelector('[data-phtf-series-models]') : null);
+		if (!widget || widget.getAttribute('data-phtf-series-models-initialized') === 'true') { return; }
+		var cards = Array.prototype.slice.call(widget.querySelectorAll('.phtf-spa-models-card'));
+		if (!cards.length) { return; }
+		widget.setAttribute('data-phtf-series-models-initialized', 'true');
+		var index = 0;
+		function show(next) {
+			index = (next + cards.length) % cards.length;
+			cards.forEach(function (card, cardIndex) {
+				card.classList.toggle('is-active', cardIndex === index);
+			});
+		}
+		var prev = widget.querySelector('[data-series-models-prev]');
+		var next = widget.querySelector('[data-series-models-next]');
+		if (prev) { prev.addEventListener('click', function () { show(index - 1); }); }
+		if (next) { next.addEventListener('click', function () { show(index + 1); }); }
+		show(0);
+	}
+
 	function initAll() {
 		collectProductSources();
 		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-widget]')).forEach(initFinder);
 		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-explore]')).forEach(initExplore);
 		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-spa-colors]')).forEach(initSpaColors);
 		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-delight]')).forEach(initDelight);
+		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-series-models]')).forEach(initSeriesModels);
 		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-series-slider]')).forEach(initSeriesHero);
 		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-model-slider]')).forEach(initModelHero);
 		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-reviews]')).forEach(initReviews);
@@ -1673,7 +1694,9 @@
 				}
 			});
 			window.elementorFrontend.hooks.addAction('frontend/element_ready/phtf_spa_series_models.default', function ($scope) {
-				initPricePopups($scope && $scope[0] ? $scope[0] : document);
+				var scope = $scope && $scope[0] ? $scope[0] : document;
+				initSeriesModels(scope);
+				initPricePopups(scope);
 			});
 			window.elementorFrontend.hooks.addAction('frontend/element_ready/phtf_spa_series_slider.default', function ($scope) {
 				var scope = $scope && $scope[0] ? $scope[0] : document;

@@ -961,14 +961,16 @@ class PHTF_Spa_Series_Models_Widget extends \Elementor\Widget_Base {
 			$tag = 'h2';
 		}
 		?>
-		<section class="phtf-spa-models">
+		<section class="phtf-spa-models" data-phtf-series-models>
 			<div class="phtf-spa-models-inner">
 				<?php if ( 'yes' === ( $settings['show_title'] ?? 'yes' ) && ! empty( $settings['title'] ) ) : ?>
 					<<?php echo esc_attr( $tag ); ?> class="phtf-spa-models-title"><?php echo wp_kses_post( $settings['title'] ); ?></<?php echo esc_attr( $tag ); ?>>
 				<?php endif; ?>
 
 				<?php if ( ! empty( $settings['models'] ) && is_array( $settings['models'] ) ) : ?>
-					<div class="phtf-spa-models-grid">
+					<div class="phtf-spa-models-carousel">
+						<button type="button" class="phtf-spa-models-arrow phtf-spa-models-arrow--prev" data-series-models-prev aria-label="Previous model">&lsaquo;</button>
+						<div class="phtf-spa-models-grid">
 						<?php foreach ( $settings['models'] as $model ) :
 							$image_url = phtf_image_url_or_fallback( ! empty( $model['image']['url'] ) ? $model['image']['url'] : '', 'widget' );
 							$alt       = ! empty( $model['image_alt'] ) ? $model['image_alt'] : wp_strip_all_tags( $model['model_name'] ?? '' );
@@ -1013,6 +1015,8 @@ class PHTF_Spa_Series_Models_Widget extends \Elementor\Widget_Base {
 							</article>
 							<?php
 						endforeach; ?>
+						</div>
+						<button type="button" class="phtf-spa-models-arrow phtf-spa-models-arrow--next" data-series-models-next aria-label="Next model">&rsaquo;</button>
 					</div>
 				<?php endif; ?>
 
