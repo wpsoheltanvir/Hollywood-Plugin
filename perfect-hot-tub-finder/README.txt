@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.209 =
+* Refined Series Hero tablet and mobile layout with gallery-centered arrows and a curved white image-to-content transition, without changing desktop or laptop styling.
+
 = 1.0.208 =
 * Made Series Hero manual-only by removing its legacy breadcrumb and gallery data fallbacks; all header, content, links, and gallery slides now come exclusively from its Elementor controls.
 
