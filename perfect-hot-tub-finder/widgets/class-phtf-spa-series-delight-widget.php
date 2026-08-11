@@ -485,7 +485,7 @@ class PHTF_Spa_Series_Delight_Widget extends \Elementor\Widget_Base {
 				<?php endif; ?>
 
 				<div class="phtf-delight-stage">
-					<?php if ( 'yes' === $settings['show_arrows'] ) : ?>
+					<?php if ( 'yes' === $settings['show_arrows'] && count( $items ) > 1 ) : ?>
 						<button type="button" class="phtf-delight-arrow phtf-delight-prev" data-phtf-delight-prev aria-label="<?php echo esc_attr__( 'Previous feature', 'perfect-hot-tub-finder' ); ?>"><?php echo esc_html( $settings['prev_icon'] ); ?></button>
 					<?php endif; ?>
 
@@ -510,7 +510,7 @@ class PHTF_Spa_Series_Delight_Widget extends \Elementor\Widget_Base {
 						<?php endforeach; ?>
 					</div>
 
-					<?php if ( 'yes' === $settings['show_arrows'] ) : ?>
+					<?php if ( 'yes' === $settings['show_arrows'] && count( $items ) > 1 ) : ?>
 						<button type="button" class="phtf-delight-arrow phtf-delight-next" data-phtf-delight-next aria-label="<?php echo esc_attr__( 'Next feature', 'perfect-hot-tub-finder' ); ?>"><?php echo esc_html( $settings['next_icon'] ); ?></button>
 					<?php endif; ?>
 				</div>

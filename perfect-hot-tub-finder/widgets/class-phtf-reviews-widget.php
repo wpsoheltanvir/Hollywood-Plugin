@@ -702,7 +702,7 @@ class PHTF_Reviews_Widget extends \Elementor\Widget_Base {
 				<?php endif; ?>
 
 				<div class="phtf-reviews-slider">
-					<?php if ( 'yes' === ( $settings['show_arrows'] ?? '' ) ) : ?>
+					<?php if ( 'yes' === ( $settings['show_arrows'] ?? '' ) && count( $reviews ) > 1 ) : ?>
 						<button type="button" class="phtf-reviews-arrow phtf-reviews-prev" data-phtf-reviews-prev aria-label="<?php esc_attr_e( 'Previous review', 'perfect-hot-tub-finder' ); ?>"><?php echo esc_html( $settings['prev_icon'] ?? '‹' ); ?></button>
 					<?php endif; ?>
 
@@ -718,7 +718,7 @@ class PHTF_Reviews_Widget extends \Elementor\Widget_Base {
 						<?php endforeach; ?>
 					</div>
 
-					<?php if ( 'yes' === ( $settings['show_arrows'] ?? '' ) ) : ?>
+					<?php if ( 'yes' === ( $settings['show_arrows'] ?? '' ) && count( $reviews ) > 1 ) : ?>
 						<button type="button" class="phtf-reviews-arrow phtf-reviews-next" data-phtf-reviews-next aria-label="<?php esc_attr_e( 'Next review', 'perfect-hot-tub-finder' ); ?>"><?php echo esc_html( $settings['next_icon'] ?? '›' ); ?></button>
 					<?php endif; ?>
 				</div>
@@ -736,7 +736,8 @@ class PHTF_Reviews_Widget extends \Elementor\Widget_Base {
 					$link       = $settings['button_link'] ?? [];
 					$href       = ! empty( $link['url'] ) ? $link['url'] : '#';
 					$target     = ! empty( $link['is_external'] ) ? ' target="_blank"' : '';
-					$nofollow   = ! empty( $link['nofollow'] ) ? ' rel="nofollow"' : '';
+					$rel        = array_filter( [ ! empty( $link['is_external'] ) ? 'noopener noreferrer' : '', ! empty( $link['nofollow'] ) ? 'nofollow' : '' ] );
+					$nofollow   = ! empty( $rel ) ? ' rel="' . esc_attr( implode( ' ', $rel ) ) . '"' : '';
 					$button_tag = ! empty( $link['url'] ) ? 'a' : 'button';
 					?>
 					<<?php echo esc_attr( $button_tag ); ?> class="phtf-reviews-button" <?php echo 'a' === $button_tag ? 'href="' . esc_url( $href ) . '"' . $target . $nofollow : 'type="button"'; ?>>

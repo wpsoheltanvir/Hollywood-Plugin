@@ -863,13 +863,20 @@ class PHTF_Spa_Colors_Widget extends \Elementor\Widget_Base {
 		if ( ! empty( $link['url'] ) ) {
 			$attrs = 'href="' . esc_url( $link['url'] ) . '"';
 		}
+		$rel = [];
 
 		if ( ! empty( $link['is_external'] ) ) {
 			$attrs .= ' target="_blank"';
+			$rel[] = 'noopener';
+			$rel[] = 'noreferrer';
 		}
 
 		if ( ! empty( $link['nofollow'] ) ) {
-			$attrs .= ' rel="nofollow"';
+			$rel[] = 'nofollow';
+		}
+
+		if ( ! empty( $rel ) ) {
+			$attrs .= ' rel="' . esc_attr( implode( ' ', array_unique( $rel ) ) ) . '"';
 		}
 
 		return $attrs;

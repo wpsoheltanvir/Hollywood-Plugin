@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.213 =
+* Audited all Elementor widgets and fixed live-preview reinitialization, standalone Spa Series Models scripting, single-item slider controls, responsive comparison overflow, dynamic price popup cleanup, slider accessibility, external-link protection, and plugin version synchronization.
+
 = 1.0.212 =
 * Fixed Customize Spa Colors so its Elementor image, swatches, and button link are no longer overwritten by the first Spa Model; improved swatch selection, preview image loading, accessibility, and responsive layout.
 

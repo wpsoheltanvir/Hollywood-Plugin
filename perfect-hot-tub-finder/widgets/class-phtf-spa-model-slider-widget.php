@@ -56,7 +56,11 @@ class PHTF_Spa_Model_Slider_Widget extends \Elementor\Widget_Base {
 		$this->end_controls_section();
 	}
 
-	private function link( $link ) { return empty( $link['url'] ) ? '' : sprintf( ' href="%s"%s%s', esc_url( $link['url'] ), ! empty( $link['is_external'] ) ? ' target="_blank"' : '', ! empty( $link['nofollow'] ) ? ' rel="nofollow"' : '' ); }
+	private function link( $link ) {
+		if ( empty( $link['url'] ) ) { return ''; }
+		$rel = array_filter( [ ! empty( $link['is_external'] ) ? 'noopener noreferrer' : '', ! empty( $link['nofollow'] ) ? 'nofollow' : '' ] );
+		return sprintf( ' href="%s"%s%s', esc_url( $link['url'] ), ! empty( $link['is_external'] ) ? ' target="_blank"' : '', ! empty( $rel ) ? ' rel="' . esc_attr( implode( ' ', $rel ) ) . '"' : '' );
+	}
 
 	protected function render() {
 		$s = $this->get_settings_for_display();
@@ -74,7 +78,7 @@ class PHTF_Spa_Model_Slider_Widget extends \Elementor\Widget_Base {
 				<div class="phtf-model-slider__actions"><a class="phtf-model-slider__button phtf-model-slider__button--solid"<?php echo $this->link( $s['pricing_url'] ); ?>>Get Local Pricing</a><a class="phtf-model-slider__button phtf-model-slider__button--outline"<?php echo $this->link( $s['brochure_url'] ); ?>>Download Brochure</a></div>
 				<div class="phtf-model-slider__specs"><div><b>SEATING</b><span><?php echo esc_html( $s['seating'] ); ?></span></div><div><b>DIMENSIONS</b><span><?php echo esc_html( $s['dimensions'] ); ?></span></div><div><b>JETS</b><span><?php echo esc_html( $s['jets'] ); ?></span></div><div class="phtf-model-slider__water"><b>WATER CARE</b><span><?php echo esc_html( $s['water_care'] ); ?></span></div></div>
 			</div>
-			<div class="phtf-model-slider__gallery"><?php foreach ( $slides as $i => $slide ) : $src = $slide['image']['url'] ?? Utils::get_placeholder_image_src(); ?><img class="phtf-model-slider__image" src="<?php echo esc_url( $src ); ?>" alt="<?php echo esc_attr( $slide['image_alt'] ?? '' ); ?>"<?php echo 0 === $i ? '' : ' hidden'; ?>><?php endforeach; ?><div class="phtf-model-slider__controls"><button type="button" class="phtf-model-slider__arrow" data-model-prev aria-label="Previous slide">‹</button><div class="phtf-model-slider__thumbs"><?php foreach ( $slides as $i => $slide ) : $src = $slide['image']['url'] ?? Utils::get_placeholder_image_src(); ?><button type="button" class="phtf-model-slider__thumb<?php echo 0 === $i ? ' is-active' : ''; ?>" data-model-slide="<?php echo esc_attr( $i ); ?>" aria-label="<?php echo esc_attr( sprintf( 'Show slide %d', $i + 1 ) ); ?>"><img src="<?php echo esc_url( $src ); ?>" alt=""></button><?php endforeach; ?></div><button type="button" class="phtf-model-slider__arrow" data-model-next aria-label="Next slide">›</button></div></div>
+			<div class="phtf-model-slider__gallery"><?php foreach ( $slides as $i => $slide ) : $src = $slide['image']['url'] ?? Utils::get_placeholder_image_src(); ?><img class="phtf-model-slider__image<?php echo 0 === $i ? ' is-active' : ''; ?>" src="<?php echo esc_url( $src ); ?>" alt="<?php echo esc_attr( $slide['image_alt'] ?? '' ); ?>"<?php echo 0 === $i ? '' : ' hidden'; ?>><?php endforeach; ?><?php if ( count( $slides ) > 1 ) : ?><div class="phtf-model-slider__controls"><button type="button" class="phtf-model-slider__arrow" data-model-prev aria-label="Previous slide">‹</button><div class="phtf-model-slider__thumbs"><?php foreach ( $slides as $i => $slide ) : $src = $slide['image']['url'] ?? Utils::get_placeholder_image_src(); ?><button type="button" class="phtf-model-slider__thumb<?php echo 0 === $i ? ' is-active' : ''; ?>" data-model-slide="<?php echo esc_attr( $i ); ?>" aria-label="<?php echo esc_attr( sprintf( 'Show slide %d', $i + 1 ) ); ?>" aria-current="<?php echo 0 === $i ? 'true' : 'false'; ?>"><img src="<?php echo esc_url( $src ); ?>" alt=""></button><?php endforeach; ?></div><button type="button" class="phtf-model-slider__arrow" data-model-next aria-label="Next slide">›</button></div><?php endif; ?></div>
 		</section>
 		<?php
 	}

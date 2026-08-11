@@ -36,6 +36,10 @@ class PHTF_Spa_Series_Models_Widget extends \Elementor\Widget_Base {
 		return [ 'phtf-hot-tub-finder' ];
 	}
 
+	public function get_script_depends() {
+		return [ 'phtf-hot-tub-finder' ];
+	}
+
 	protected function register_controls() {
 		$this->register_content_controls();
 		$this->register_style_controls();
@@ -907,13 +911,20 @@ class PHTF_Spa_Series_Models_Widget extends \Elementor\Widget_Base {
 		}
 
 		$attrs = 'href="' . esc_url( $link['url'] ) . '"';
+		$rel   = [];
 
 		if ( ! empty( $link['is_external'] ) ) {
 			$attrs .= ' target="_blank"';
+			$rel[] = 'noopener';
+			$rel[] = 'noreferrer';
 		}
 
 		if ( ! empty( $link['nofollow'] ) ) {
-			$attrs .= ' rel="nofollow"';
+			$rel[] = 'nofollow';
+		}
+
+		if ( ! empty( $rel ) ) {
+			$attrs .= ' rel="' . esc_attr( implode( ' ', array_unique( $rel ) ) ) . '"';
 		}
 
 		return $attrs;
@@ -978,7 +989,7 @@ class PHTF_Spa_Series_Models_Widget extends \Elementor\Widget_Base {
 
 				<?php if ( ! empty( $settings['models'] ) && is_array( $settings['models'] ) ) : ?>
 					<div class="phtf-spa-models-carousel">
-						<button type="button" class="phtf-spa-models-arrow phtf-spa-models-arrow--prev" data-series-models-prev aria-label="Previous model">&lsaquo;</button>
+						<?php if ( count( $settings['models'] ) > 1 ) : ?><button type="button" class="phtf-spa-models-arrow phtf-spa-models-arrow--prev" data-series-models-prev aria-label="Previous model">&lsaquo;</button><?php endif; ?>
 						<div class="phtf-spa-models-grid">
 						<?php foreach ( $settings['models'] as $model ) :
 							$image_url = phtf_image_url_or_fallback( ! empty( $model['image']['url'] ) ? $model['image']['url'] : '', 'widget' );
@@ -1025,7 +1036,7 @@ class PHTF_Spa_Series_Models_Widget extends \Elementor\Widget_Base {
 							<?php
 						endforeach; ?>
 						</div>
-						<button type="button" class="phtf-spa-models-arrow phtf-spa-models-arrow--next" data-series-models-next aria-label="Next model">&rsaquo;</button>
+						<?php if ( count( $settings['models'] ) > 1 ) : ?><button type="button" class="phtf-spa-models-arrow phtf-spa-models-arrow--next" data-series-models-next aria-label="Next model">&rsaquo;</button><?php endif; ?>
 					</div>
 				<?php endif; ?>
 
