@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.193 =
+* Renamed the Hollywood Spa Series Slide Elementor widget to Hollywood Spa Series Delight.
+
 = 1.0.192 =
 * Renamed the Hollywood Spa Series Slider Elementor widget to Hollywood Series Hero.
 
