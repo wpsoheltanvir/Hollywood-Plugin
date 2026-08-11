@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.190 =
+* Added the Hollywood Spa Model Slider Elementor widget for individual model hero content, specifications, calls to action, and image galleries.
+
 = 1.0.189 =
 * Added the Hollywood Spa Series Slider Elementor widget for configurable series-page hero content, image slides, thumbnails, reviews, and calls to action.
 
