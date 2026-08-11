@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Perfect Hot Tub Finder
  * Description: Adds a customizable Elementor widget for a hot tub finder/shop layout.
- * Version: 1.0.209
+ * Version: 1.0.210
  * Author: Attractional Marketing
  * Text Domain: perfect-hot-tub-finder
  * Update URI: https://github.com/wpsoheltanvir/Hollywood-Plugin
