@@ -17,7 +17,7 @@ class PHTF_Spa_Colors_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return esc_html__( 'Hollywood Customize Spa Colors', 'perfect-hot-tub-finder' );
+		return esc_html__( 'Customize Spa Colors', 'perfect-hot-tub-finder' );
 	}
 
 	public function get_icon() {

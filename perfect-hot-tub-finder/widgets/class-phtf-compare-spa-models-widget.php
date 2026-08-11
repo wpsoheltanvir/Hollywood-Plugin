@@ -14,7 +14,7 @@ class PHTF_Compare_Spa_Models_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return esc_html__( 'Hollywood Compare Spa Models', 'perfect-hot-tub-finder' );
+		return esc_html__( 'Compare Spa Models', 'perfect-hot-tub-finder' );
 	}
 
 	public function get_icon() {
@@ -128,7 +128,7 @@ class PHTF_Compare_Spa_Models_Widget extends \Elementor\Widget_Base {
 			[
 				'label'       => esc_html__( 'Title', 'perfect-hot-tub-finder' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => esc_html__( 'Hollywood Compare Spa Models', 'perfect-hot-tub-finder' ),
+				'default'     => esc_html__( 'Compare Spa Models', 'perfect-hot-tub-finder' ),
 				'label_block' => true,
 				'condition'   => [ 'show_title' => 'yes' ],
 			]
@@ -532,7 +532,7 @@ class PHTF_Compare_Spa_Models_Widget extends \Elementor\Widget_Base {
 				<h2 class="phtf-compare-title"><?php echo esc_html( $settings['title'] ?? '' ); ?></h2>
 			<?php endif; ?>
 			<div class="phtf-compare-scroll">
-				<table class="phtf-compare-table" aria-label="<?php echo esc_attr( $settings['title'] ?? __( 'Hollywood Compare Spa Models', 'perfect-hot-tub-finder' ) ); ?>">
+				<table class="phtf-compare-table" aria-label="<?php echo esc_attr( $settings['title'] ?? __( 'Compare Spa Models', 'perfect-hot-tub-finder' ) ); ?>">
 					<thead>
 						<?php if ( 'yes' === ( $settings['show_selects'] ?? 'yes' ) ) : ?>
 							<tr class="phtf-compare-select-row">

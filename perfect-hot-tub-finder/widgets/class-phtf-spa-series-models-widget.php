@@ -17,7 +17,7 @@ class PHTF_Spa_Series_Models_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return esc_html__( 'Hollywood Spa Model Slide', 'perfect-hot-tub-finder' );
+		return esc_html__( 'Spa Model Slide', 'perfect-hot-tub-finder' );
 	}
 
 	public function get_icon() {

@@ -8,7 +8,7 @@ use Elementor\Utils;
 /** Elementor hero/gallery for a single spa series page. */
 class PHTF_Spa_Series_Slider_Widget extends \Elementor\Widget_Base {
 	public function get_name() { return 'phtf_spa_series_slider'; }
-	public function get_title() { return esc_html__( 'Hollywood Series Hero', 'perfect-hot-tub-finder' ); }
+	public function get_title() { return esc_html__( 'Series Hero', 'perfect-hot-tub-finder' ); }
 	public function get_icon() { return 'eicon-slider-push'; }
 	public function get_categories() { return [ 'phtf-widgets' ]; }
 	public function get_keywords() { return [ 'spa', 'hot tub', 'series', 'hero', 'gallery', 'slider' ]; }
