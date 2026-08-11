@@ -900,7 +900,7 @@ class PHTF_Spa_Colors_Widget extends \Elementor\Widget_Base {
 			}
 			?>
 			<div class="phtf-spa-swatch<?php echo $active ? ' is-active' : ''; ?>" data-phtf-spa-swatch-wrap="<?php echo esc_attr( $group ); ?>">
-				<button type="button" class="phtf-spa-swatch-button" style="<?php echo esc_attr( $style ); ?>" data-phtf-spa-swatch data-phtf-spa-group="<?php echo esc_attr( $group ); ?>" data-phtf-spa-image="<?php echo esc_url( $preview_url ); ?>" aria-label="<?php echo esc_attr( $name ); ?>"></button>
+				<button type="button" class="phtf-spa-swatch-button" style="<?php echo esc_attr( $style ); ?>" data-phtf-spa-swatch data-phtf-spa-group="<?php echo esc_attr( $group ); ?>" data-phtf-spa-image="<?php echo esc_url( $preview_url ); ?>" aria-label="<?php echo esc_attr( $name ); ?>" aria-pressed="<?php echo $active ? 'true' : 'false'; ?>"></button>
 				<?php if ( ! empty( $name ) ) : ?>
 					<span class="phtf-spa-swatch-label"><?php echo esc_html( $name ); ?></span>
 				<?php endif; ?>
@@ -910,25 +910,8 @@ class PHTF_Spa_Colors_Widget extends \Elementor\Widget_Base {
 	}
 
 	protected function render() {
-		$settings   = $this->get_settings_for_display();
-		if ( function_exists( 'phtf_get_first_spa_model_data' ) && function_exists( 'phtf_spa_model_swatches' ) ) {
-			$model = phtf_get_first_spa_model_data();
-			if ( ! empty( $model ) ) {
-				if ( ! empty( $model['image'] ) ) {
-					$settings['main_image'] = [ 'url' => $model['image'] ];
-				}
-				$settings['image_alt'] = $model['title'] ?? '';
-				if ( ! empty( $model['cabinet_step_colors'] ) ) {
-					$settings['cabinet_colors'] = phtf_spa_model_swatches( $model['cabinet_step_colors'], $model['image'] ?? '' );
-				}
-				if ( ! empty( $model['spa_shell_options'] ) ) {
-					$settings['shell_colors'] = phtf_spa_model_swatches( $model['spa_shell_options'], $model['image'] ?? '' );
-				}
-				if ( ! empty( $model['local_pricing_url'] ) ) {
-					$settings['button_link'] = [ 'url' => $model['local_pricing_url'] ];
-				}
-			}
-		}
+		// This is a manual customizer: preserve the image, swatches, and link selected in Elementor.
+		$settings = $this->get_settings_for_display();
 		$image_url  = phtf_image_url_or_fallback( $settings['main_image']['url'] ?? '', 'widget' );
 		$image_alt  = $settings['image_alt'] ?? '';
 		$uid        = 'phtf-spa-colors-' . $this->get_id();

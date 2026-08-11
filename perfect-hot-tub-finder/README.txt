@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.212 =
+* Fixed Customize Spa Colors so its Elementor image, swatches, and button link are no longer overwritten by the first Spa Model; improved swatch selection, preview image loading, accessibility, and responsive layout.
+
 = 1.0.211 =
 * Locked Spa Series Models navigation arrows to tablet and mobile widths only; desktop and laptop grids never show carousel arrows.
 

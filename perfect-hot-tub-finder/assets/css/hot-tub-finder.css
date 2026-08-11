@@ -2236,7 +2236,9 @@
 	display: block;
 	width: 100%;
 	max-width: 520px;
+	max-height: 520px;
 	height: auto;
+	object-fit: contain;
 	margin: 0 auto;
 	transition: opacity 180ms ease, transform 180ms ease;
 }
@@ -2312,7 +2314,7 @@
 	height: 74px;
 	padding: 0;
 	border: 2px solid transparent;
-	border-radius: 999px;
+	border-radius: 4px;
 	background-position: center;
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -2365,6 +2367,7 @@
 	color: var(--phtf-text);
 	text-align: center;
 	word-break: normal;
+	overflow-wrap: anywhere;
 }
 
 .phtf-spa-divider {
@@ -2497,11 +2500,26 @@
 	.phtf-spa-footer {
 		margin-top: 36px;
 	}
+
+	.phtf-spa-preview {
+		margin-bottom: 28px;
+	}
+
+	.phtf-spa-main-image {
+		max-width: min(100%, 420px);
+		max-height: 420px;
+	}
 }
 
 @media (max-width: 480px) {
+	.phtf-spa-colors {
+		padding-right: 14px;
+		padding-left: 14px;
+	}
+
 	.phtf-spa-swatches {
 		gap: 16px;
+		justify-content: center;
 	}
 
 	.phtf-spa-swatch-button {

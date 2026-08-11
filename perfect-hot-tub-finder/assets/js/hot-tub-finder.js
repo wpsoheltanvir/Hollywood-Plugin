@@ -867,19 +867,29 @@
 
 			Array.prototype.slice.call(customizer.querySelectorAll('[data-phtf-spa-swatch-wrap="' + group + '"]')).forEach(function (wrap) {
 				wrap.classList.remove('is-active');
+				var groupButton = wrap.querySelector('[data-phtf-spa-swatch]');
+				if (groupButton) {
+					groupButton.setAttribute('aria-pressed', 'false');
+				}
 			});
 
 			var wrapper = button.closest ? button.closest('[data-phtf-spa-swatch-wrap]') : button.parentNode;
 			if (wrapper) {
 				wrapper.classList.add('is-active');
 			}
+			button.setAttribute('aria-pressed', 'true');
 
 			if (mainImage && image) {
 				mainImage.classList.add('is-changing');
-				window.setTimeout(function () {
+				var previewImage = new Image();
+				previewImage.onload = function () {
 					mainImage.src = image;
 					mainImage.classList.remove('is-changing');
-				}, 120);
+				};
+				previewImage.onerror = function () {
+					mainImage.classList.remove('is-changing');
+				};
+				previewImage.src = image;
 			}
 		}
 
