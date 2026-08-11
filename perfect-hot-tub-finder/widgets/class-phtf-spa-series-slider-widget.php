@@ -42,7 +42,9 @@ class PHTF_Spa_Series_Slider_Widget extends \Elementor\Widget_Base {
 
 	protected function render() {
 		$s = $this->get_settings_for_display(); $slides = $s['slides'] ?? [];
-		if ( empty( $slides ) ) { return; }
+		if ( empty( $slides ) ) {
+			$slides = [ [ 'image' => [ 'url' => Utils::get_placeholder_image_src() ], 'image_alt' => $s['title'] ?? '' ] ];
+		}
 		?>
 		<section class="phtf-series-slider" data-phtf-series-slider>
 			<div class="phtf-series-slider__content">

@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.196 =
+* Prevented Series Hero and Spa Model Hero from rendering blank when Elementor has no saved gallery slide or a selected model has incomplete gallery data.
+
 = 1.0.195 =
 * Removed Hollywood from all Elementor widget labels without changing existing widget IDs or saved content.
 

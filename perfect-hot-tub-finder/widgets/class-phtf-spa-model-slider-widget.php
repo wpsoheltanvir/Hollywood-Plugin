@@ -76,7 +76,9 @@ class PHTF_Spa_Model_Slider_Widget extends \Elementor\Widget_Base {
 				foreach ( (array) ( $model['lifestyle_images'] ?? [] ) as $image_url ) { $slides[] = [ 'image' => [ 'url' => $image_url ], 'image_alt' => $model['title'] ?? '' ]; }
 			}
 		}
-		if ( empty( $slides ) ) { return; }
+		if ( empty( $slides ) ) {
+			$slides = [ [ 'image' => [ 'url' => Utils::get_placeholder_image_src() ], 'image_alt' => $s['title'] ?? '' ] ];
+		}
 		?>
 		<section class="phtf-model-slider" data-phtf-model-slider>
 			<div class="phtf-model-slider__content">
