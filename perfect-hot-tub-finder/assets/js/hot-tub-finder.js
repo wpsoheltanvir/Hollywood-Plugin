@@ -973,9 +973,12 @@
 
 	function initSeriesHero(root) {
 		var hero = root && root.matches && root.matches('[data-phtf-series-slider]') ? root : (root ? root.querySelector('[data-phtf-series-slider]') : null);
-		if (!hero || hero.getAttribute('data-phtf-series-slider-initialized') === 'true') { return; }
-		hero.setAttribute('data-phtf-series-slider-initialized', 'true');
+		if (!hero) { return; }
 		var images = Array.prototype.slice.call(hero.querySelectorAll('.phtf-series-slider__image'));
+		var signature = images.map(function (image) { return image.getAttribute('src') || ''; }).join('|');
+		if (hero.getAttribute('data-phtf-series-slider-initialized') === 'true' && hero.getAttribute('data-phtf-series-slider-signature') === signature) { return; }
+		hero.setAttribute('data-phtf-series-slider-initialized', 'true');
+		hero.setAttribute('data-phtf-series-slider-signature', signature);
 		var thumbs = Array.prototype.slice.call(hero.querySelectorAll('[data-series-slide]'));
 		var index = 0;
 		function show(next) {
@@ -986,10 +989,17 @@
 			hero.phtfSeriesIndex = index;
 		}
 		hero.phtfSeriesShow = show;
-		thumbs.forEach(function (thumb, i) { thumb.addEventListener('click', function () { show(i); }); });
+		thumbs.forEach(function (thumb, i) { thumb.onclick = function () { show(i); }; });
 		var prev = hero.querySelector('[data-series-prev]'); var next = hero.querySelector('[data-series-next]');
-		if (prev) { prev.addEventListener('click', function () { show(index - 1); }); }
-		if (next) { next.addEventListener('click', function () { show(index + 1); }); }
+		if (prev) { prev.onclick = function () { show(index - 1); }; }
+		if (next) { next.onclick = function () { show(index + 1); }; }
+		if (!hero.phtfSeriesObserver && window.MutationObserver) {
+			hero.phtfSeriesObserver = new MutationObserver(function () {
+				hero.removeAttribute('data-phtf-series-slider-signature');
+				window.setTimeout(function () { initSeriesHero(hero); }, 0);
+			});
+			hero.phtfSeriesObserver.observe(hero, { childList: true, subtree: true, attributes: true, attributeFilter: [ 'src' ] });
+		}
 		show(0);
 	}
 

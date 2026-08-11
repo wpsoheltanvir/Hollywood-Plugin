@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.205 =
+* Fixed Series Hero gallery controls after Elementor live-edit updates by rebinding arrows and thumbnails whenever gallery slide nodes change.
+
 = 1.0.204 =
 * Restyled Spa Series Models MSRP and price footnotes with a navy MSRP label, gray price, and visible secondary-color superscript popup trigger.
 
