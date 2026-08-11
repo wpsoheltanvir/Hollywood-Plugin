@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.204 =
+* Restyled Spa Series Models MSRP and price footnotes with a navy MSRP label, gray price, and visible secondary-color superscript popup trigger.
+
 = 1.0.203 =
 * Added tablet and mobile carousel behavior to Spa Series Models with one centered model, touch-friendly side arrows, and unchanged desktop grid presentation.
 

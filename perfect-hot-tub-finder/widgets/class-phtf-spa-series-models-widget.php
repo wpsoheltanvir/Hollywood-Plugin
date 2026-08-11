@@ -919,16 +919,25 @@ class PHTF_Spa_Series_Models_Widget extends \Elementor\Widget_Base {
 		return $attrs;
 	}
 
+	private function price_markup( $price ) {
+		$price = (string) $price;
+		if ( 0 === stripos( wp_strip_all_tags( $price ), 'MSRP:' ) ) {
+			return preg_replace( '/^MSRP:\s*/i', '<span class="phtf-spa-models-msrp-label">MSRP:</span> <span class="phtf-spa-models-msrp-value">', $price, 1 ) . '</span>';
+		}
+
+		return $price;
+	}
+
 	private function render_price( $price, $popup_content ) {
 		$marker = html_entity_decode( '&sup1;', ENT_QUOTES, 'UTF-8' );
 		if ( false === strpos( (string) $price, $marker ) || empty( $popup_content ) ) {
-			echo wp_kses( $price, $this->allowed_html() );
+			echo wp_kses( $this->price_markup( $price ), $this->allowed_html() );
 			return;
 		}
 		$price_text = str_replace( $marker, '', (string) $price );
 		$popup_id = wp_unique_id( 'phtf-series-model-price-' );
 		?>
-		<?php echo wp_kses( $price_text, $this->allowed_html() ); ?>
+		<?php echo wp_kses( $this->price_markup( $price_text ), $this->allowed_html() ); ?>
 		<span class="phtf-price-note-wrap"><button type="button" class="phtf-price-note-trigger" aria-expanded="false" aria-describedby="<?php echo esc_attr( $popup_id ); ?>" aria-label="<?php esc_attr_e( 'Pricing footnote', 'perfect-hot-tub-finder' ); ?>"><sup><?php echo esc_html( $marker ); ?></sup></button><span id="<?php echo esc_attr( $popup_id ); ?>" class="phtf-price-note-popup" role="tooltip"><button type="button" class="phtf-price-note-close" aria-label="<?php esc_attr_e( 'Close pricing note', 'perfect-hot-tub-finder' ); ?>">&times;</button><span class="phtf-price-note-popup-scroll"><?php echo wp_kses_post( wpautop( esc_html( $popup_content ) ) ); ?></span></span></span>
 		<?php
 	}

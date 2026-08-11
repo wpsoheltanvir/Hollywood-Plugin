@@ -2678,7 +2678,23 @@
 
 .phtf-spa-models-price {
 	font-weight: 700;
-	color: inherit;
+	color: var(--phtf-text);
+}
+
+.phtf-spa-models-msrp-label {
+	color: var(--phtf-primary);
+	font-weight: 700;
+}
+
+.phtf-spa-models-msrp-value {
+	color: var(--phtf-text);
+	font-weight: 700;
+}
+
+.phtf-spa-models-price .phtf-price-note-trigger,
+.phtf-spa-models-price .phtf-price-note-trigger sup {
+	color: var(--phtf-secondary) !important;
+	font-weight: 700;
 }
 
 .phtf-spa-models-divider {
