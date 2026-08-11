@@ -8,7 +8,7 @@ use Elementor\Utils;
 /** Elementor hero/gallery for an individual spa model page. */
 class PHTF_Spa_Model_Slider_Widget extends \Elementor\Widget_Base {
 	public function get_name() { return 'phtf_spa_model_slider'; }
-	public function get_title() { return esc_html__( 'Hollywood Spa Model Slider', 'perfect-hot-tub-finder' ); }
+	public function get_title() { return esc_html__( 'Spa Model Hero', 'perfect-hot-tub-finder' ); }
 	public function get_icon() { return 'eicon-slider-push'; }
 	public function get_categories() { return [ 'phtf-widgets' ]; }
 	public function get_keywords() { return [ 'spa', 'hot tub', 'model', 'hero', 'gallery', 'slider' ]; }
@@ -16,6 +16,7 @@ class PHTF_Spa_Model_Slider_Widget extends \Elementor\Widget_Base {
 	public function get_script_depends() { return [ 'phtf-hot-tub-finder' ]; }
 
 	protected function register_controls() {
+		$this->register_source_controls();
 		$this->start_controls_section( 'content', [ 'label' => esc_html__( 'Model Content', 'perfect-hot-tub-finder' ) ] );
 		$this->add_control( 'breadcrumb', [ 'label' => esc_html__( 'Breadcrumb', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::TEXT, 'default' => 'Home > Shop > Utopia Series > Cantabria' ] );
 		$this->add_control( 'title', [ 'label' => esc_html__( 'Model Name', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::TEXT, 'default' => 'Cantabria®' ] );
@@ -39,10 +40,43 @@ class PHTF_Spa_Model_Slider_Widget extends \Elementor\Widget_Base {
 		$this->end_controls_section();
 	}
 
+	private function register_source_controls() {
+		$model_options = [ '0' => esc_html__( 'Select a Spa Model', 'perfect-hot-tub-finder' ) ];
+		if ( function_exists( 'phtf_get_spa_models' ) ) {
+			foreach ( phtf_get_spa_models() as $model ) {
+				$model_options[ (string) ( $model['id'] ?? 0 ) ] = $model['title'] ?? esc_html__( 'Untitled Spa Model', 'perfect-hot-tub-finder' );
+			}
+		}
+		$this->start_controls_section( 'data_source', [ 'label' => esc_html__( 'Spa Model Data Source', 'perfect-hot-tub-finder' ) ] );
+		$this->add_control( 'data_source', [ 'label' => esc_html__( 'Content Source', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::SELECT, 'default' => 'manual', 'options' => [ 'spa_model' => esc_html__( 'Spa Model (Dynamic)', 'perfect-hot-tub-finder' ), 'manual' => esc_html__( 'Manual Widget Content', 'perfect-hot-tub-finder' ) ] ] );
+		$this->add_control( 'spa_model_id', [ 'label' => esc_html__( 'Spa Model', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::SELECT, 'default' => '0', 'options' => $model_options, 'description' => esc_html__( 'Uses the selected Spa Model featured image, gallery images, reviews, price, links, and specification fields.', 'perfect-hot-tub-finder' ), 'condition' => [ 'data_source' => 'spa_model' ] ] );
+		$this->end_controls_section();
+	}
+
 	private function link( $link ) { return empty( $link['url'] ) ? '' : sprintf( ' href="%s"%s%s', esc_url( $link['url'] ), ! empty( $link['is_external'] ) ? ' target="_blank"' : '', ! empty( $link['nofollow'] ) ? ' rel="nofollow"' : '' ); }
 
 	protected function render() {
-		$s = $this->get_settings_for_display(); $slides = $s['slides'] ?? []; if ( empty( $slides ) ) { return; }
+		$s = $this->get_settings_for_display();
+		$slides = $s['slides'] ?? [];
+		if ( 'spa_model' === ( $s['data_source'] ?? 'manual' ) && function_exists( 'phtf_get_spa_model_data' ) ) {
+			$model = phtf_get_spa_model_data( absint( $s['spa_model_id'] ?? 0 ) );
+			if ( ! empty( $model ) && ! empty( $model['id'] ) ) {
+				$s['title']       = $model['title'] ?? $s['title'];
+				$s['reviews']     = ! empty( $model['reviews'] ) ? $model['reviews'] . ' Reviews' : $s['reviews'];
+				$s['reviews_url'] = [ 'url' => $model['reviews_url'] ?? '' ];
+				$s['price']       = 'MSRP: ' . ( $model['price'] ?? '' ) . ( ! empty( $model['secondary_price'] ) ? ' or ' . $model['secondary_price'] : '' );
+				$s['pricing_url'] = [ 'url' => $model['local_pricing_url'] ?? '' ];
+				$s['brochure_url'] = [ 'url' => $model['brochure_url'] ?? '' ];
+				$s['seating']     = $model['seating_capacity'] ?? $s['seating'];
+				$s['dimensions']  = $model['dimensions'] ?? $s['dimensions'];
+				$s['jets']        = $model['jet_count'] ?? $s['jets'];
+				$s['water_care']  = $model['water_care_systems'] ?? $s['water_care'];
+				$slides = [];
+				if ( ! empty( $model['image'] ) ) { $slides[] = [ 'image' => [ 'url' => $model['image'] ], 'image_alt' => $model['title'] ?? '' ]; }
+				foreach ( (array) ( $model['lifestyle_images'] ?? [] ) as $image_url ) { $slides[] = [ 'image' => [ 'url' => $image_url ], 'image_alt' => $model['title'] ?? '' ]; }
+			}
+		}
+		if ( empty( $slides ) ) { return; }
 		?>
 		<section class="phtf-model-slider" data-phtf-model-slider>
 			<div class="phtf-model-slider__content">

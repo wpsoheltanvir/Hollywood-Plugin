@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.194 =
+* Renamed Hollywood Spa Model Slider to Spa Model Hero and added optional dynamic Spa Model data, gallery, links, price, reviews, and specification loading.
+
 = 1.0.193 =
 * Renamed the Hollywood Spa Series Slide Elementor widget to Hollywood Spa Series Delight.
 
