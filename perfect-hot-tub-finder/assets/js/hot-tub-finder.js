@@ -1669,6 +1669,9 @@
 					initDelight(root);
 				}
 			});
+			window.elementorFrontend.hooks.addAction('frontend/element_ready/phtf_spa_series_models.default', function ($scope) {
+				initPricePopups($scope && $scope[0] ? $scope[0] : document);
+			});
 			window.elementorFrontend.hooks.addAction('frontend/element_ready/phtf_spa_series_slider.default', function ($scope) {
 				initSeriesHero($scope && $scope[0] ? $scope[0] : document);
 			});

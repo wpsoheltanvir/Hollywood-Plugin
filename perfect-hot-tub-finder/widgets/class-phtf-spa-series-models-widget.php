@@ -17,7 +17,7 @@ class PHTF_Spa_Series_Models_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return esc_html__( 'Spa Model Slide', 'perfect-hot-tub-finder' );
+		return esc_html__( 'Spa Series Models', 'perfect-hot-tub-finder' );
 	}
 
 	public function get_icon() {
@@ -42,6 +42,43 @@ class PHTF_Spa_Series_Models_Widget extends \Elementor\Widget_Base {
 	}
 
 	private function register_content_controls() {
+		$series_options = [ 'utopia' => esc_html__( 'Utopia Series', 'perfect-hot-tub-finder' ) ];
+		if ( function_exists( 'phtf_compare_spa_category_options' ) ) {
+			$series_options = phtf_compare_spa_category_options();
+		}
+
+		$this->start_controls_section(
+			'section_data_source',
+			[
+				'label' => esc_html__( 'Spa Series Data Source', 'perfect-hot-tub-finder' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			]
+		);
+		$this->add_control(
+			'data_source',
+			[
+				'label'   => esc_html__( 'Content Source', 'perfect-hot-tub-finder' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'spa_models',
+				'options' => [
+					'spa_models' => esc_html__( 'Spa Models (Dynamic)', 'perfect-hot-tub-finder' ),
+					'manual'     => esc_html__( 'Manual Model Cards', 'perfect-hot-tub-finder' ),
+				],
+			]
+		);
+		$this->add_control(
+			'series_category',
+			[
+				'label'       => esc_html__( 'Series', 'perfect-hot-tub-finder' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => 'utopia',
+				'options'     => $series_options,
+				'description' => esc_html__( 'Shows every Spa Model assigned to this Spa Category / Series.', 'perfect-hot-tub-finder' ),
+				'condition'   => [ 'data_source' => 'spa_models' ],
+			]
+		);
+		$this->end_controls_section();
+
 		$this->start_controls_section(
 			'section_header',
 			[
@@ -882,12 +919,40 @@ class PHTF_Spa_Series_Models_Widget extends \Elementor\Widget_Base {
 		return $attrs;
 	}
 
+	private function render_price( $price, $popup_content ) {
+		$marker = html_entity_decode( '&sup1;', ENT_QUOTES, 'UTF-8' );
+		if ( false === strpos( (string) $price, $marker ) || empty( $popup_content ) ) {
+			echo wp_kses( $price, $this->allowed_html() );
+			return;
+		}
+		$price_text = str_replace( $marker, '', (string) $price );
+		$popup_id = wp_unique_id( 'phtf-series-model-price-' );
+		?>
+		<?php echo wp_kses( $price_text, $this->allowed_html() ); ?>
+		<span class="phtf-price-note-wrap"><button type="button" class="phtf-price-note-trigger" aria-expanded="false" aria-describedby="<?php echo esc_attr( $popup_id ); ?>" aria-label="<?php esc_attr_e( 'Pricing footnote', 'perfect-hot-tub-finder' ); ?>"><sup><?php echo esc_html( $marker ); ?></sup></button><span id="<?php echo esc_attr( $popup_id ); ?>" class="phtf-price-note-popup" role="tooltip"><button type="button" class="phtf-price-note-close" aria-label="<?php esc_attr_e( 'Close pricing note', 'perfect-hot-tub-finder' ); ?>">&times;</button><span class="phtf-price-note-popup-scroll"><?php echo wp_kses_post( wpautop( esc_html( $popup_content ) ) ); ?></span></span></span>
+		<?php
+	}
+
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-		if ( function_exists( 'phtf_spa_model_cards' ) ) {
-			$dynamic_cards = phtf_spa_model_cards();
+		if ( 'spa_models' === ( $settings['data_source'] ?? 'spa_models' ) && function_exists( 'phtf_get_spa_models' ) && function_exists( 'phtf_spa_model_cards' ) ) {
+			$selected_series = $settings['series_category'] ?? 'utopia';
+			$models = array_filter(
+				phtf_get_spa_models(),
+				static function ( $model ) use ( $selected_series ) {
+					return $selected_series === ( $model['compare_category_key'] ?? $model['compare_category'] ?? '' );
+				}
+			);
+			$dynamic_cards = phtf_spa_model_cards( $models );
 			if ( ! empty( $dynamic_cards ) ) {
 				$settings['models'] = $dynamic_cards;
+			}
+			if ( function_exists( 'phtf_compare_spa_category_options' ) ) {
+				$options = phtf_compare_spa_category_options();
+				$series_label = $options[ $selected_series ] ?? '';
+				if ( $series_label ) {
+					$settings['title'] = trim( preg_replace( '/\s*Series$/i', '', wp_strip_all_tags( $series_label ) ) ) . ' ' . __( 'Models.', 'perfect-hot-tub-finder' );
+				}
 			}
 		}
 		$tag      = ! empty( $settings['title_html_tag'] ) ? $settings['title_html_tag'] : 'h2';
@@ -908,12 +973,11 @@ class PHTF_Spa_Series_Models_Widget extends \Elementor\Widget_Base {
 							$image_url = phtf_image_url_or_fallback( ! empty( $model['image']['url'] ) ? $model['image']['url'] : '', 'widget' );
 							$alt       = ! empty( $model['image_alt'] ) ? $model['image_alt'] : wp_strip_all_tags( $model['model_name'] ?? '' );
 							$link_attrs = $this->render_link_attrs( $model['link'] ?? [] );
-							$open_tag = $link_attrs ? '<a class="phtf-spa-models-card" ' . $link_attrs . '>' : '<div class="phtf-spa-models-card">';
-							$close_tag = $link_attrs ? '</a>' : '</div>';
-							echo $open_tag; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+							$reviews_link_attrs = $this->render_link_attrs( $model['reviews_link'] ?? [] );
 							?>
+							<article class="phtf-spa-models-card">
 								<div class="phtf-spa-models-image-wrap">
-									<img class="phtf-spa-models-image" src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $alt ); ?>">
+									<?php if ( $link_attrs ) : ?><a class="phtf-spa-models-image-link" <?php echo $link_attrs; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>><?php endif; ?><img class="phtf-spa-models-image" src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $alt ); ?>"><?php if ( $link_attrs ) : ?></a><?php endif; ?>
 								</div>
 
 								<?php if ( 'yes' === ( $settings['show_series_label'] ?? 'yes' ) && ! empty( $model['series_label'] ) ) : ?>
@@ -921,14 +985,14 @@ class PHTF_Spa_Series_Models_Widget extends \Elementor\Widget_Base {
 								<?php endif; ?>
 
 								<?php if ( ! empty( $model['model_name'] ) ) : ?>
-									<div class="phtf-spa-models-name"><?php echo wp_kses( $model['model_name'], $this->allowed_html() ); ?></div>
+									<?php if ( $link_attrs ) : ?><a class="phtf-spa-models-name phtf-spa-models-name-link" <?php echo $link_attrs; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>><?php echo wp_kses( $model['model_name'], $this->allowed_html() ); ?></a><?php else : ?><div class="phtf-spa-models-name"><?php echo wp_kses( $model['model_name'], $this->allowed_html() ); ?></div><?php endif; ?>
 								<?php endif; ?>
 
 								<?php if ( 'yes' === ( $settings['show_rating'] ?? 'yes' ) ) : ?>
 									<div class="phtf-spa-models-rating" aria-label="<?php echo esc_attr( wp_strip_all_tags( $model['reviews'] ?? '' ) ); ?>">
 										<span class="phtf-spa-models-stars"><?php echo esc_html( $settings['star_text'] ?? '★★★★★' ); ?></span>
-										<?php if ( ! empty( $model['reviews'] ) ) : ?>
-											<span class="phtf-spa-models-reviews"><?php echo esc_html( $model['reviews'] ); ?></span>
+									<?php if ( ! empty( $model['reviews'] ) ) : ?>
+										<?php if ( $reviews_link_attrs ) : ?><a class="phtf-spa-models-reviews" <?php echo $reviews_link_attrs; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>><?php echo esc_html( $model['reviews'] ); ?></a><?php else : ?><span class="phtf-spa-models-reviews"><?php echo esc_html( $model['reviews'] ); ?></span><?php endif; ?>
 										<?php endif; ?>
 									</div>
 								<?php endif; ?>
@@ -942,12 +1006,12 @@ class PHTF_Spa_Series_Models_Widget extends \Elementor\Widget_Base {
 											<span class="phtf-spa-models-divider">|</span>
 										<?php endif; ?>
 										<?php if ( ! empty( $model['price'] ) ) : ?>
-											<span class="phtf-spa-models-price"><?php echo wp_kses( $model['price'], $this->allowed_html() ); ?></span>
+											<span class="phtf-spa-models-price"><?php $this->render_price( $model['price'], $model['price_note_popup_content'] ?? '' ); ?></span>
 										<?php endif; ?>
 									</div>
 								<?php endif; ?>
+							</article>
 							<?php
-							echo $close_tag; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						endforeach; ?>
 					</div>
 				<?php endif; ?>

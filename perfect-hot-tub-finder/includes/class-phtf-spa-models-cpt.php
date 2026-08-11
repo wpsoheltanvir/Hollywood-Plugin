@@ -494,8 +494,10 @@ if ( ! function_exists( 'phtf_spa_model_cards' ) ) {
 				'model_name'   => $model['title'] ?? '',
 				'reviews'      => ! empty( $model['reviews'] ) ? '(' . trim( (string) $model['reviews'], '() ' ) . ')' : '',
 				'seats'        => ! empty( $model['seating_capacity'] ) ? sprintf( __( 'Seats %s', 'perfect-hot-tub-finder' ), preg_replace( '/[^0-9\-]+/', '', (string) $model['seating_capacity'] ) ) : '',
-				'price'        => ! empty( $model['price'] ) ? 'MSRP: ' . $model['price'] : '',
-				'link'         => [ 'url' => ! empty( $model['view_model_url'] ) ? $model['view_model_url'] : ( $model['url'] ?? '' ) ],
+			'price'        => ! empty( $model['price'] ) ? 'MSRP: ' . $model['price'] : '',
+			'price_note_popup_content' => $model['price_note_popup_content'] ?? '',
+			'link'         => [ 'url' => ! empty( $model['view_model_url'] ) ? $model['view_model_url'] : ( $model['url'] ?? '' ) ],
+			'reviews_link' => [ 'url' => ! empty( $model['reviews_url'] ) ? $model['reviews_url'] : ( $model['url'] ?? '' ) ],
 			];
 		}
 		return $cards;

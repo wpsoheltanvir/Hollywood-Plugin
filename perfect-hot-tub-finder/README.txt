@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.199 =
+* Renamed Spa Model Slide to Spa Series Models and added dynamic selected-series model loading, dedicated model and review links, and Spa Model price-footnote popups.
+
 = 1.0.198 =
 * Removed Spa Model Data Source from Spa Model Hero and added Elementor style controls for content, typography, buttons, gallery, arrows, and selected thumbnails across all device sizes.
 

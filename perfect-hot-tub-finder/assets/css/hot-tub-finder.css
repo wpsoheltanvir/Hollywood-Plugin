@@ -2591,11 +2591,24 @@
 }
 
 .phtf-spa-models-name {
+	display: block;
 	margin: 0 0 14px;
 	font-size: 19px;
 	line-height: 1.15;
 	font-weight: 700;
 	color: var(--phtf-secondary);
+}
+
+.phtf-spa-models-name-link,
+.phtf-spa-models-reviews {
+	text-decoration: none;
+}
+
+.phtf-spa-models-name-link:hover,
+.phtf-spa-models-name-link:focus-visible,
+.phtf-spa-models-reviews:hover,
+.phtf-spa-models-reviews:focus-visible {
+	text-decoration: underline;
 }
 
 .phtf-spa-models-name sup,
