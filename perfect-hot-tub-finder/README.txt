@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.216 =
+* Added independent Primary and Secondary Button typography, spacing, border, shadow, normal, and hover styling, plus complete Series Hero thumbnail strip and slide thumbnail controls.
+
 = 1.0.215 =
 * Added complete Series Hero Elementor styling for layout, breadcrumb, title, reviews, description, buttons, gallery curves, arrows, thumbnails, hover states, and responsive spacing.
 
