@@ -22,7 +22,7 @@ class PHTF_Spa_Series_Slider_Widget extends \Elementor\Widget_Base {
 		$breadcrumb_repeater = new Repeater();
 		$breadcrumb_repeater->add_control( 'label', [ 'label' => esc_html__( 'Label', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::TEXT, 'default' => esc_html__( 'Home', 'perfect-hot-tub-finder' ), 'label_block' => true ] );
 		$breadcrumb_repeater->add_control( 'link', [ 'label' => esc_html__( 'Link', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::URL ] );
-		$this->add_control( 'breadcrumb_items', [ 'label' => esc_html__( 'Breadcrumb Items', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::REPEATER, 'fields' => $breadcrumb_repeater->get_controls(), 'title_field' => '{{{ label }}}', 'default' => [ [ 'label' => 'Home' ], [ 'label' => 'Shop' ], [ 'label' => 'Utopia Series' ] ], 'condition' => [ 'show_header' => 'yes', 'show_breadcrumb' => 'yes' ] ] );
+		$this->add_control( 'breadcrumb_items', [ 'label' => esc_html__( 'Breadcrumb Items', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::REPEATER, 'fields' => $breadcrumb_repeater->get_controls(), 'title_field' => '{{{ label }}}', 'default' => [ [ 'label' => 'Home' ], [ 'label' => 'Shop' ] ], 'condition' => [ 'show_header' => 'yes', 'show_breadcrumb' => 'yes' ] ] );
 		$this->end_controls_section();
 
 		$this->start_controls_section( 'content', [ 'label' => esc_html__( 'Series Content', 'perfect-hot-tub-finder' ) ] );

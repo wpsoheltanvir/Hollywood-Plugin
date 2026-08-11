@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.201 =
+* Matched the Series Hero Header / Breadcrumb editor defaults to the clean Home and Shop repeater layout.
+
 = 1.0.200 =
 * Improved Series Hero only: added editable Header / Breadcrumb items and reliable gallery arrow and thumbnail initialization in Elementor.
 
