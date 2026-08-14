@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.223 =
+* Replaced the Series Hero text arrows with centered scalable chevrons and added responsive button size, radius, border, and shadow controls to Arrows & Thumbnails.
+
 = 1.0.222 =
 * Fixed the Spa Shop Slider tablet/mobile Seating and Price dropdowns with delegated click handling and synchronized visibility and accessibility state.
 
