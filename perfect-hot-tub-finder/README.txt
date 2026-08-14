@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.224 =
+* Added an Active / Current switch, accessible current-page output, automatic final-item fallback, and current-item color control to the Series Hero breadcrumb.
+
 = 1.0.223 =
 * Replaced the Series Hero text arrows with centered scalable chevrons and added responsive button size, radius, border, and shadow controls to Arrows & Thumbnails.
 

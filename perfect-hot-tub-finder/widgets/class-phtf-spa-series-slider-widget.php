@@ -25,6 +25,7 @@ class PHTF_Spa_Series_Slider_Widget extends \Elementor\Widget_Base {
 		$breadcrumb_repeater = new Repeater();
 		$breadcrumb_repeater->add_control( 'label', [ 'label' => esc_html__( 'Label', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::TEXT, 'default' => esc_html__( 'Home', 'perfect-hot-tub-finder' ), 'label_block' => true, 'dynamic' => [ 'active' => true ] ] );
 		$breadcrumb_repeater->add_control( 'link', [ 'label' => esc_html__( 'Link', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::URL, 'dynamic' => [ 'active' => true ] ] );
+		$breadcrumb_repeater->add_control( 'active', [ 'label' => esc_html__( 'Active / Current', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::SWITCHER, 'label_on' => esc_html__( 'Yes', 'perfect-hot-tub-finder' ), 'label_off' => esc_html__( 'No', 'perfect-hot-tub-finder' ), 'return_value' => 'yes', 'default' => '' ] );
 		$this->add_control( 'breadcrumb_items', [ 'label' => esc_html__( 'Breadcrumb Items', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::REPEATER, 'fields' => $breadcrumb_repeater->get_controls(), 'title_field' => '{{{ label }}}', 'default' => [ [ 'label' => 'Home' ], [ 'label' => 'Shop' ] ], 'condition' => [ 'show_header' => 'yes', 'show_breadcrumb' => 'yes' ] ] );
 		$this->end_controls_section();
 
@@ -65,6 +66,7 @@ class PHTF_Spa_Series_Slider_Widget extends \Elementor\Widget_Base {
 		$this->add_control( 'breadcrumb_color', [ 'label' => esc_html__( 'Text Color', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__breadcrumb' => 'color: {{VALUE}};' ] ] );
 		$this->add_control( 'breadcrumb_link_color', [ 'label' => esc_html__( 'Link Color', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__breadcrumb-item a' => 'color: {{VALUE}};' ] ] );
 		$this->add_control( 'breadcrumb_link_hover_color', [ 'label' => esc_html__( 'Link Hover Color', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__breadcrumb-item a:hover, {{WRAPPER}} .phtf-series-slider__breadcrumb-item a:focus' => 'color: {{VALUE}};' ] ] );
+		$this->add_control( 'breadcrumb_active_color', [ 'label' => esc_html__( 'Active / Current Color', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__breadcrumb-item.is-active' => 'color: {{VALUE}};' ] ] );
 		$this->add_control( 'breadcrumb_separator_color', [ 'label' => esc_html__( 'Separator Color', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__breadcrumb-separator' => 'color: {{VALUE}};' ] ] );
 		$this->add_group_control( Group_Control_Typography::get_type(), [ 'name' => 'breadcrumb_typography', 'selector' => '{{WRAPPER}} .phtf-series-slider__breadcrumb' ] );
 		$this->add_responsive_control( 'breadcrumb_gap', [ 'label' => esc_html__( 'Item Gap', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::SLIDER, 'range' => [ 'px' => [ 'min' => 0, 'max' => 40 ] ], 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__breadcrumb' => 'gap: {{SIZE}}{{UNIT}};' ] ] );
@@ -227,14 +229,44 @@ class PHTF_Spa_Series_Slider_Widget extends \Elementor\Widget_Base {
 		<section class="phtf-series-slider" data-phtf-series-slider>
 			<div class="phtf-series-slider__content">
 				<?php
-				$breadcrumbs = $s['breadcrumb_items'] ?? [];
+				$breadcrumbs = array_values( array_filter( $s['breadcrumb_items'] ?? [], static function ( $item ) {
+					return is_array( $item ) && '' !== trim( (string) ( $item['label'] ?? '' ) );
+				} ) );
+				$active_found = false;
+				foreach ( $breadcrumbs as $breadcrumb_index => $breadcrumb ) {
+					$is_active = ! $active_found && 'yes' === ( $breadcrumb['active'] ?? '' );
+					$breadcrumbs[ $breadcrumb_index ]['active'] = $is_active ? 'yes' : '';
+					if ( $is_active ) {
+						$active_found = true;
+					}
+				}
+
 				$breadcrumb_title = trim( wp_strip_all_tags( $s['title'] ?? '' ) );
 				$last_breadcrumb = end( $breadcrumbs );
 				if ( '' !== $breadcrumb_title && $breadcrumb_title !== trim( wp_strip_all_tags( is_array( $last_breadcrumb ) ? ( $last_breadcrumb['label'] ?? '' ) : '' ) ) ) {
-					$breadcrumbs[] = [ 'label' => $breadcrumb_title ];
+					$breadcrumbs[] = [
+						'label'  => $breadcrumb_title,
+						'active' => $active_found ? '' : 'yes',
+					];
+					$active_found = true;
+				} elseif ( ! $active_found && ! empty( $breadcrumbs ) ) {
+					$last_index = array_key_last( $breadcrumbs );
+					$breadcrumbs[ $last_index ]['active'] = 'yes';
+					$active_found = true;
 				}
 				if ( 'yes' === ( $s['show_header'] ?? 'yes' ) && 'yes' === ( $s['show_breadcrumb'] ?? 'yes' ) && ! empty( $breadcrumbs ) ) :
-					?><nav class="phtf-series-slider__breadcrumb" aria-label="Breadcrumb"><?php foreach ( $breadcrumbs as $index => $item ) : $label = trim( (string) ( $item['label'] ?? '' ) ); if ( '' === $label ) { continue; } ?><span class="phtf-series-slider__breadcrumb-item"><?php if ( ! empty( $item['link']['url'] ) ) : ?><a<?php echo $this->link( $item['link'] ); ?>><?php echo esc_html( $label ); ?></a><?php else : ?><?php echo esc_html( $label ); ?><?php endif; ?></span><?php if ( $index < count( $breadcrumbs ) - 1 ) : ?><span class="phtf-series-slider__breadcrumb-separator" aria-hidden="true">&gt;</span><?php endif; ?><?php endforeach; ?></nav><?php endif; ?>
+					?><nav class="phtf-series-slider__breadcrumb" aria-label="<?php esc_attr_e( 'Breadcrumb', 'perfect-hot-tub-finder' ); ?>">
+						<?php foreach ( $breadcrumbs as $index => $item ) :
+							$label = trim( (string) ( $item['label'] ?? '' ) );
+							$is_active = 'yes' === ( $item['active'] ?? '' );
+							$item_class = 'phtf-series-slider__breadcrumb-item' . ( $is_active ? ' is-active' : '' );
+							?>
+							<span class="<?php echo esc_attr( $item_class ); ?>"<?php echo $is_active ? ' aria-current="page"' : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+								<?php if ( ! $is_active && ! empty( $item['link']['url'] ) ) : ?><a<?php echo $this->link( $item['link'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>><?php echo esc_html( $label ); ?></a><?php else : ?><?php echo esc_html( $label ); ?><?php endif; ?>
+							</span>
+							<?php if ( $index < count( $breadcrumbs ) - 1 ) : ?><span class="phtf-series-slider__breadcrumb-separator" aria-hidden="true">&gt;</span><?php endif; ?>
+						<?php endforeach; ?>
+					</nav><?php endif; ?>
 				<h1 class="phtf-series-slider__title"><?php echo wp_kses_post( $s['title'] ); ?></h1>
 				<?php if ( $s['reviews'] ) : ?><a class="phtf-series-slider__reviews"<?php echo $this->link( $s['reviews_url'] ); ?>><span aria-hidden="true">★★★★★</span> <?php echo esc_html( $s['reviews'] ); ?></a><?php endif; ?>
 				<div class="phtf-series-slider__description"><?php echo wp_kses_post( wpautop( $s['description'] ) ); ?></div>
