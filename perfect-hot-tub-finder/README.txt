@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.222 =
+* Fixed the Spa Shop Slider tablet/mobile Seating and Price dropdowns with delegated click handling and synchronized visibility and accessibility state.
+
 = 1.0.221 =
 * Forced every Series Hero gallery image to fill its fixed responsive frame with cover, including small source images, and removed conflicting fit/scale controls.
 

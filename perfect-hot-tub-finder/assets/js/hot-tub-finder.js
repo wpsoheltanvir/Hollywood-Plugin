@@ -459,8 +459,50 @@
 		render();
 	}
 
+	function setFinderFilterGroupCollapsed(group, collapsed) {
+		if (!group) {
+			return;
+		}
+
+		group.classList.toggle('is-collapsed', collapsed);
+
+		var button = group.querySelector('[data-phtf-filter-group-toggle]');
+		var body = group.querySelector('[data-phtf-filter-group-body]');
+		if (button) {
+			button.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+		}
+		if (body) {
+			body.hidden = collapsed;
+		}
+	}
+
+	function bindFinderFilterAccordions(widget) {
+		if (widget.phtfFilterAccordionHandler) {
+			widget.removeEventListener('click', widget.phtfFilterAccordionHandler);
+		}
+
+		widget.phtfFilterAccordionHandler = function (event) {
+			var target = event.target && event.target.closest ? event.target : null;
+			var button = target ? target.closest('[data-phtf-filter-group-toggle]') : null;
+			if (!button || !widget.contains(button) || !window.matchMedia('(max-width: 1024px)').matches) {
+				return;
+			}
+
+			var group = button.closest('[data-phtf-filter-group]');
+			if (!group) {
+				return;
+			}
+
+			event.preventDefault();
+			setFinderFilterGroupCollapsed(group, !group.classList.contains('is-collapsed'));
+		};
+
+		widget.addEventListener('click', widget.phtfFilterAccordionHandler);
+	}
+
 	function initFinder(widget) {
 		collectProductSources();
+		bindFinderFilterAccordions(widget);
 
 		if (widget.getAttribute('data-phtf-initialized') === 'true') {
 			initExplore(widget);
@@ -481,7 +523,6 @@
 		var filterResetButtons = Array.prototype.slice.call(widget.querySelectorAll('[data-phtf-filter-reset]'));
 		var filterOverlay = widget.querySelector('[data-phtf-filter-overlay]');
 		var filterDrawer = widget.querySelector('.phtf-filters');
-		var filterGroupToggles = Array.prototype.slice.call(widget.querySelectorAll('[data-phtf-filter-group-toggle]'));
 		var currentIndex = 0;
 		var visibleProducts = [];
 
@@ -586,19 +627,13 @@
 
 		function collapseFilterGroups() {
 			Array.prototype.slice.call(widget.querySelectorAll('[data-phtf-filter-group]')).forEach(function (group) {
-				group.classList.add('is-collapsed');
-			});
-			filterGroupToggles.forEach(function (button) {
-				button.setAttribute('aria-expanded', 'false');
+				setFinderFilterGroupCollapsed(group, true);
 			});
 		}
 
 		function resetFilterGroups() {
 			Array.prototype.slice.call(widget.querySelectorAll('[data-phtf-filter-group]')).forEach(function (group) {
-				group.classList.remove('is-collapsed');
-			});
-			filterGroupToggles.forEach(function (button) {
-				button.setAttribute('aria-expanded', 'true');
+				setFinderFilterGroupCollapsed(group, false);
 			});
 		}
 
@@ -790,22 +825,6 @@
 				closeFiltersDrawer();
 			});
 		}
-
-		filterGroupToggles.forEach(function (button) {
-			button.addEventListener('click', function () {
-				if (!isMobileFilters()) {
-					return;
-				}
-
-				var group = button.closest('[data-phtf-filter-group]');
-				if (!group) {
-					return;
-				}
-
-				var collapsed = group.classList.toggle('is-collapsed');
-				button.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
-			});
-		});
 
 		window.addEventListener('keydown', function (event) {
 			if (event.key === 'Escape' && widget.classList.contains('is-filters-open')) {
