@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.220 =
+* Enabled Elementor Dynamic Tags for breadcrumb Label text in every Header / Breadcrumb widget, matching the existing dynamic Link controls.
+
 = 1.0.219 =
 * Removed Series Hero bottom whitespace and added complete responsive gallery width, height, alignment, image, border, radius, and shadow controls.
 
