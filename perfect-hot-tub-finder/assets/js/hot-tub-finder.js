@@ -477,27 +477,28 @@
 	}
 
 	function bindFinderFilterAccordions(widget) {
-		if (widget.phtfFilterAccordionHandler) {
-			widget.removeEventListener('click', widget.phtfFilterAccordionHandler);
-		}
-
-		widget.phtfFilterAccordionHandler = function (event) {
-			var target = event.target && event.target.closest ? event.target : null;
-			var button = target ? target.closest('[data-phtf-filter-group-toggle]') : null;
-			if (!button || !widget.contains(button) || !window.matchMedia('(max-width: 1024px)').matches) {
-				return;
+		Array.prototype.slice.call(widget.querySelectorAll('[data-phtf-filter-group-toggle]')).forEach(function (button) {
+			if (button.phtfFilterAccordionHandler) {
+				button.removeEventListener('click', button.phtfFilterAccordionHandler);
 			}
 
-			var group = button.closest('[data-phtf-filter-group]');
-			if (!group) {
-				return;
-			}
+			button.phtfFilterAccordionHandler = function (event) {
+				if (!widget.classList.contains('is-filters-open') && !window.matchMedia('(max-width: 1024px)').matches) {
+					return;
+				}
 
-			event.preventDefault();
-			setFinderFilterGroupCollapsed(group, !group.classList.contains('is-collapsed'));
-		};
+				var group = button.closest('[data-phtf-filter-group]');
+				if (!group) {
+					return;
+				}
 
-		widget.addEventListener('click', widget.phtfFilterAccordionHandler);
+				event.preventDefault();
+				event.stopPropagation();
+				setFinderFilterGroupCollapsed(group, !group.classList.contains('is-collapsed'));
+			};
+
+			button.addEventListener('click', button.phtfFilterAccordionHandler);
+		});
 	}
 
 	function initFinder(widget) {

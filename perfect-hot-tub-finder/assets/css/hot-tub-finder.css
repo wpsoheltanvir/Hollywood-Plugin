@@ -7007,8 +7007,13 @@ body .elementor-widget-phtf_hot_tub_finder {
 
 /* v1.0.187: restore usable accordion controls in the tablet/mobile filter drawer. */
 @media (max-width: 1024px) {
+	body .phtf-widget.phtf-widget--classic[data-phtf-widget] .phtf-filter-group-body[hidden],
 	body .phtf-widget.phtf-widget--classic[data-phtf-widget] .phtf-filter-group.is-collapsed .phtf-filter-group-body {
 		display: none !important;
+	}
+
+	body .phtf-widget.phtf-widget--classic[data-phtf-widget] .phtf-filter-group:not(.is-collapsed) .phtf-filter-group-body:not([hidden]) {
+		display: block !important;
 	}
 
 	body .phtf-widget.phtf-widget--classic[data-phtf-widget] .phtf-price-info-inline {
