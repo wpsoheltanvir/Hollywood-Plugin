@@ -262,6 +262,7 @@ if ( ! function_exists( 'phtf_spa_model_meta_fields' ) ) {
 			'owners_manual_url'       => [ 'label' => __( 'Owner Manual URL', 'perfect-hot-tub-finder' ), 'type' => 'text', 'default' => '', 'placeholder' => 'https://your-link.com' ],
 			'review_quote'            => [ 'label' => __( 'Review Quote', 'perfect-hot-tub-finder' ), 'type' => 'text', 'default' => '', 'placeholder' => 'Enter customer review quote' ],
 			'review_author'           => [ 'label' => __( 'Review Author', 'perfect-hot-tub-finder' ), 'type' => 'text', 'default' => '', 'placeholder' => 'Customer Name' ],
+			'hero_description'        => [ 'label' => __( 'Single Hero Description', 'perfect-hot-tub-finder' ), 'type' => 'textarea', 'rows' => 5, 'default' => '', 'placeholder' => __( 'Describe this spa model for the Spa Model Single Hero.', 'perfect-hot-tub-finder' ), 'description' => __( 'Dynamic description shown in the Spa Model Single Hero widget.', 'perfect-hot-tub-finder' ) ],
 			'dimensions'              => [ 'label' => __( 'Dimensions', 'perfect-hot-tub-finder' ), 'type' => 'textarea', 'default' => '', 'placeholder' => '9\' x 7\'7" x 38" / 274cm x 231cm x 97cm', 'legacy_placeholder_value' => '9\' x 7\'7" x 38" / 274cm x 231cm x 97cm' ],
 			'water_capacity'          => [ 'label' => __( 'Water Capacity', 'perfect-hot-tub-finder' ), 'type' => 'textarea', 'default' => '', 'placeholder' => '615 gallons / 2325 liters', 'legacy_placeholder_value' => '615 gallons / 2325 liters' ],
 			'weight_dry'              => [ 'label' => __( 'Weight (dry)', 'perfect-hot-tub-finder' ), 'type' => 'textarea', 'default' => '', 'placeholder' => '1310 lbs. / 595 kg', 'legacy_placeholder_value' => '1310 lbs. / 595 kg' ],
@@ -815,7 +816,7 @@ JS
 	public function render_details_meta_box( $post ) {
 		wp_nonce_field( 'phtf_save_spa_model', 'phtf_spa_model_nonce' );
 		$fields = phtf_spa_model_meta_fields();
-		$detail_keys = [ 'spa_id', 'rating', 'reviews', 'reviews_url', 'price', 'price_note_popup_content', 'secondary_price', 'price_note_popup_content_2', 'seating_capacity', 'seating_filter', 'price_tier', 'view_model_url', 'compare_url', 'brochure_url', 'local_pricing_url' ];
+		$detail_keys = [ 'spa_id', 'rating', 'reviews', 'reviews_url', 'price', 'price_note_popup_content', 'secondary_price', 'price_note_popup_content_2', 'hero_description', 'seating_capacity', 'seating_filter', 'price_tier', 'view_model_url', 'compare_url', 'brochure_url', 'local_pricing_url' ];
 		echo '<p class="description" style="margin-top:0;">' . esc_html__( 'These fields replace the old Elementor product repeater for the Spa Shop Slider. Use one Spa Model post for each product/result.', 'perfect-hot-tub-finder' ) . '</p>';
 		echo '<div class="phtf-admin-grid" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 18px;">';
 		foreach ( $detail_keys as $key ) {

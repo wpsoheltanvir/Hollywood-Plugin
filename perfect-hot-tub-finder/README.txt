@@ -381,6 +381,9 @@ Version 1.0.1: Added dedicated Elementor style controls for Primary Button and S
 
 == Changelog ==
 
+= 1.0.226 =
+* Replaced Spa Model Hero with Spa Model Single Hero: dynamic Spa Model content on the left and the complete customizable Series Hero gallery on the right, with responsive styling and working price footnotes.
+
 
 = 1.0.126 =
 * Removed the duplicate Seating Capacity field from the Compare Specifications backend meta box. The compare/specification output can still use the main Seating Capacity field from Spa Shop Slider Product Details.

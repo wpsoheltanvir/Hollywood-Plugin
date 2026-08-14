@@ -1070,26 +1070,6 @@
 		show(index);
 	}
 
-	function initModelHero(root) {
-		var hero = root && root.matches && root.matches('[data-phtf-model-slider]') ? root : (root ? root.querySelector('[data-phtf-model-slider]') : null);
-		if (!hero) { return; }
-		hero.setAttribute('data-phtf-model-slider-initialized', 'true');
-		var images = Array.prototype.slice.call(hero.querySelectorAll('.phtf-model-slider__image'));
-		var thumbs = Array.prototype.slice.call(hero.querySelectorAll('[data-model-slide]'));
-		var index = 0;
-		function show(next) {
-			if (!images.length) { return; }
-			index = (next + images.length) % images.length;
-			images.forEach(function (image, i) { image.hidden = i !== index; image.classList.toggle('is-active', i === index); image.setAttribute('aria-hidden', i === index ? 'false' : 'true'); });
-			thumbs.forEach(function (thumb, i) { thumb.classList.toggle('is-active', i === index); thumb.setAttribute('aria-current', i === index ? 'true' : 'false'); });
-		}
-		thumbs.forEach(function (thumb, i) { thumb.onclick = function () { show(i); }; });
-		var prev = hero.querySelector('[data-model-prev]'); var next = hero.querySelector('[data-model-next]');
-		if (prev) { prev.onclick = function () { show(index - 1); }; }
-		if (next) { next.onclick = function () { show(index + 1); }; }
-		show(0);
-	}
-
 
 	function initReviews(root) {
 		var reviews = root && root.matches && root.matches('[data-phtf-reviews]') ? root : (root ? root.querySelector('[data-phtf-reviews]') : null);
@@ -1692,7 +1672,6 @@
 		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-delight]')).forEach(initDelight);
 		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-series-models]')).forEach(initSeriesModels);
 		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-series-slider]')).forEach(initSeriesHero);
-		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-model-slider]')).forEach(initModelHero);
 		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-reviews]')).forEach(initReviews);
 		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-compare]')).forEach(initCompareSpaModels);
 		Array.prototype.slice.call(document.querySelectorAll('.phtc-widget')).forEach(initSeriesComparison);
@@ -1785,7 +1764,10 @@
 				window.setTimeout(function () { initSeriesHero(scope); }, 0);
 			});
 			window.elementorFrontend.hooks.addAction('frontend/element_ready/phtf_spa_model_slider.default', function ($scope) {
-				initModelHero($scope && $scope[0] ? $scope[0] : document);
+				var scope = $scope && $scope[0] ? $scope[0] : document;
+				initSeriesHero(scope);
+				initPricePopups(scope);
+				window.setTimeout(function () { initSeriesHero(scope); }, 0);
 			});
 			window.elementorFrontend.hooks.addAction('frontend/element_ready/phtf_reviews.default', function ($scope) {
 				var root = $scope && $scope[0] ? $scope[0].querySelector('[data-phtf-reviews]') : null;

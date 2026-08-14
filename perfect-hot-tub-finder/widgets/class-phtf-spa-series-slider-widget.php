@@ -51,7 +51,7 @@ class PHTF_Spa_Series_Slider_Widget extends \Elementor\Widget_Base {
 		$this->register_responsive_style_controls();
 	}
 
-	private function register_complete_style_controls() {
+	protected function register_complete_style_controls() {
 		$this->start_controls_section( 'style_layout', [ 'label' => esc_html__( 'Layout', 'perfect-hot-tub-finder' ), 'tab' => Controls_Manager::TAB_STYLE ] );
 		$this->add_control( 'layout_background', [ 'label' => esc_html__( 'Background Color', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .phtf-series-slider, {{WRAPPER}} .phtf-series-slider__content' => 'background-color: {{VALUE}};' ] ] );
 		$this->add_responsive_control( 'layout_content_width', [ 'label' => esc_html__( 'Desktop Content Width', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::SLIDER, 'size_units' => [ '%' ], 'range' => [ '%' => [ 'min' => 30, 'max' => 65 ] ], 'selectors' => [ '{{WRAPPER}} .phtf-series-slider' => '--phtf-series-content-width: {{SIZE}}%;' ] ] );
@@ -207,7 +207,7 @@ class PHTF_Spa_Series_Slider_Widget extends \Elementor\Widget_Base {
 		$this->end_controls_section();
 	}
 
-	private function register_responsive_style_controls() {
+	protected function register_responsive_style_controls() {
 		$this->start_controls_section( 'responsive_layout', [ 'label' => esc_html__( 'Responsive Layout', 'perfect-hot-tub-finder' ), 'tab' => Controls_Manager::TAB_STYLE ] );
 		$this->add_responsive_control( 'responsive_content_padding', [ 'label' => esc_html__( 'Content Side Spacing', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::SLIDER, 'size_units' => [ 'px', 'vw' ], 'range' => [ 'px' => [ 'min' => 0, 'max' => 100 ], 'vw' => [ 'min' => 0, 'max' => 15 ] ], 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__title, {{WRAPPER}} .phtf-series-slider__reviews, {{WRAPPER}} .phtf-series-slider__description, {{WRAPPER}} .phtf-series-slider__actions' => 'padding-left: {{SIZE}}{{UNIT}}; padding-right: {{SIZE}}{{UNIT}};' ] ] );
 		$this->add_responsive_control( 'responsive_title_size', [ 'label' => esc_html__( 'Title Size', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::SLIDER, 'size_units' => [ 'px', 'em', 'rem' ], 'range' => [ 'px' => [ 'min' => 24, 'max' => 80 ], 'em' => [ 'min' => 1.2, 'max' => 5 ], 'rem' => [ 'min' => 1.2, 'max' => 5 ] ], 'selectors' => [ '{{WRAPPER}} .phtf-series-slider__title' => 'font-size: {{SIZE}}{{UNIT}};' ] ] );
@@ -215,7 +215,7 @@ class PHTF_Spa_Series_Slider_Widget extends \Elementor\Widget_Base {
 		$this->end_controls_section();
 	}
 
-	private function link( $link ) {
+	protected function link( $link ) {
 		if ( empty( $link['url'] ) ) { return ''; }
 		$rel = array_filter( [ ! empty( $link['is_external'] ) ? 'noopener noreferrer' : '', ! empty( $link['nofollow'] ) ? 'nofollow' : '' ] );
 		return sprintf( ' href="%s"%s%s', esc_url( $link['url'] ), ! empty( $link['is_external'] ) ? ' target="_blank"' : '', ! empty( $rel ) ? ' rel="' . esc_attr( implode( ' ', $rel ) ) . '"' : '' );
