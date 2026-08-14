@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.221 =
+* Forced every Series Hero gallery image to fill its fixed responsive frame with cover, including small source images, and removed conflicting fit/scale controls.
+
 = 1.0.220 =
 * Enabled Elementor Dynamic Tags for breadcrumb Label text in every Header / Breadcrumb widget, matching the existing dynamic Link controls.
 
