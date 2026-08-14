@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.217 =
+* Enabled Elementor Dynamic Tags for breadcrumb links in every Header / Breadcrumb widget, including Spa Shop Slider and Series Hero.
+
 = 1.0.216 =
 * Added independent Primary and Secondary Button typography, spacing, border, shadow, normal, and hover styling, plus complete Series Hero thumbnail strip and slide thumbnail controls.
 

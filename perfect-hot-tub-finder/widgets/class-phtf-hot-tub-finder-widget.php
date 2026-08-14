@@ -98,6 +98,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 			[
 				'label' => esc_html__( 'Link', 'perfect-hot-tub-finder' ),
 				'type'  => Controls_Manager::URL,
+				'dynamic' => [ 'active' => true ],
 			]
 		);
 		$breadcrumb_repeater->add_control(
