@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.225 =
+* Moved all Series Hero arrow controls into a dedicated Slide Arrows Style panel, including responsive button size, radius, border, shadow, colors, hover states, icon size, and positioning.
+
 = 1.0.224 =
 * Added an Active / Current switch, accessible current-page output, automatic final-item fallback, and current-item color control to the Series Hero breadcrumb.
 
