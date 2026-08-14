@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.218 =
+* Fixed Series Hero arrow and thumbnail navigation and added responsive review-star, arrow-icon, and arrow-button size controls.
+
 = 1.0.217 =
 * Enabled Elementor Dynamic Tags for breadcrumb links in every Header / Breadcrumb widget, including Spa Shop Slider and Series Hero.
 
