@@ -48,6 +48,9 @@ define( 'PHTF_GITHUB_TOKEN', 'github_pat_your_token_here' );
 
 Changelog
 ---------
+= 1.0.219 =
+* Removed Series Hero bottom whitespace and added complete responsive gallery width, height, alignment, image, border, radius, and shadow controls.
+
 = 1.0.218 =
 * Fixed Series Hero arrow and thumbnail navigation and added responsive review-star, arrow-icon, and arrow-button size controls.
 
