@@ -381,6 +381,9 @@ Version 1.0.1: Added dedicated Elementor style controls for Primary Button and S
 
 == Changelog ==
 
+= 1.0.228 =
+* Enabled the complete Header / Breadcrumb controls in Spa Model Single Hero, including dynamic label and link tags plus Active / Current state.
+
 = 1.0.227 =
 * Fixed the tablet/mobile Spa Shop Slider filter accordion so Seating and Price headings reliably open and close inside normal pages and Elementor responsive previews.
 

@@ -20,6 +20,15 @@ class PHTF_Spa_Model_Slider_Widget extends PHTF_Spa_Series_Slider_Widget {
 	public function get_keywords() { return [ 'spa', 'hot tub', 'single model', 'dynamic', 'hero', 'gallery' ]; }
 
 	protected function register_controls() {
+		$this->start_controls_section( 'header', [ 'label' => esc_html__( 'Header / Breadcrumb', 'perfect-hot-tub-finder' ) ] );
+		$this->add_control( 'show_header', [ 'label' => esc_html__( 'Show Header', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::SWITCHER, 'label_on' => esc_html__( 'Yes', 'perfect-hot-tub-finder' ), 'label_off' => esc_html__( 'No', 'perfect-hot-tub-finder' ), 'return_value' => 'yes', 'default' => 'yes' ] );
+		$this->add_control( 'show_breadcrumb', [ 'label' => esc_html__( 'Show Breadcrumb', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::SWITCHER, 'label_on' => esc_html__( 'Yes', 'perfect-hot-tub-finder' ), 'label_off' => esc_html__( 'No', 'perfect-hot-tub-finder' ), 'return_value' => 'yes', 'default' => 'yes', 'condition' => [ 'show_header' => 'yes' ] ] );
+		$breadcrumb_repeater = new Repeater();
+		$breadcrumb_repeater->add_control( 'label', [ 'label' => esc_html__( 'Label', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::TEXT, 'default' => esc_html__( 'Home', 'perfect-hot-tub-finder' ), 'label_block' => true, 'dynamic' => [ 'active' => true ] ] );
+		$breadcrumb_repeater->add_control( 'link', [ 'label' => esc_html__( 'Link', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::URL, 'dynamic' => [ 'active' => true ] ] );
+		$breadcrumb_repeater->add_control( 'active', [ 'label' => esc_html__( 'Active / Current', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::SWITCHER, 'label_on' => esc_html__( 'Yes', 'perfect-hot-tub-finder' ), 'label_off' => esc_html__( 'No', 'perfect-hot-tub-finder' ), 'return_value' => 'yes', 'default' => '' ] );
+		$this->add_control( 'breadcrumb_items', [ 'label' => esc_html__( 'Breadcrumb Items', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::REPEATER, 'fields' => $breadcrumb_repeater->get_controls(), 'title_field' => '{{{ label }}}', 'default' => [ [ 'label' => 'Home' ], [ 'label' => 'Shop' ] ], 'condition' => [ 'show_header' => 'yes', 'show_breadcrumb' => 'yes' ] ] );
+		$this->end_controls_section();
 		$this->start_controls_section( 'model_source', [ 'label' => esc_html__( 'Spa Model', 'perfect-hot-tub-finder' ) ] );
 		$this->add_control(
 			'model_id',
@@ -105,6 +114,47 @@ class PHTF_Spa_Model_Slider_Widget extends PHTF_Spa_Series_Slider_Widget {
 		$this->end_controls_section();
 	}
 
+	private function render_breadcrumb( $settings, $title ) {
+		if ( 'yes' !== ( $settings['show_header'] ?? 'yes' ) || 'yes' !== ( $settings['show_breadcrumb'] ?? 'yes' ) ) {
+			return;
+		}
+
+		$breadcrumbs = array_values( array_filter( $settings['breadcrumb_items'] ?? [], static function ( $item ) {
+			return is_array( $item ) && '' !== trim( (string) ( $item['label'] ?? '' ) );
+		} ) );
+		$active_found = false;
+		foreach ( $breadcrumbs as $index => $breadcrumb ) {
+			$is_active = ! $active_found && 'yes' === ( $breadcrumb['active'] ?? '' );
+			$breadcrumbs[ $index ]['active'] = $is_active ? 'yes' : '';
+			$active_found = $active_found || $is_active;
+		}
+
+		$current_label = trim( wp_strip_all_tags( $title ) );
+		$last = end( $breadcrumbs );
+		if ( '' !== $current_label && $current_label !== trim( wp_strip_all_tags( is_array( $last ) ? ( $last['label'] ?? '' ) : '' ) ) ) {
+			$breadcrumbs[] = [ 'label' => $current_label, 'active' => $active_found ? '' : 'yes' ];
+		} elseif ( ! $active_found && ! empty( $breadcrumbs ) ) {
+			$last_index = array_key_last( $breadcrumbs );
+			$breadcrumbs[ $last_index ]['active'] = 'yes';
+		}
+
+		if ( empty( $breadcrumbs ) ) {
+			return;
+		}
+		?>
+		<nav class="phtf-series-slider__breadcrumb" aria-label="<?php esc_attr_e( 'Breadcrumb', 'perfect-hot-tub-finder' ); ?>">
+			<?php foreach ( $breadcrumbs as $index => $item ) :
+				$label = trim( (string) ( $item['label'] ?? '' ) );
+				$is_active = 'yes' === ( $item['active'] ?? '' );
+				?>
+				<span class="phtf-series-slider__breadcrumb-item<?php echo $is_active ? ' is-active' : ''; ?>"<?php echo $is_active ? ' aria-current="page"' : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+					<?php if ( ! $is_active && ! empty( $item['link']['url'] ) ) : ?><a<?php echo $this->link( $item['link'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>><?php echo esc_html( $label ); ?></a><?php else : ?><?php echo esc_html( $label ); ?><?php endif; ?>
+				</span>
+				<?php if ( $index < count( $breadcrumbs ) - 1 ) : ?><span class="phtf-series-slider__breadcrumb-separator" aria-hidden="true">&gt;</span><?php endif; ?>
+			<?php endforeach; ?>
+		</nav>
+		<?php
+	}
 	private function resolve_model_id( $selected_id ) {
 		$selected_id = absint( $selected_id );
 		if ( $selected_id && 'phtf_spa_model' === get_post_type( $selected_id ) ) {
@@ -187,6 +237,7 @@ class PHTF_Spa_Model_Slider_Widget extends PHTF_Spa_Series_Slider_Widget {
 		?>
 		<section class="phtf-series-slider phtf-model-single-hero phtf-widget" data-phtf-series-slider>
 			<div class="phtf-series-slider__content">
+				<?php $this->render_breadcrumb( $settings, $title ); ?>
 				<h1 class="phtf-series-slider__title"><?php echo esc_html( $title ); ?></h1>
 				<?php if ( $series ) : ?><div class="phtf-model-single-hero__series"><?php echo esc_html( strtoupper( wp_strip_all_tags( $series ) ) ); ?></div><?php endif; ?>
 				<?php if ( $reviews ) : ?>
