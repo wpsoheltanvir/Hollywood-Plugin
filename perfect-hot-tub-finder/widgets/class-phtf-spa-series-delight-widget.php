@@ -456,6 +456,12 @@ class PHTF_Spa_Series_Delight_Widget extends \Elementor\Widget_Base {
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 		$items    = ! empty( $settings['items'] ) && is_array( $settings['items'] ) ? $settings['items'] : [];
+		$show_title        = $settings['show_title'] ?? 'yes';
+		$show_tabs         = $settings['show_tabs'] ?? 'yes';
+		$show_tab_dividers = $settings['show_tab_dividers'] ?? 'yes';
+		$show_arrows       = $settings['show_arrows'] ?? 'yes';
+		$prev_icon         = $settings['prev_icon'] ?? '‹';
+		$next_icon         = $settings['next_icon'] ?? '›';
 
 		if ( empty( $items ) ) {
 			return;
@@ -466,12 +472,12 @@ class PHTF_Spa_Series_Delight_Widget extends \Elementor\Widget_Base {
 		?>
 		<section class="phtf-delight" data-phtf-delight>
 			<div class="phtf-delight-inner">
-				<?php if ( 'yes' === $settings['show_title'] && ! empty( $settings['title'] ) ) : ?>
+				<?php if ( 'yes' === $show_title && ! empty( $settings['title'] ) ) : ?>
 					<<?php echo esc_attr( $title_tag ); ?> class="phtf-delight-title"><?php echo esc_html( $settings['title'] ); ?></<?php echo esc_attr( $title_tag ); ?>>
 				<?php endif; ?>
 
-				<?php if ( 'yes' === $settings['show_tabs'] ) : ?>
-					<nav class="phtf-delight-tabs-wrap <?php echo ( 'yes' === $settings['show_tab_dividers'] ) ? 'has-dividers' : ''; ?>" aria-label="<?php echo esc_attr__( 'Spa feature tabs', 'perfect-hot-tub-finder' ); ?>">
+				<?php if ( 'yes' === $show_tabs ) : ?>
+					<nav class="phtf-delight-tabs-wrap <?php echo ( 'yes' === $show_tab_dividers ) ? 'has-dividers' : ''; ?>" aria-label="<?php echo esc_attr__( 'Spa feature tabs', 'perfect-hot-tub-finder' ); ?>">
 						<ul class="phtf-delight-tabs">
 							<?php foreach ( $items as $index => $item ) : ?>
 								<li class="phtf-delight-tab-item">
@@ -485,8 +491,8 @@ class PHTF_Spa_Series_Delight_Widget extends \Elementor\Widget_Base {
 				<?php endif; ?>
 
 				<div class="phtf-delight-stage">
-					<?php if ( 'yes' === $settings['show_arrows'] && count( $items ) > 1 ) : ?>
-						<button type="button" class="phtf-delight-arrow phtf-delight-prev" data-phtf-delight-prev aria-label="<?php echo esc_attr__( 'Previous feature', 'perfect-hot-tub-finder' ); ?>"><?php echo esc_html( $settings['prev_icon'] ); ?></button>
+					<?php if ( 'yes' === $show_arrows && count( $items ) > 1 ) : ?>
+						<button type="button" class="phtf-delight-arrow phtf-delight-prev" data-phtf-delight-prev aria-label="<?php echo esc_attr__( 'Previous feature', 'perfect-hot-tub-finder' ); ?>"><?php echo esc_html( $prev_icon ); ?></button>
 					<?php endif; ?>
 
 					<div class="phtf-delight-panels">
@@ -510,8 +516,8 @@ class PHTF_Spa_Series_Delight_Widget extends \Elementor\Widget_Base {
 						<?php endforeach; ?>
 					</div>
 
-					<?php if ( 'yes' === $settings['show_arrows'] && count( $items ) > 1 ) : ?>
-						<button type="button" class="phtf-delight-arrow phtf-delight-next" data-phtf-delight-next aria-label="<?php echo esc_attr__( 'Next feature', 'perfect-hot-tub-finder' ); ?>"><?php echo esc_html( $settings['next_icon'] ); ?></button>
+					<?php if ( 'yes' === $show_arrows && count( $items ) > 1 ) : ?>
+						<button type="button" class="phtf-delight-arrow phtf-delight-next" data-phtf-delight-next aria-label="<?php echo esc_attr__( 'Next feature', 'perfect-hot-tub-finder' ); ?>"><?php echo esc_html( $next_icon ); ?></button>
 					<?php endif; ?>
 				</div>
 			</div>

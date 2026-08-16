@@ -693,12 +693,13 @@ class PHTF_Reviews_Widget extends \Elementor\Widget_Base {
 		$reviews  = ! empty( $settings['reviews'] ) && is_array( $settings['reviews'] ) ? $settings['reviews'] : [];
 		$autoplay = 'yes' === ( $settings['autoplay'] ?? '' ) ? 'yes' : 'no';
 		$speed    = ! empty( $settings['autoplay_speed'] ) ? absint( $settings['autoplay_speed'] ) : 5000;
+		$title_tag = $settings['title_html_tag'] ?? 'h2';
+		$title_tag = in_array( $title_tag, [ 'h1', 'h2', 'h3', 'h4', 'div' ], true ) ? $title_tag : 'h2';
 		?>
 		<section class="phtf-reviews" data-phtf-reviews data-phtf-reviews-autoplay="<?php echo esc_attr( $autoplay ); ?>" data-phtf-reviews-speed="<?php echo esc_attr( $speed ); ?>">
 			<div class="phtf-reviews-inner">
 				<?php if ( 'yes' === ( $settings['show_title'] ?? '' ) && ! empty( $settings['title'] ) ) : ?>
-					<?php $tag = in_array( $settings['title_html_tag'], [ 'h1', 'h2', 'h3', 'h4', 'div' ], true ) ? $settings['title_html_tag'] : 'h2'; ?>
-					<<?php echo esc_attr( $tag ); ?> class="phtf-reviews-title"><?php echo esc_html( $settings['title'] ); ?></<?php echo esc_attr( $tag ); ?>>
+					<<?php echo esc_attr( $title_tag ); ?> class="phtf-reviews-title"><?php echo esc_html( $settings['title'] ); ?></<?php echo esc_attr( $title_tag ); ?>>
 				<?php endif; ?>
 
 				<div class="phtf-reviews-slider">

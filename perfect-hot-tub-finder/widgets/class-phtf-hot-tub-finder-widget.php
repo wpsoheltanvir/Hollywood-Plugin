@@ -3427,6 +3427,8 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 		$show_price_filter     = $show_filters && 'yes' === ( $settings['show_price_filter'] ?? 'yes' ) && ! empty( $price_filters );
 		$show_product_image    = 'yes' === ( $settings['show_product_image'] ?? 'yes' );
 		$show_background_image = 'yes' === ( $settings['show_background_image'] ?? 'yes' );
+		$results_label         = ! empty( $settings['results_label'] ) ? $settings['results_label'] : esc_html__( 'Results', 'perfect-hot-tub-finder' );
+		$empty_message         = ! empty( $settings['empty_message'] ) ? $settings['empty_message'] : esc_html__( 'No hot tubs match the selected filters.', 'perfect-hot-tub-finder' );
 		$show_explore_models   = false; // Explore Our Models now renders in its own separate widget.
 		$show_explore_tabs     = $show_explore_models && 'yes' === ( $settings['show_explore_tabs'] ?? 'yes' );
 
@@ -3599,7 +3601,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 							<div class="phtf-results-nav">
 								<div class="phtf-results-nav-main">
 									<button type="button" class="phtf-arrow phtf-arrow--prev" data-phtf-prev aria-label="<?php esc_attr_e( 'Previous result', 'perfect-hot-tub-finder' ); ?>">‹</button>
-									<span class="phtf-results-count" data-phtf-count data-label="<?php echo esc_attr( $settings['results_label'] ); ?>"><?php echo esc_html( $settings['results_label'] ); ?> (1 <?php esc_html_e( 'of', 'perfect-hot-tub-finder' ); ?> <?php echo esc_html( count( $products ) ); ?>)</span>
+									<span class="phtf-results-count" data-phtf-count data-label="<?php echo esc_attr( $results_label ); ?>"><?php echo esc_html( $results_label ); ?> (1 <?php esc_html_e( 'of', 'perfect-hot-tub-finder' ); ?> <?php echo esc_html( count( $products ) ); ?>)</span>
 									<button type="button" class="phtf-arrow phtf-arrow--next" data-phtf-next aria-label="<?php esc_attr_e( 'Next result', 'perfect-hot-tub-finder' ); ?>">›</button>
 								</div>
 								<?php if ( $show_seating_filter || $show_price_filter ) : ?>
@@ -3612,7 +3614,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 								<?php endif; ?>
 							</div>
 
-							<div class="phtf-empty" data-phtf-empty hidden><?php echo esc_html( $settings['empty_message'] ); ?></div>
+							<div class="phtf-empty" data-phtf-empty hidden><?php echo esc_html( $empty_message ); ?></div>
 
 							<div class="phtf-products" data-phtf-products>
 								<?php foreach ( $products as $index => $product ) :
