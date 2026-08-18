@@ -371,7 +371,7 @@ class PHTF_Spa_Series_Models_Widget extends \Elementor\Widget_Base {
 				'label'          => esc_html__( 'Columns', 'perfect-hot-tub-finder' ),
 				'type'           => Controls_Manager::NUMBER,
 				'default'        => 3,
-				'tablet_default' => 2,
+				'tablet_default' => 1,
 				'mobile_default' => 1,
 				'min'            => 1,
 				'max'            => 6,

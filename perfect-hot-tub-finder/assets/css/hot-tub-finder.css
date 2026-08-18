@@ -2592,6 +2592,8 @@
 
 .phtf-spa-models-carousel {
 	position: relative;
+	width: 100%;
+	min-width: 0;
 }
 
 .phtf-spa-models-arrow {
@@ -2781,9 +2783,14 @@
 	}
 
 	.phtf-spa-models-grid {
-		grid-template-columns: minmax(0, 1fr);
-		column-gap: 0;
-		row-gap: 0;
+		/* The tablet/mobile presentation is a one-card carousel. Override
+		 * Elementor's saved responsive Columns value so the active card
+		 * cannot remain stranded in the first column of a wider grid. */
+		grid-template-columns: minmax(0, 1fr) !important;
+		column-gap: 0 !important;
+		row-gap: 0 !important;
+		width: 100%;
+		min-width: 0;
 	}
 
 	.phtf-spa-models-title {
@@ -2792,6 +2799,7 @@
 	}
 
 	.phtf-spa-models-card {
+		width: 100%;
 		max-width: 360px;
 		margin: 0 auto;
 	}
