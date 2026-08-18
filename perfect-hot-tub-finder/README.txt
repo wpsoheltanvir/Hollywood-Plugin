@@ -381,6 +381,12 @@ Version 1.0.1: Added dedicated Elementor style controls for Primary Button and S
 
 == Changelog ==
 
+= 1.0.229 =
+* Fixed Spa Series Models tablet/mobile carousel alignment and added centered, fully customizable navigation arrows.
+* Added responsive price-footnote size, color, vertical, and horizontal positioning controls across applicable widgets.
+* Fixed Spa Model Single Hero footnote alignment and added responsive spacing above its action buttons.
+* Prevented undefined Elementor setting notices in legacy widget data.
+
 = 1.0.228 =
 * Enabled the complete Header / Breadcrumb controls in Spa Model Single Hero, including dynamic label and link tags plus Active / Current state.
 
