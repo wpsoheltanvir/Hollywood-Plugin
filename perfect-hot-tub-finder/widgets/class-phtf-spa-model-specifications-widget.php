@@ -338,12 +338,44 @@ class PHTF_Spa_Model_Specifications_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'show_minimize_button',
 			[
-				'label'        => esc_html__( 'Show Minimize Button', 'perfect-hot-tub-finder' ),
+				'label'        => esc_html__( 'Show Specs Toggle Button', 'perfect-hot-tub-finder' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'label_on'     => esc_html__( 'Yes', 'perfect-hot-tub-finder' ),
 				'label_off'    => esc_html__( 'No', 'perfect-hot-tub-finder' ),
 				'return_value' => 'yes',
 				'default'      => 'yes',
+			]
+		);
+		$this->add_control(
+			'preview_rows',
+			[
+				'label'     => esc_html__( 'Rows Shown Before Click', 'perfect-hot-tub-finder' ),
+				'type'      => Controls_Manager::NUMBER,
+				'min'       => 1,
+				'max'       => 20,
+				'step'      => 1,
+				'default'   => 5,
+				'condition' => [ 'show_minimize_button' => 'yes' ],
+			]
+		);
+		$this->add_control(
+			'load_full_text',
+			[
+				'label'       => esc_html__( 'Load Button Text', 'perfect-hot-tub-finder' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => 'Load Full Specs',
+				'label_block' => true,
+				'condition'   => [ 'show_minimize_button' => 'yes' ],
+			]
+		);
+		$this->add_control(
+			'load_full_icon',
+			[
+				'label'       => esc_html__( 'Load Icon', 'perfect-hot-tub-finder' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => '⌄',
+				'label_block' => true,
+				'condition'   => [ 'show_minimize_button' => 'yes' ],
 			]
 		);
 		$this->add_control(
@@ -855,13 +887,14 @@ class PHTF_Spa_Model_Specifications_Widget extends \Elementor\Widget_Base {
 		return $attrs;
 	}
 
-	private function render_rows( $rows ) {
+	private function render_rows( $rows, $start_index = 0, $preview_rows = 5 ) {
 		if ( empty( $rows ) || ! is_array( $rows ) ) {
 			return;
 		}
-		foreach ( $rows as $row ) :
+		foreach ( $rows as $index => $row ) :
+			$row_index = $start_index + $index;
 			?>
-			<div class="phtf-specs-row">
+			<div class="phtf-specs-row" data-phtf-spec-row-index="<?php echo esc_attr( $row_index ); ?>"<?php echo $row_index >= $preview_rows ? ' hidden' : ''; ?>>
 				<div class="phtf-specs-row-label"><?php echo wp_kses( $row['row_label'] ?? '', $this->allowed_html() ); ?></div>
 				<div class="phtf-specs-row-value"><?php echo wp_kses( $row['row_value'] ?? '', $this->allowed_html() ); ?></div>
 			</div>
@@ -895,8 +928,13 @@ class PHTF_Spa_Model_Specifications_Widget extends \Elementor\Widget_Base {
 			$tag = 'h2';
 		}
 		$image_url = phtf_image_url_or_fallback( ! empty( $settings['spec_image']['url'] ) ? $settings['spec_image']['url'] : '', 'widget' );
+		$left_rows   = is_array( $settings['left_rows'] ?? null ) ? $settings['left_rows'] : [];
+		$right_rows  = is_array( $settings['right_rows'] ?? null ) ? $settings['right_rows'] : [];
+		$preview_rows = max( 1, absint( $settings['preview_rows'] ?? 5 ) );
+		$total_rows   = count( $left_rows ) + count( $right_rows );
+		$can_toggle   = 'yes' === ( $settings['show_minimize_button'] ?? 'yes' ) && $total_rows > $preview_rows;
 		?>
-		<section class="phtf-model-specs phtf-specs phtf-specs-v2">
+		<section class="phtf-model-specs phtf-specs phtf-specs-v2" data-phtf-model-specs data-phtf-specs-preview-rows="<?php echo esc_attr( $preview_rows ); ?>" data-phtf-specs-expanded="false">
 			<div class="phtf-specs-inner">
 				<?php if ( 'yes' === ( $settings['show_title'] ?? 'yes' ) && ! empty( $settings['title'] ) ) : ?>
 					<<?php echo esc_attr( $tag ); ?> class="phtf-specs-title"><?php echo wp_kses( $settings['title'], $this->allowed_html() ); ?></<?php echo esc_attr( $tag ); ?>>
@@ -904,7 +942,7 @@ class PHTF_Spa_Model_Specifications_Widget extends \Elementor\Widget_Base {
 
 				<div class="phtf-specs-grid">
 					<div class="phtf-specs-col phtf-specs-col-left">
-						<?php $this->render_rows( $settings['left_rows'] ?? [] ); ?>
+						<?php $this->render_rows( $left_rows, 0, $preview_rows ); ?>
 					</div>
 
 					<div class="phtf-specs-col phtf-specs-col-right">
@@ -919,16 +957,16 @@ class PHTF_Spa_Model_Specifications_Widget extends \Elementor\Widget_Base {
 								</div>
 							</figure>
 						<?php endif; ?>
-						<?php $this->render_rows( $settings['right_rows'] ?? [] ); ?>
+						<?php $this->render_rows( $right_rows, count( $left_rows ), $preview_rows ); ?>
 					</div>
 				</div>
 
 				<?php if ( 'yes' === ( $settings['show_minimize_button'] ?? 'yes' ) || 'yes' === ( $settings['show_manual'] ?? 'yes' ) ) : ?>
 					<div class="phtf-specs-footer">
-						<?php if ( 'yes' === ( $settings['show_minimize_button'] ?? 'yes' ) && ! empty( $settings['minimize_text'] ) ) : ?>
-							<button type="button" class="phtf-specs-pill phtf-specs-minimize">
-								<span><?php echo esc_html( $settings['minimize_text'] ); ?></span>
-								<?php if ( ! empty( $settings['minimize_icon'] ) ) : ?><span class="phtf-specs-pill-icon"><?php echo esc_html( $settings['minimize_icon'] ); ?></span><?php endif; ?>
+						<?php if ( $can_toggle && ! empty( $settings['load_full_text'] ) && ! empty( $settings['minimize_text'] ) ) : ?>
+							<button type="button" class="phtf-specs-pill phtf-specs-minimize phtf-specs-toggle" data-phtf-specs-toggle aria-expanded="false">
+								<span data-phtf-specs-toggle-label data-load-label="<?php echo esc_attr( $settings['load_full_text'] ); ?>" data-minimize-label="<?php echo esc_attr( $settings['minimize_text'] ); ?>"><?php echo esc_html( $settings['load_full_text'] ); ?></span>
+								<span class="phtf-specs-pill-icon" data-phtf-specs-toggle-icon data-load-icon="<?php echo esc_attr( $settings['load_full_icon'] ?? '⌄' ); ?>" data-minimize-icon="<?php echo esc_attr( $settings['minimize_icon'] ?? '^' ); ?>" aria-hidden="true"><?php echo esc_html( $settings['load_full_icon'] ?? '⌄' ); ?></span>
 							</button>
 						<?php endif; ?>
 						<?php if ( 'yes' === ( $settings['show_manual'] ?? 'yes' ) ) : ?>

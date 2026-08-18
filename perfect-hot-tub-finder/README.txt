@@ -381,6 +381,10 @@ Version 1.0.1: Added dedicated Elementor style controls for Primary Button and S
 
 == Changelog ==
 
+= 1.0.230 =
+* Added a collapsed specification preview with configurable visible rows.
+* Added working Load Full Specs and Minimize Specs toggle behavior.
+
 = 1.0.229 =
 * Fixed Spa Series Models tablet/mobile carousel alignment and added centered, fully customizable navigation arrows.
 * Added responsive price-footnote size, color, vertical, and horizontal positioning controls across applicable widgets.

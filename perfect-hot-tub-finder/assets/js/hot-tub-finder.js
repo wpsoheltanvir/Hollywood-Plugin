@@ -1697,6 +1697,41 @@
 		show(0);
 	}
 
+	function initModelSpecs(widget) {
+		if (!widget || widget.phtfModelSpecsReady) {
+			return;
+		}
+		widget.phtfModelSpecsReady = true;
+		var toggle = widget.querySelector('[data-phtf-specs-toggle]');
+		if (!toggle) {
+			return;
+		}
+		var rows = Array.prototype.slice.call(widget.querySelectorAll('[data-phtf-spec-row-index]'));
+		var previewRows = Math.max(1, parseInt(widget.getAttribute('data-phtf-specs-preview-rows'), 10) || 5);
+		var label = toggle.querySelector('[data-phtf-specs-toggle-label]');
+		var icon = toggle.querySelector('[data-phtf-specs-toggle-icon]');
+
+		function update(expanded) {
+			widget.setAttribute('data-phtf-specs-expanded', expanded ? 'true' : 'false');
+			toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+			rows.forEach(function (row) {
+				var index = parseInt(row.getAttribute('data-phtf-spec-row-index'), 10) || 0;
+				row.hidden = !expanded && index >= previewRows;
+			});
+			if (label) {
+				label.textContent = expanded ? label.getAttribute('data-minimize-label') : label.getAttribute('data-load-label');
+			}
+			if (icon) {
+				icon.textContent = expanded ? icon.getAttribute('data-minimize-icon') : icon.getAttribute('data-load-icon');
+			}
+		}
+
+		toggle.addEventListener('click', function () {
+			update(widget.getAttribute('data-phtf-specs-expanded') !== 'true');
+		});
+		update(false);
+	}
+
 	function initAll() {
 		collectProductSources();
 		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-widget]')).forEach(initFinder);
@@ -1705,6 +1740,7 @@
 		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-delight]')).forEach(initDelight);
 		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-series-models]')).forEach(initSeriesModels);
 		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-series-slider]')).forEach(initSeriesHero);
+		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-model-specs]')).forEach(initModelSpecs);
 		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-reviews]')).forEach(initReviews);
 		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-compare]')).forEach(initCompareSpaModels);
 		Array.prototype.slice.call(document.querySelectorAll('.phtc-widget')).forEach(initSeriesComparison);
@@ -1801,6 +1837,12 @@
 				initSeriesHero(scope);
 				initPricePopups(scope);
 				window.setTimeout(function () { initSeriesHero(scope); }, 0);
+			});
+			window.elementorFrontend.hooks.addAction('frontend/element_ready/phtf_spa_model_specifications.default', function ($scope) {
+				var root = $scope && $scope[0] ? $scope[0].querySelector('[data-phtf-model-specs]') : null;
+				if (root) {
+					initModelSpecs(root);
+				}
 			});
 			window.elementorFrontend.hooks.addAction('frontend/element_ready/phtf_reviews.default', function ($scope) {
 				var root = $scope && $scope[0] ? $scope[0].querySelector('[data-phtf-reviews]') : null;

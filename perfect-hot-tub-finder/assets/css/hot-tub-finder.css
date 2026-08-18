@@ -3988,6 +3988,7 @@
 }
 
 .phtf-model-specs .phtf-specs-pill-icon {
+	display: inline-block;
 	font-size: 0.95em;
 	line-height: 1;
 }
