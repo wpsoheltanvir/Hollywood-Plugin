@@ -7197,6 +7197,19 @@ body .elementor-widget-phtf_hot_tub_finder {
 }
 .phtf-model-single-hero__price .phtf-price-note-trigger {
 	color: var(--phtf-series-accent);
+	background: transparent !important;
+	border: 0 !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+}
+.phtf-model-single-hero__price .phtf-price-note-trigger:hover,
+.phtf-model-single-hero__price .phtf-price-note-trigger:focus,
+.phtf-model-single-hero__price .phtf-price-note-trigger:active {
+	color: var(--phtf-series-accent);
+	background: transparent !important;
+	border: 0 !important;
+	box-shadow: none !important;
+	outline: none;
 }
 .phtf-model-single-hero__price .phtf-price-note-wrap {
 	align-items: baseline;
