@@ -17,7 +17,7 @@ class PHTF_Spa_Series_Models_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return esc_html__( 'WP P Spa Series Models', 'perfect-hot-tub-finder' );
+		return esc_html__( 'Spa Series Models', 'perfect-hot-tub-finder' );
 	}
 
 	public function get_icon() {

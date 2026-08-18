@@ -20,7 +20,7 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return esc_html__( 'WP P Spa Shop Slider', 'perfect-hot-tub-finder' );
+		return esc_html__( 'Spa Shop Slider', 'perfect-hot-tub-finder' );
 	}
 
 	public function get_icon() {
