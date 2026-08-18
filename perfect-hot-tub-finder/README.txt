@@ -381,6 +381,9 @@ Version 1.0.1: Added dedicated Elementor style controls for Primary Button and S
 
 == Changelog ==
 
+= 1.0.239 =
+* Updated the recent Best Seat House and Hot Tub Essentials widgets to use Questrial and the plugin's navy/aqua brand palette by default.
+
 = 1.0.238 =
 * Fixed Seating and Price accordion options in the Spa Shop Slider tablet/mobile filter drawer.
 

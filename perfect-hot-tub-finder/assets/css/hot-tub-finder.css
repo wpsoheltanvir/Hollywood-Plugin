@@ -3905,7 +3905,7 @@
 
 /* Spa Single Best Seat House */
 .phtf-best-seat {
-	--phtf-best-seat-accent: #F26F5E;
+	--phtf-best-seat-accent: #85D9DE;
 	--phtf-best-seat-heading: #00263D;
 	--phtf-best-seat-text: #7A7A7A;
 	position: relative;
@@ -3964,7 +3964,7 @@
 }
 
 /* Spa Single Hot Tub Essentials */
-.phtf-essentials { --phtf-essentials-accent: #F26F5E; --phtf-essentials-heading: #00263D; --phtf-essentials-text: #7A7A7A; width: 100%; padding: 76px 64px 54px; overflow: hidden; background: #fff; font-family: 'Questrial', Arial, sans-serif; }
+.phtf-essentials { --phtf-essentials-accent: #85D9DE; --phtf-essentials-heading: #00263D; --phtf-essentials-text: #7A7A7A; width: 100%; padding: 76px 64px 54px; overflow: hidden; background: #fff; font-family: 'Questrial', Arial, sans-serif; }
 .phtf-essentials *, .phtf-essentials *::before, .phtf-essentials *::after { box-sizing: border-box; }
 .phtf-essentials__inner { position: relative; width: 100%; max-width: 1120px; margin: 0 auto; }
 .phtf-essentials__title { margin: 0 0 24px; color: var(--phtf-essentials-accent); font: 700 28px/1.2 'Questrial', Arial, sans-serif; text-align: center; }
