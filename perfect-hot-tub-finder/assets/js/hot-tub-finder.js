@@ -1652,16 +1652,48 @@
 		if (!cards.length) { return; }
 		widget.setAttribute('data-phtf-series-models-initialized', 'true');
 		var index = 0;
+		var carousel = widget.querySelector('.phtf-spa-models-carousel');
+		function positionArrows() {
+			if (!carousel || !cards[index]) { return; }
+			var imageWrap = cards[index].querySelector('.phtf-spa-models-image-wrap');
+			if (!imageWrap) { return; }
+			var carouselRect = carousel.getBoundingClientRect();
+			var imageRect = imageWrap.getBoundingClientRect();
+			if (!carouselRect.width || !imageRect.width || !imageRect.height) { return; }
+			widget.style.setProperty('--phtf-series-models-image-left', (imageRect.left - carouselRect.left) + 'px');
+			widget.style.setProperty('--phtf-series-models-image-right', (imageRect.right - carouselRect.left) + 'px');
+			widget.style.setProperty('--phtf-series-models-arrow-center-y', (imageRect.top - carouselRect.top + (imageRect.height / 2)) + 'px');
+		}
+		function queueArrowPosition() {
+			window.requestAnimationFrame(positionArrows);
+		}
 		function show(next) {
 			index = (next + cards.length) % cards.length;
 			cards.forEach(function (card, cardIndex) {
 				card.classList.toggle('is-active', cardIndex === index);
 			});
+			queueArrowPosition();
 		}
 		var prev = widget.querySelector('[data-series-models-prev]');
 		var next = widget.querySelector('[data-series-models-next]');
 		if (prev) { prev.onclick = function () { show(index - 1); }; }
 		if (next) { next.onclick = function () { show(index + 1); }; }
+		cards.forEach(function (card) {
+			var image = card.querySelector('.phtf-spa-models-image');
+			if (image && !image.complete) {
+				image.addEventListener('load', queueArrowPosition, { once: true });
+			}
+		});
+		if (widget.phtfSeriesModelsResizeObserver) {
+			widget.phtfSeriesModelsResizeObserver.disconnect();
+		}
+		if (typeof ResizeObserver !== 'undefined') {
+			widget.phtfSeriesModelsResizeObserver = new ResizeObserver(queueArrowPosition);
+			widget.phtfSeriesModelsResizeObserver.observe(widget);
+		} else if (!widget.phtfSeriesModelsResizeFallback) {
+			widget.phtfSeriesModelsResizeFallback = queueArrowPosition;
+			window.addEventListener('resize', widget.phtfSeriesModelsResizeFallback);
+		}
 		show(0);
 	}
 

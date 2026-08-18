@@ -637,6 +637,132 @@ class PHTF_Spa_Series_Models_Widget extends \Elementor\Widget_Base {
 		$this->end_controls_section();
 
 		$this->start_controls_section(
+			'section_carousel_arrows_style',
+			[
+				'label' => esc_html__( 'Carousel Arrows', 'perfect-hot-tub-finder' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_responsive_control(
+			'carousel_arrow_size',
+			[
+				'label'      => esc_html__( 'Button Size', 'perfect-hot-tub-finder' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em' ],
+				'range'      => [
+					'px' => [ 'min' => 28, 'max' => 80 ],
+					'em' => [ 'min' => 2, 'max' => 6, 'step' => 0.1 ],
+				],
+				'default'    => [ 'size' => 42, 'unit' => 'px' ],
+				'selectors'  => [ '{{WRAPPER}} .phtf-spa-models' => '--phtf-series-models-arrow-size: {{SIZE}}{{UNIT}};' ],
+			]
+		);
+
+		$this->add_responsive_control(
+			'carousel_arrow_icon_size',
+			[
+				'label'      => esc_html__( 'Icon Size', 'perfect-hot-tub-finder' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em' ],
+				'range'      => [
+					'px' => [ 'min' => 12, 'max' => 48 ],
+					'em' => [ 'min' => 0.8, 'max' => 3, 'step' => 0.1 ],
+				],
+				'default'    => [ 'size' => 24, 'unit' => 'px' ],
+				'selectors'  => [ '{{WRAPPER}} .phtf-spa-models' => '--phtf-series-models-arrow-icon-size: {{SIZE}}{{UNIT}};' ],
+			]
+		);
+
+		$this->add_responsive_control(
+			'carousel_arrow_gap',
+			[
+				'label'      => esc_html__( 'Distance From Image', 'perfect-hot-tub-finder' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em' ],
+				'range'      => [
+					'px' => [ 'min' => 0, 'max' => 100 ],
+					'em' => [ 'min' => 0, 'max' => 6, 'step' => 0.1 ],
+				],
+				'default'    => [ 'size' => 18, 'unit' => 'px' ],
+				'selectors'  => [ '{{WRAPPER}} .phtf-spa-models' => '--phtf-series-models-arrow-gap: {{SIZE}}{{UNIT}};' ],
+			]
+		);
+
+		$this->add_responsive_control(
+			'carousel_arrow_vertical_offset',
+			[
+				'label'       => esc_html__( 'Vertical Offset', 'perfect-hot-tub-finder' ),
+				'description' => esc_html__( 'The arrows are centered automatically. Use this only for fine adjustment.', 'perfect-hot-tub-finder' ),
+				'type'        => Controls_Manager::SLIDER,
+				'size_units'  => [ 'px', 'em' ],
+				'range'       => [
+					'px' => [ 'min' => -100, 'max' => 100 ],
+					'em' => [ 'min' => -6, 'max' => 6, 'step' => 0.1 ],
+				],
+				'default'     => [ 'size' => 0, 'unit' => 'px' ],
+				'selectors'   => [ '{{WRAPPER}} .phtf-spa-models' => '--phtf-series-models-arrow-y-offset: {{SIZE}}{{UNIT}};' ],
+			]
+		);
+
+		$this->add_control(
+			'carousel_arrow_color',
+			[
+				'label'     => esc_html__( 'Icon Color', 'perfect-hot-tub-finder' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#FFFFFF',
+				'selectors' => [ '{{WRAPPER}} .phtf-spa-models' => '--phtf-series-models-arrow-color: {{VALUE}};' ],
+			]
+		);
+
+		$this->add_control(
+			'carousel_arrow_background',
+			[
+				'label'     => esc_html__( 'Background Color', 'perfect-hot-tub-finder' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#00263D',
+				'selectors' => [ '{{WRAPPER}} .phtf-spa-models' => '--phtf-series-models-arrow-background: {{VALUE}};' ],
+			]
+		);
+
+		$this->add_control(
+			'carousel_arrow_hover_color',
+			[
+				'label'     => esc_html__( 'Hover Icon Color', 'perfect-hot-tub-finder' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#00263D',
+				'selectors' => [ '{{WRAPPER}} .phtf-spa-models' => '--phtf-series-models-arrow-hover-color: {{VALUE}};' ],
+			]
+		);
+
+		$this->add_control(
+			'carousel_arrow_hover_background',
+			[
+				'label'     => esc_html__( 'Hover Background', 'perfect-hot-tub-finder' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#85D9DE',
+				'selectors' => [ '{{WRAPPER}} .phtf-spa-models' => '--phtf-series-models-arrow-hover-background: {{VALUE}};' ],
+			]
+		);
+
+		$this->add_responsive_control(
+			'carousel_arrow_radius',
+			[
+				'label'      => esc_html__( 'Border Radius', 'perfect-hot-tub-finder' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', '%' ],
+				'range'      => [
+					'px' => [ 'min' => 0, 'max' => 80 ],
+					'%'  => [ 'min' => 0, 'max' => 50 ],
+				],
+				'default'    => [ 'size' => 50, 'unit' => '%' ],
+				'selectors'  => [ '{{WRAPPER}} .phtf-spa-models' => '--phtf-series-models-arrow-radius: {{SIZE}}{{UNIT}};' ],
+			]
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
 			'section_text_style',
 			[
 				'label' => esc_html__( 'Card Text', 'perfect-hot-tub-finder' ),
