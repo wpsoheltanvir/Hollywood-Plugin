@@ -2723,14 +2723,21 @@
 }
 
 .phtf-spa-models-msrp-value {
-	color: var(--phtf-text);
+	color: var(--phtf-series-models-price-color, var(--phtf-text));
 	font-weight: 700;
 }
 
 .phtf-spa-models-price .phtf-price-note-trigger,
 .phtf-spa-models-price .phtf-price-note-trigger sup {
-	color: var(--phtf-secondary) !important;
+	color: var(--phtf-series-models-footnote-color, var(--phtf-secondary)) !important;
 	font-weight: 700;
+}
+
+.phtf-spa-models-price .phtf-price-note-trigger sup {
+	font-size: 0.75em;
+	line-height: 0;
+	position: relative;
+	top: -0.2em;
 }
 
 .phtf-spa-models-divider {

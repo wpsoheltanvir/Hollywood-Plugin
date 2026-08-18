@@ -768,6 +768,78 @@ class PHTF_Spa_Series_Models_Widget extends \Elementor\Widget_Base {
 		$this->end_controls_section();
 
 		$this->start_controls_section(
+			'section_price_text_style',
+			[
+				'label' => esc_html__( 'Price Text & Footnotes', 'perfect-hot-tub-finder' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_control(
+			'price_value_color',
+			[
+				'label'     => esc_html__( 'MSRP / Price Color', 'perfect-hot-tub-finder' ),
+				'type'      => Controls_Manager::COLOR,
+				'global'    => [ 'default' => 'globals/colors?id=text' ],
+				'default'   => '#7A7A7A',
+				'selectors' => [
+					'{{WRAPPER}} .phtf-spa-models' => '--phtf-series-models-price-color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'price_footnote_marker_color',
+			[
+				'label'     => esc_html__( 'Footnote ¹ Color', 'perfect-hot-tub-finder' ),
+				'type'      => Controls_Manager::COLOR,
+				'global'    => [ 'default' => 'globals/colors?id=secondary' ],
+				'default'   => '#85D9DE',
+				'selectors' => [
+					'{{WRAPPER}} .phtf-spa-models' => '--phtf-series-models-footnote-color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'price_footnote_marker_size',
+			[
+				'label'      => esc_html__( 'Footnote ¹ Size', 'perfect-hot-tub-finder' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'em', 'px', 'rem' ],
+				'range'      => [
+					'em'  => [ 'min' => 0.3, 'max' => 1.5, 'step' => 0.05 ],
+					'px'  => [ 'min' => 6, 'max' => 28 ],
+					'rem' => [ 'min' => 0.3, 'max' => 1.5, 'step' => 0.05 ],
+				],
+				'default'    => [ 'size' => 0.75, 'unit' => 'em' ],
+				'selectors'  => [
+					'{{WRAPPER}} .phtf-spa-models-price .phtf-price-note-trigger sup' => 'font-size: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'price_footnote_marker_top_offset',
+			[
+				'label'      => esc_html__( 'Footnote ¹ Top Offset', 'perfect-hot-tub-finder' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'em', 'px', 'rem' ],
+				'range'      => [
+					'em'  => [ 'min' => -1, 'max' => 1, 'step' => 0.05 ],
+					'px'  => [ 'min' => -20, 'max' => 20 ],
+					'rem' => [ 'min' => -1, 'max' => 1, 'step' => 0.05 ],
+				],
+				'default'    => [ 'size' => -0.2, 'unit' => 'em' ],
+				'selectors'  => [
+					'{{WRAPPER}} .phtf-spa-models-price .phtf-price-note-trigger sup' => 'position: relative; top: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
 			'section_button_style',
 			[
 				'label' => esc_html__( 'Button', 'perfect-hot-tub-finder' ),
