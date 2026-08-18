@@ -381,6 +381,9 @@ Version 1.0.1: Added dedicated Elementor style controls for Primary Button and S
 
 == Changelog ==
 
+= 1.0.231 =
+* Corrected Spa Model Single Hero price footnote alignment and excess marker spacing.
+
 = 1.0.230 =
 * Added a collapsed specification preview with configurable visible rows.
 * Added working Load Full Specs and Minimize Specs toggle behavior.
