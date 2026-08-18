@@ -381,6 +381,9 @@ Version 1.0.1: Added dedicated Elementor style controls for Primary Button and S
 
 == Changelog ==
 
+= 1.0.236 =
+* Added the responsive Spa Single Hot Tub Essentials Elementor slider widget.
+
 = 1.0.235 =
 * Added the responsive Spa Single Best Seat House Elementor slider widget.
 

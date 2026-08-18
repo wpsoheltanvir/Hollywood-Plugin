@@ -1792,6 +1792,62 @@
 		start();
 	}
 
+	function initHotTubEssentials(widget) {
+		if (!widget || widget.phtfEssentialsReady) { return; }
+		widget.phtfEssentialsReady = true;
+		var slides = Array.prototype.slice.call(widget.querySelectorAll('[data-phtf-essentials-slide]'));
+		var tabs = Array.prototype.slice.call(widget.querySelectorAll('[data-phtf-essentials-tab]'));
+		var prev = widget.querySelector('[data-phtf-essentials-prev]');
+		var next = widget.querySelector('[data-phtf-essentials-next]');
+		var current = 0;
+		var timer = null;
+		var touchStartX = null;
+		if (slides.length < 2) { return; }
+		function show(index) {
+			current = (index + slides.length) % slides.length;
+			slides.forEach(function (slide, slideIndex) {
+				var active = slideIndex === current;
+				slide.hidden = !active;
+				slide.classList.toggle('is-active', active);
+			});
+			tabs.forEach(function (tab, tabIndex) {
+				var active = tabIndex === current;
+				tab.classList.toggle('is-active', active);
+				tab.setAttribute('aria-selected', active ? 'true' : 'false');
+			});
+		}
+		function stop() { if (timer) { window.clearInterval(timer); timer = null; } }
+		function start() {
+			stop();
+			if (widget.getAttribute('data-autoplay') === 'yes') {
+				var speed = Math.max(1500, parseInt(widget.getAttribute('data-autoplay-speed'), 10) || 5000);
+				timer = window.setInterval(function () { show(current + 1); }, speed);
+			}
+		}
+		tabs.forEach(function (tab) { tab.addEventListener('click', function () { show(parseInt(tab.getAttribute('data-phtf-essentials-tab'), 10) || 0); start(); }); });
+		if (prev) { prev.addEventListener('click', function () { show(current - 1); start(); }); }
+		if (next) { next.addEventListener('click', function () { show(current + 1); start(); }); }
+		widget.addEventListener('mouseenter', stop);
+		widget.addEventListener('mouseleave', start);
+		widget.addEventListener('focusin', stop);
+		widget.addEventListener('focusout', start);
+		widget.addEventListener('keydown', function (event) {
+			if (event.key === 'ArrowLeft') { show(current - 1); }
+			if (event.key === 'ArrowRight') { show(current + 1); }
+		});
+		widget.addEventListener('touchstart', function (event) { touchStartX = event.touches && event.touches[0] ? event.touches[0].clientX : null; stop(); }, { passive: true });
+		widget.addEventListener('touchend', function (event) {
+			if (touchStartX !== null && event.changedTouches && event.changedTouches[0]) {
+				var distance = event.changedTouches[0].clientX - touchStartX;
+				if (Math.abs(distance) > 45) { show(current + (distance < 0 ? 1 : -1)); }
+			}
+			touchStartX = null;
+			start();
+		}, { passive: true });
+		show(0);
+		start();
+	}
+
 	function initAll() {
 		collectProductSources();
 		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-widget]')).forEach(initFinder);
@@ -1802,6 +1858,7 @@
 		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-series-slider]')).forEach(initSeriesHero);
 		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-model-specs]')).forEach(initModelSpecs);
 		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-best-seat]')).forEach(initBestSeatHouse);
+		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-essentials]')).forEach(initHotTubEssentials);
 		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-reviews]')).forEach(initReviews);
 		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-compare]')).forEach(initCompareSpaModels);
 		Array.prototype.slice.call(document.querySelectorAll('.phtc-widget')).forEach(initSeriesComparison);
@@ -1909,6 +1966,10 @@
 				var root = $scope && $scope[0] ? $scope[0].querySelector('[data-phtf-best-seat]') : null;
 				if (root) { initBestSeatHouse(root); }
 			});
+			window.elementorFrontend.hooks.addAction('frontend/element_ready/phtf_spa_single_hot_tub_essentials.default', function ($scope) {
+				var root = $scope && $scope[0] ? $scope[0].querySelector('[data-phtf-essentials]') : null;
+				if (root) { initHotTubEssentials(root); }
+			});
 			window.elementorFrontend.hooks.addAction('frontend/element_ready/phtf_reviews.default', function ($scope) {
 				var root = $scope && $scope[0] ? $scope[0].querySelector('[data-phtf-reviews]') : null;
 				if (root) {
@@ -1936,6 +1997,7 @@
 				'phtf_reviews',
 				'phtf_spa_model_specifications',
 				'phtf_spa_single_best_seat_house',
+				'phtf_spa_single_hot_tub_essentials',
 				'phtf_compare_spa_models',
 				'phtf_series_comparison'
 			].forEach(function (widgetName) {

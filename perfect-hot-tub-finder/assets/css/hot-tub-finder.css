@@ -3901,6 +3901,59 @@
 	.phtf-best-seat__dots { gap: 14px; margin-top: 30px; }
 }
 
+/* Spa Single Hot Tub Essentials */
+.phtf-essentials { --phtf-essentials-accent: #F26F5E; --phtf-essentials-heading: #00263D; --phtf-essentials-text: #7A7A7A; width: 100%; padding: 76px 64px 54px; overflow: hidden; background: #fff; font-family: 'Questrial', Arial, sans-serif; }
+.phtf-essentials *, .phtf-essentials *::before, .phtf-essentials *::after { box-sizing: border-box; }
+.phtf-essentials__inner { position: relative; width: 100%; max-width: 1120px; margin: 0 auto; }
+.phtf-essentials__title { margin: 0 0 24px; color: var(--phtf-essentials-accent); font: 700 28px/1.2 'Questrial', Arial, sans-serif; text-align: center; }
+.phtf-essentials__tabs { display: flex; align-items: stretch; justify-content: center; gap: 0; margin-bottom: 38px; }
+.phtf-essentials__tab { position: relative; width: auto; min-width: 0; min-height: 0; margin: 0; padding: 10px 21px 12px; border: 0; border-radius: 0; background: transparent !important; box-shadow: none; color: var(--phtf-essentials-accent) !important; font: 700 18px/1.25 'Questrial', Arial, sans-serif; text-transform: none; cursor: pointer; }
+.phtf-essentials__tab + .phtf-essentials__tab::before { content: ''; position: absolute; left: 0; top: 10px; bottom: 10px; width: 1px; background: #D9D9D9; }
+.phtf-essentials__tab::after { content: ''; position: absolute; left: 12px; right: 12px; bottom: 0; height: 2px; background: transparent; }
+.phtf-essentials__tab.is-active { color: var(--phtf-essentials-heading) !important; }
+.phtf-essentials__tab.is-active::after { background: var(--phtf-essentials-accent); }
+.phtf-essentials__tab:hover, .phtf-essentials__tab:focus-visible { background: transparent !important; color: var(--phtf-essentials-heading) !important; outline: none; }
+.phtf-essentials__viewport { width: 100%; }
+.phtf-essentials__slide { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(280px, .65fr); align-items: center; gap: 72px; min-height: 360px; animation: phtf-essentials-fade 260ms ease both; }
+.phtf-essentials__slide[hidden] { display: none !important; }
+.phtf-essentials__image-wrap { width: 100%; max-width: 650px; margin: 0 auto; }
+.phtf-essentials__image { display: block; width: 100%; height: 350px; object-fit: contain; }
+.phtf-essentials__content { min-width: 0; }
+.phtf-essentials__content-heading { margin: 0 0 14px; color: var(--phtf-essentials-heading); font: 700 18px/1.3 'Questrial', Arial, sans-serif; letter-spacing: .12em; text-transform: uppercase; }
+.phtf-essentials__description { color: var(--phtf-essentials-text); font: 400 18px/1.65 'Questrial', Arial, sans-serif; }
+.phtf-essentials__description p { margin: 0; }
+.phtf-essentials__arrow { position: absolute; top: 55%; z-index: 3; display: inline-flex; align-items: center; justify-content: center; width: 46px; height: 64px; min-width: 0; min-height: 0; padding: 0; border: 0; border-radius: 0; background: transparent !important; box-shadow: none; color: var(--phtf-essentials-accent) !important; font: 400 62px/1 Arial, sans-serif; cursor: pointer; transform: translateY(-50%); }
+.phtf-essentials__arrow:hover, .phtf-essentials__arrow:focus-visible { background: transparent !important; color: var(--phtf-essentials-heading) !important; outline: none; }
+.phtf-essentials__arrow--prev { left: -58px; }
+.phtf-essentials__arrow--next { right: -58px; }
+.phtf-essentials__action { margin-top: 24px; text-align: center; }
+.phtf-essentials__button { display: inline-flex; align-items: center; justify-content: center; padding: 9px 20px; border: 2px solid var(--phtf-essentials-accent); border-radius: 999px; background: var(--phtf-essentials-accent); color: #fff !important; font: 700 17px/1.1 'Questrial', Arial, sans-serif; text-decoration: none; }
+.phtf-essentials__button:hover, .phtf-essentials__button:focus-visible { border-color: var(--phtf-essentials-heading); background: var(--phtf-essentials-heading); color: #fff !important; text-decoration: none; outline: none; }
+@keyframes phtf-essentials-fade { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .phtf-essentials__slide { animation: none; } }
+@media (max-width: 1024px) {
+	.phtf-essentials { padding: 58px 54px 46px; }
+	.phtf-essentials__slide { grid-template-columns: minmax(0, 1.2fr) minmax(260px, .8fr); gap: 40px; }
+	.phtf-essentials__image { height: 310px; }
+	.phtf-essentials__arrow--prev { left: -48px; }
+	.phtf-essentials__arrow--next { right: -48px; }
+}
+@media (max-width: 767px) {
+	.phtf-essentials { padding: 42px 38px 38px; }
+	.phtf-essentials__title { font-size: 25px; }
+	.phtf-essentials__tabs { max-width: 100%; margin-bottom: 26px; overflow-x: auto; justify-content: flex-start; }
+	.phtf-essentials__tab { flex: 0 0 auto; padding-right: 16px; padding-left: 16px; font-size: 16px; }
+	.phtf-essentials__slide { grid-template-columns: 1fr; gap: 28px; min-height: 0; }
+	.phtf-essentials__image { height: auto; max-height: 320px; }
+	.phtf-essentials__content { text-align: center; }
+	.phtf-essentials__content-heading { font-size: 16px; }
+	.phtf-essentials__description { font-size: 16px; line-height: 1.55; }
+	.phtf-essentials__arrow { top: 47%; width: 36px; height: 52px; font-size: 48px; }
+	.phtf-essentials__arrow--prev { left: -34px; }
+	.phtf-essentials__arrow--next { right: -34px; }
+	.phtf-essentials__action { margin-top: 30px; }
+}
+
 .phtf-model-specs .phtf-specs-row:nth-child(even) {
 	background: #F3F3F3;
 }
