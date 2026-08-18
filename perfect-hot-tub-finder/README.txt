@@ -381,6 +381,9 @@ Version 1.0.1: Added dedicated Elementor style controls for Primary Button and S
 
 == Changelog ==
 
+= 1.0.233 =
+* Reset Spa Model Single Hero footnote triggers to plain inline superscript styling.
+
 = 1.0.232 =
 * Removed theme button backgrounds from Spa Model Single Hero footnote markers.
 

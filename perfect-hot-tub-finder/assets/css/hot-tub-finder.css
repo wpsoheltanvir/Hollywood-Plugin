@@ -7197,10 +7197,21 @@ body .elementor-widget-phtf_hot_tub_finder {
 }
 .phtf-model-single-hero__price .phtf-price-note-trigger {
 	color: var(--phtf-series-accent);
+	appearance: none !important;
+	display: inline !important;
+	width: auto !important;
+	min-width: 0 !important;
+	max-width: none !important;
+	height: auto !important;
+	min-height: 0 !important;
 	background: transparent !important;
 	border: 0 !important;
 	border-radius: 0 !important;
 	box-shadow: none !important;
+	font-family: inherit !important;
+	font-weight: inherit !important;
+	letter-spacing: normal !important;
+	text-transform: none !important;
 }
 .phtf-model-single-hero__price .phtf-price-note-trigger:hover,
 .phtf-model-single-hero__price .phtf-price-note-trigger:focus,
@@ -7221,7 +7232,8 @@ body .elementor-widget-phtf_hot_tub_finder {
 	align-items: baseline;
 	vertical-align: baseline;
 	line-height: 0;
-	padding: 0;
+	margin: 0 !important;
+	padding: 0 !important;
 }
 .phtf-model-single-hero__price .phtf-price-note-trigger sup {
 	display: inline-block;
