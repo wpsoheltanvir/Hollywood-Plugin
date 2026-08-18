@@ -3841,6 +3841,68 @@
 	display: none !important;
 }
 
+.phtf-specs-mobile-header,
+.phtf-specs-mobile-title {
+	display: none;
+}
+
+@media (max-width: 1024px) {
+	body.phtf-mobile-specs-open { overflow: hidden !important; }
+	.phtf-model-specs.is-mobile-specs-open {
+		position: fixed !important;
+		inset: 0 !important;
+		z-index: 999999 !important;
+		display: block !important;
+		width: 100vw !important;
+		height: 100vh !important;
+		height: 100dvh !important;
+		margin: 0 !important;
+		padding: 0 !important;
+		overflow-x: hidden !important;
+		overflow-y: auto !important;
+		background: #fff !important;
+	}
+	.phtf-model-specs.is-mobile-specs-open .phtf-specs-mobile-header {
+		position: sticky;
+		top: 0;
+		z-index: 5;
+		display: block;
+		width: 100%;
+		background: #F26F5E;
+	}
+	.phtf-model-specs.is-mobile-specs-open .phtf-specs-mobile-back {
+		display: flex !important;
+		align-items: center;
+		gap: 6px;
+		width: 100% !important;
+		min-width: 0 !important;
+		min-height: 48px !important;
+		margin: 0 !important;
+		padding: 10px 16px !important;
+		border: 0 !important;
+		border-radius: 0 !important;
+		background: transparent !important;
+		box-shadow: none !important;
+		color: #fff !important;
+		font: 700 16px/1.25 'Questrial', Arial, sans-serif;
+		text-align: left;
+		text-transform: none;
+		cursor: pointer;
+	}
+	.phtf-model-specs.is-mobile-specs-open .phtf-specs-mobile-back > span { font-size: 27px; font-weight: 400; line-height: .7; }
+	.phtf-model-specs.is-mobile-specs-open .phtf-specs-inner { width: 100%; max-width: none; margin: 0; padding: 0; }
+	.phtf-model-specs.is-mobile-specs-open .phtf-specs-title { display: none; }
+	.phtf-model-specs.is-mobile-specs-open .phtf-specs-mobile-title { display: block; margin: 0; padding: 14px 16px 18px; color: #F26F5E; font: 700 23px/1.2 'Questrial', Arial, sans-serif; text-align: left; }
+	.phtf-model-specs.is-mobile-specs-open .phtf-specs-grid { display: block; margin: 0; }
+	.phtf-model-specs.is-mobile-specs-open .phtf-specs-diagram { display: none; }
+	.phtf-model-specs.is-mobile-specs-open .phtf-specs-row { min-height: 54px; padding: 13px 16px; column-gap: 18px; }
+	.phtf-model-specs.is-mobile-specs-open .phtf-specs-row { background: #fff; }
+	.phtf-model-specs.is-mobile-specs-open .phtf-specs-row.is-alt { background: #F3F3F3; }
+	.phtf-model-specs.is-mobile-specs-open .phtf-specs-row-label { flex: 0 0 128px; font-size: 13px; line-height: 1.35; }
+	.phtf-model-specs.is-mobile-specs-open .phtf-specs-row-value { font-size: 13px; line-height: 1.45; }
+	.phtf-model-specs.is-mobile-specs-open .phtf-specs-footer { display: none; }
+}
+
 /* Spa Single Best Seat House */
 .phtf-best-seat {
 	--phtf-best-seat-accent: #F26F5E;

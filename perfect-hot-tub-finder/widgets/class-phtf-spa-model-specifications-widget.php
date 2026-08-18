@@ -894,7 +894,7 @@ class PHTF_Spa_Model_Specifications_Widget extends \Elementor\Widget_Base {
 		foreach ( $rows as $index => $row ) :
 			$row_index = $start_index + $index;
 			?>
-			<div class="phtf-specs-row" data-phtf-spec-row-index="<?php echo esc_attr( $row_index ); ?>"<?php echo $row_index >= $preview_rows ? ' hidden' : ''; ?>>
+			<div class="phtf-specs-row<?php echo 1 === $row_index % 2 ? ' is-alt' : ''; ?>" data-phtf-spec-row-index="<?php echo esc_attr( $row_index ); ?>"<?php echo $row_index >= $preview_rows ? ' hidden' : ''; ?>>
 				<div class="phtf-specs-row-label"><?php echo wp_kses( $row['row_label'] ?? '', $this->allowed_html() ); ?></div>
 				<div class="phtf-specs-row-value"><?php echo wp_kses( $row['row_value'] ?? '', $this->allowed_html() ); ?></div>
 			</div>
@@ -933,9 +933,17 @@ class PHTF_Spa_Model_Specifications_Widget extends \Elementor\Widget_Base {
 		$preview_rows = max( 1, absint( $settings['preview_rows'] ?? 5 ) );
 		$total_rows   = count( $left_rows ) + count( $right_rows );
 		$can_toggle   = 'yes' === ( $settings['show_minimize_button'] ?? 'yes' ) && $total_rows > $preview_rows;
+		$overview_title = trim( (string) preg_replace( '/\s+Specifications\.?$/i', '', wp_strip_all_tags( $settings['title'] ?? '' ) ) );
+		if ( '' === $overview_title ) {
+			$overview_title = __( 'Spa', 'perfect-hot-tub-finder' );
+		}
 		?>
 		<section class="phtf-model-specs phtf-specs phtf-specs-v2" data-phtf-model-specs data-phtf-specs-preview-rows="<?php echo esc_attr( $preview_rows ); ?>" data-phtf-specs-expanded="false">
+			<div class="phtf-specs-mobile-header">
+				<button type="button" class="phtf-specs-mobile-back" data-phtf-specs-mobile-close aria-label="<?php esc_attr_e( 'Return to model overview', 'perfect-hot-tub-finder' ); ?>"><span aria-hidden="true">‹</span> <?php echo esc_html( $overview_title . ' ' . __( 'Overview', 'perfect-hot-tub-finder' ) ); ?></button>
+			</div>
 			<div class="phtf-specs-inner">
+				<h2 class="phtf-specs-mobile-title"><?php esc_html_e( 'Specifications.', 'perfect-hot-tub-finder' ); ?></h2>
 				<?php if ( 'yes' === ( $settings['show_title'] ?? 'yes' ) && ! empty( $settings['title'] ) ) : ?>
 					<<?php echo esc_attr( $tag ); ?> class="phtf-specs-title"><?php echo wp_kses( $settings['title'], $this->allowed_html() ); ?></<?php echo esc_attr( $tag ); ?>>
 				<?php endif; ?>

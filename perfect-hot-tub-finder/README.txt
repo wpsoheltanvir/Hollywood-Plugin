@@ -381,6 +381,9 @@ Version 1.0.1: Added dedicated Elementor style controls for Primary Button and S
 
 == Changelog ==
 
+= 1.0.237 =
+* Added a dedicated full-height tablet/mobile expanded specifications view while preserving desktop behavior.
+
 = 1.0.236 =
 * Added the responsive Spa Single Hot Tub Essentials Elementor slider widget.
 
