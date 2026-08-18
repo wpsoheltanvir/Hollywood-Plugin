@@ -7266,6 +7266,28 @@ body .elementor-widget-phtf_hot_tub_finder {
 	font-weight: inherit;
 }
 
+/* Spa Shop Slider: final mobile/tablet accordion visibility protection. */
+@media (max-width: 1024px) {
+	body .phtf-widget[data-phtf-widget].is-filters-open .phtf-filter-group.is-collapsed > .phtf-filter-group-body,
+	body .phtf-widget[data-phtf-widget].is-filters-open .phtf-filter-group.is-collapsed > .phtf-filter-group-body[hidden] {
+		display: none !important;
+	}
+
+	body .phtf-widget[data-phtf-widget].is-filters-open .phtf-filter-group:not(.is-collapsed) > .phtf-filter-group-body {
+		display: block !important;
+		visibility: visible !important;
+		opacity: 1 !important;
+		max-height: none !important;
+		overflow: visible !important;
+	}
+
+	body .phtf-widget[data-phtf-widget].is-filters-open .phtf-filter-group:not(.is-collapsed) > .phtf-filter-group-body .phtf-checkbox {
+		display: flex !important;
+		visibility: visible !important;
+		opacity: 1 !important;
+	}
+}
+
 .phtf-explore-meta .phtf-price-note-trigger sup {
 	font-size: .65em;
 	line-height: 0;

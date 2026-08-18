@@ -381,6 +381,9 @@ Version 1.0.1: Added dedicated Elementor style controls for Primary Button and S
 
 == Changelog ==
 
+= 1.0.238 =
+* Fixed Seating and Price accordion options in the Spa Shop Slider tablet/mobile filter drawer.
+
 = 1.0.237 =
 * Added a dedicated full-height tablet/mobile expanded specifications view while preserving desktop behavior.
 

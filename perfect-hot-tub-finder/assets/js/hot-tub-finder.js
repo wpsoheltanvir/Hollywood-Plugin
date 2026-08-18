@@ -472,7 +472,17 @@
 			button.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
 		}
 		if (body) {
-			body.hidden = collapsed;
+			if (collapsed) {
+				body.setAttribute('hidden', 'hidden');
+				body.style.setProperty('display', 'none', 'important');
+			} else {
+				body.removeAttribute('hidden');
+				body.style.setProperty('display', 'block', 'important');
+				body.style.setProperty('visibility', 'visible', 'important');
+				body.style.setProperty('opacity', '1', 'important');
+				body.style.setProperty('max-height', 'none', 'important');
+				body.style.setProperty('overflow', 'visible', 'important');
+			}
 		}
 	}
 
