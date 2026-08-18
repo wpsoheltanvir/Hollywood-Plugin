@@ -3837,6 +3837,10 @@
 	font-family: 'Questrial', Arial, sans-serif;
 }
 
+.phtf-model-specs .phtf-specs-row[hidden] {
+	display: none !important;
+}
+
 .phtf-model-specs .phtf-specs-row:nth-child(even) {
 	background: #F3F3F3;
 }

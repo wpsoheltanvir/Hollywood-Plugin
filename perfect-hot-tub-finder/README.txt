@@ -381,6 +381,9 @@ Version 1.0.1: Added dedicated Elementor style controls for Primary Button and S
 
 == Changelog ==
 
+= 1.0.234 =
+* Fixed the specifications Load Full Specs and Minimize Specs states in Elementor and on the frontend.
+
 = 1.0.233 =
 * Reset Spa Model Single Hero footnote triggers to plain inline superscript styling.
 
