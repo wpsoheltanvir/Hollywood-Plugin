@@ -16,7 +16,7 @@ class PHTF_Series_Comparison_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return esc_html__( 'Hot Tub Series Comparison', 'perfect-hot-tub-finder' );
+		return esc_html__( 'WP P Hot Tub Series Comparison', 'perfect-hot-tub-finder' );
 	}
 
 	public function get_icon() {

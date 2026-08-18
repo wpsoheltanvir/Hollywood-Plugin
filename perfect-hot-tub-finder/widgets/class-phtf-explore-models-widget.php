@@ -16,7 +16,7 @@ class PHTF_Explore_Models_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return esc_html__( 'Explore Our Models', 'perfect-hot-tub-finder' );
+		return esc_html__( 'WP P Explore Our Models', 'perfect-hot-tub-finder' );
 	}
 
 	public function get_icon() {

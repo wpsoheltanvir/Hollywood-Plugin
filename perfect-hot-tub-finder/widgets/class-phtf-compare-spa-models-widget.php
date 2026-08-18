@@ -14,7 +14,7 @@ class PHTF_Compare_Spa_Models_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return esc_html__( 'Compare Spa Models', 'perfect-hot-tub-finder' );
+		return esc_html__( 'WP P Compare Spa Models', 'perfect-hot-tub-finder' );
 	}
 
 	public function get_icon() {

@@ -14,7 +14,7 @@ use Elementor\Utils;
  */
 class PHTF_Spa_Model_Slider_Widget extends PHTF_Spa_Series_Slider_Widget {
 	public function get_name() { return 'phtf_spa_model_slider'; }
-	public function get_title() { return esc_html__( 'Spa Model Single Hero', 'perfect-hot-tub-finder' ); }
+	public function get_title() { return esc_html__( 'WP P Spa Model Single Hero', 'perfect-hot-tub-finder' ); }
 	public function get_icon() { return 'eicon-slider-push'; }
 	public function get_categories() { return [ 'phtf-widgets' ]; }
 	public function get_keywords() { return [ 'spa', 'hot tub', 'single model', 'dynamic', 'hero', 'gallery' ]; }
