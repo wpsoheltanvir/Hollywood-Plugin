@@ -1087,6 +1087,25 @@ class PHTF_Hot_Tub_Finder_Widget extends \Elementor\Widget_Base {
 		);
 
 		$this->add_responsive_control(
+			'price_footnote_marker_horizontal_offset',
+			[
+				'label'       => esc_html__( 'Footnote ¹ / ² Left / Right Offset', 'perfect-hot-tub-finder' ),
+				'description' => esc_html__( 'Use a negative value to move left or a positive value to move right.', 'perfect-hot-tub-finder' ),
+				'type'        => Controls_Manager::SLIDER,
+				'size_units'  => [ 'em', 'px', 'rem' ],
+				'range'       => [
+					'em'  => [ 'min' => -2, 'max' => 2, 'step' => 0.05 ],
+					'px'  => [ 'min' => -40, 'max' => 40 ],
+					'rem' => [ 'min' => -2, 'max' => 2, 'step' => 0.05 ],
+				],
+				'default'     => [ 'size' => 0, 'unit' => 'em' ],
+				'selectors'   => [
+					'{{WRAPPER}} .phtf-msrp .phtf-price-note-trigger sup, {{WRAPPER}} .phtf-msrp .phtf-price-note-link sup' => 'position: relative; left: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
 			'price_footnote_popup_width',
 			[
 				'label'      => esc_html__( 'Popup Width', 'perfect-hot-tub-finder' ),

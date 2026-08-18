@@ -917,6 +917,23 @@ class PHTF_Explore_Models_Widget extends \Elementor\Widget_Base {
 		);
 
 		$this->add_responsive_control(
+			'explore_footnote_horizontal_offset',
+			[
+				'label'       => esc_html__( 'Footnote 1 / 2 Left / Right Offset', 'perfect-hot-tub-finder' ),
+				'description' => esc_html__( 'Use a negative value to move left or a positive value to move right.', 'perfect-hot-tub-finder' ),
+				'type'        => Controls_Manager::SLIDER,
+				'size_units'  => [ 'em', 'px', 'rem' ],
+				'range'       => [
+					'em'  => [ 'min' => -2, 'max' => 2, 'step' => 0.05 ],
+					'px'  => [ 'min' => -40, 'max' => 40 ],
+					'rem' => [ 'min' => -2, 'max' => 2, 'step' => 0.05 ],
+				],
+				'default'     => [ 'size' => 0, 'unit' => 'em' ],
+				'selectors'   => [ '{{WRAPPER}} .phtf-explore-meta .phtf-price-note-trigger sup' => 'position: relative; left: {{SIZE}}{{UNIT}};' ],
+			]
+		);
+
+		$this->add_responsive_control(
 			'explore_price_popup_width',
 			[
 				'label'      => esc_html__( 'Popup Width', 'perfect-hot-tub-finder' ),
