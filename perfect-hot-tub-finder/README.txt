@@ -381,6 +381,9 @@ Version 1.0.1: Added dedicated Elementor style controls for Primary Button and S
 
 == Changelog ==
 
+= 1.0.240 =
+* Migrated recent slider widget accents from saved reference coral to the Elementor Secondary aqua brand color.
+
 = 1.0.239 =
 * Updated the recent Best Seat House and Hot Tub Essentials widgets to use Questrial and the plugin's navy/aqua brand palette by default.
 
