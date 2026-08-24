@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Perfect Hot Tub Finder
  * Description: Adds a customizable Elementor widget for a hot tub finder/shop layout.
- * Version: 1.0.248
+ * Version: 1.0.249
  * Author: wpsoheltanvir
  * Author URI: https://github.com/wpsoheltanvir
  * Text Domain: perfect-hot-tub-finder
@@ -153,7 +153,7 @@ if ( ! function_exists( 'phtf_apply_elementor_global_colors' ) ) {
 }
 
 final class PHTF_Perfect_Hot_Tub_Finder {
-	const VERSION = '1.0.248';
+	const VERSION = '1.0.249';
 	const MINIMUM_ELEMENTOR_VERSION = '3.5.0';
 	const MINIMUM_PHP_VERSION = '7.4';
 
@@ -291,6 +291,7 @@ final class PHTF_Perfect_Hot_Tub_Finder {
 			[ 'widgets/class-phtf-explore-models-widget.php', '\PHTF_Explore_Models_Widget' ],
 			[ 'widgets/class-phtf-spa-colors-widget.php', '\PHTF_Spa_Colors_Widget' ],
 			[ 'widgets/class-phtf-spa-series-models-widget.php', '\PHTF_Spa_Series_Models_Widget' ],
+			[ 'widgets/class-phtf-shop-similar-hot-tubs-widget.php', '\PHTF_Shop_Similar_Hot_Tubs_Widget' ],
 			[ 'widgets/class-phtf-spa-series-delight-widget.php', '\PHTF_Spa_Series_Delight_Widget' ],
 			[ 'widgets/class-phtf-spa-series-slider-widget.php', '\PHTF_Spa_Series_Slider_Widget' ],
 			[ 'widgets/class-phtf-spa-model-slider-widget.php', '\PHTF_Spa_Model_Slider_Widget' ],

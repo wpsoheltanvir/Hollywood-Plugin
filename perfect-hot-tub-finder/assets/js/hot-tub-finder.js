@@ -1976,6 +1976,11 @@
 				initSeriesModels(scope);
 				initPricePopups(scope);
 			});
+			window.elementorFrontend.hooks.addAction('frontend/element_ready/phtf_shop_similar_hot_tubs.default', function ($scope) {
+				var scope = $scope && $scope[0] ? $scope[0] : document;
+				initSeriesModels(scope);
+				initPricePopups(scope);
+			});
 			window.elementorFrontend.hooks.addAction('frontend/element_ready/phtf_spa_series_slider.default', function ($scope) {
 				var scope = $scope && $scope[0] ? $scope[0] : document;
 				initSeriesHero(scope);
@@ -2022,6 +2027,7 @@
 				'phtf_explore_models',
 				'phtf_spa_colors',
 				'phtf_spa_series_models',
+				'phtf_shop_similar_hot_tubs',
 				'phtf_spa_series_delight',
 				'phtf_spa_series_slider',
 				'phtf_spa_model_slider',

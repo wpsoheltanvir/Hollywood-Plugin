@@ -7648,3 +7648,62 @@ body .phtf-widget[data-phtf-widget] .phtf-checkbox.is-unavailable .phtf-box {
 body .phtf-widget[data-phtf-widget] .phtf-checkbox.is-unavailable input + .phtf-box::after {
 	transform: rotate(45deg) scale(0) !important;
 }
+
+/* Shop Similar Hot Tubs: dynamic two-price cards built on the Spa Series Models design system. */
+.phtf-similar-hot-tubs {
+	font-family: 'Questrial', Arial, sans-serif;
+}
+
+.phtf-similar-hot-tubs .phtf-spa-models-grid {
+	align-items: stretch;
+}
+
+.phtf-similar-hot-tubs .phtf-spa-models-card {
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+}
+
+.phtf-similar-hot-tubs .phtf-spa-models-image-link {
+	display: contents;
+}
+
+.phtf-similar-hot-tubs .phtf-similar-pricing {
+	display: block;
+	margin-top: auto;
+}
+
+.phtf-similar-hot-tubs .phtf-similar-primary-price {
+	display: flex;
+	align-items: baseline;
+	justify-content: center;
+	gap: 7px;
+	flex-wrap: wrap;
+}
+
+.phtf-similar-hot-tubs .phtf-similar-secondary-price {
+	display: flex;
+	align-items: baseline;
+	justify-content: center;
+	gap: 5px;
+	margin-top: 2px;
+	color: var(--phtf-text);
+	font-size: 18px;
+	line-height: 1.4;
+}
+
+.phtf-similar-hot-tubs .phtf-similar-secondary-prefix {
+	font-weight: 400;
+}
+
+.phtf-similar-hot-tubs .phtf-similar-empty {
+	margin: 0;
+	text-align: center;
+	color: var(--phtf-text);
+}
+
+@media (max-width: 1024px) {
+	.phtf-similar-hot-tubs .phtf-similar-secondary-price {
+		font-size: 16px;
+	}
+}
