@@ -381,6 +381,9 @@ Version 1.0.1: Added dedicated Elementor style controls for Primary Button and S
 
 == Changelog ==
 
+= 1.0.243 =
+* Updated plugin author metadata to wpsoheltanvir and added a permanent View details link to GitHub releases.
+
 = 1.0.242 =
 * Changed Spa Shop Slider tablet/mobile filters to always show Seating and Price checkbox options without dropdowns.
 

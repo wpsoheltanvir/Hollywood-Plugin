@@ -29,7 +29,27 @@ class PHTF_GitHub_Updater {
 
 		add_filter( 'pre_set_site_transient_update_plugins', [ $this, 'check_for_update' ] );
 		add_filter( 'plugins_api', [ $this, 'plugin_info' ], 20, 3 );
+		add_filter( 'plugin_row_meta', [ $this, 'plugin_row_meta' ], 10, 2 );
 		add_filter( 'http_request_args', [ $this, 'add_github_download_headers' ], 10, 2 );
+	}
+
+	public function plugin_row_meta( $links, $plugin_file ) {
+		if ( $this->plugin_basename !== $plugin_file ) {
+			return $links;
+		}
+
+		$details_url = sprintf(
+			'https://github.com/%s/%s/releases',
+			rawurlencode( $this->owner ),
+			rawurlencode( $this->repo )
+		);
+		$links[] = sprintf(
+			'<a href="%1$s" target="_blank" rel="noopener noreferrer">%2$s</a>',
+			esc_url( $details_url ),
+			esc_html__( 'View details', 'perfect-hot-tub-finder' )
+		);
+
+		return $links;
 	}
 
 	public function check_for_update( $transient ) {
@@ -75,7 +95,7 @@ class PHTF_GitHub_Updater {
 			'name'          => 'Perfect Hot Tub Finder',
 			'slug'          => $this->slug,
 			'version'       => $release['version'],
-			'author'        => 'Attractional Marketing',
+			'author'        => '<a href="https://github.com/wpsoheltanvir">wpsoheltanvir</a>',
 			'homepage'      => $release['html_url'],
 			'download_link' => $release['package'],
 			'requires'      => '6.0',
