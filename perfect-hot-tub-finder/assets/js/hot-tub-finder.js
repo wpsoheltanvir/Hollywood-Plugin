@@ -632,7 +632,7 @@
 			if (!isMobileFilters()) {
 				return;
 			}
-			collapseFilterGroups();
+			resetFilterGroups();
 			setFilterDrawerState(true);
 		}
 

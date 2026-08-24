@@ -7272,10 +7272,9 @@ body .elementor-widget-phtf_hot_tub_finder {
 	body .phtf-widget.phtf-widget--classic[data-phtf-widget].is-filters-open .phtf-filter-group-toggle {
 		position: relative !important;
 		z-index: 2 !important;
-		pointer-events: auto !important;
-		cursor: pointer !important;
+		pointer-events: none !important;
+		cursor: default !important;
 		user-select: none;
-		touch-action: manipulation;
 	}
 
 	body .phtf-widget[data-phtf-widget].is-filters-open .phtf-filter-group-chevron,
@@ -7284,12 +7283,13 @@ body .elementor-widget-phtf_hot_tub_finder {
 		pointer-events: none !important;
 	}
 
-	body .phtf-widget[data-phtf-widget].is-filters-open .phtf-filter-group.is-collapsed > .phtf-filter-group-body,
-	body .phtf-widget[data-phtf-widget].is-filters-open .phtf-filter-group.is-collapsed > .phtf-filter-group-body[hidden] {
+	body .phtf-widget[data-phtf-widget].is-filters-open .phtf-filter-group-chevron {
 		display: none !important;
 	}
 
-	body .phtf-widget[data-phtf-widget].is-filters-open .phtf-filter-group:not(.is-collapsed) > .phtf-filter-group-body {
+	body .phtf-widget[data-phtf-widget].is-filters-open .phtf-filter-group > .phtf-filter-group-body,
+	body .phtf-widget[data-phtf-widget].is-filters-open .phtf-filter-group > .phtf-filter-group-body[hidden],
+	body .phtf-widget[data-phtf-widget].is-filters-open .phtf-filter-group.is-collapsed > .phtf-filter-group-body {
 		display: block !important;
 		visibility: visible !important;
 		opacity: 1 !important;
@@ -7297,7 +7297,7 @@ body .elementor-widget-phtf_hot_tub_finder {
 		overflow: visible !important;
 	}
 
-	body .phtf-widget[data-phtf-widget].is-filters-open .phtf-filter-group:not(.is-collapsed) > .phtf-filter-group-body .phtf-checkbox {
+	body .phtf-widget[data-phtf-widget].is-filters-open .phtf-filter-group > .phtf-filter-group-body .phtf-checkbox {
 		display: flex !important;
 		visibility: visible !important;
 		opacity: 1 !important;

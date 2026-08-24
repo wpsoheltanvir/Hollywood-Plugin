@@ -381,6 +381,9 @@ Version 1.0.1: Added dedicated Elementor style controls for Primary Button and S
 
 == Changelog ==
 
+= 1.0.242 =
+* Changed Spa Shop Slider tablet/mobile filters to always show Seating and Price checkbox options without dropdowns.
+
 = 1.0.241 =
 * Restored click and touch interaction for Spa Shop Slider Seating and Price mobile accordions.
 
