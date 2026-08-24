@@ -381,6 +381,9 @@ Version 1.0.1: Added dedicated Elementor style controls for Primary Button and S
 
 == Changelog ==
 
+= 1.0.248 =
+* Added a responsive Swatch Border Radius style control to the Customize Spa Colors widget for cabinet and shell color boxes.
+
 = 1.0.247 =
 * Prevented Elementor editor requests from waiting on GitHub update checks or branding-kit maintenance, and cached failed update checks to improve panel loading.
 

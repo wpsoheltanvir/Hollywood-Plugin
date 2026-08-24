@@ -542,6 +542,26 @@ class PHTF_Spa_Colors_Widget extends \Elementor\Widget_Base {
 		);
 
 		$this->add_responsive_control(
+			'swatch_border_radius',
+			[
+				'label'      => esc_html__( 'Swatch Border Radius', 'perfect-hot-tub-finder' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%', 'em' ],
+				'default'    => [
+					'top'      => 4,
+					'right'    => 4,
+					'bottom'   => 4,
+					'left'     => 4,
+					'unit'     => 'px',
+					'isLinked' => true,
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .phtf-spa-swatch-button' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
 			'swatch_gap',
 			[
 				'label'      => esc_html__( 'Swatch Gap', 'perfect-hot-tub-finder' ),
