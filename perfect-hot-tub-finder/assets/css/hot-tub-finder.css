@@ -7570,3 +7570,61 @@ body .elementor-widget-phtf_hot_tub_finder {
 		grid-column: 1 / -1;
 	}
 }
+
+/* Spa Shop Slider: keep mobile filter actions fully visible above the viewport edge. */
+@media (max-width: 767px) {
+	body.phtf-drawer-open .phtf-widget.is-filters-open .phtf-filters,
+	body .phtf-widget.is-filters-open .phtf-filters {
+		height: 100vh !important;
+		height: 100dvh !important;
+		max-height: 100vh !important;
+		max-height: 100dvh !important;
+		padding-right: 18px !important;
+		padding-bottom: calc(92px + env(safe-area-inset-bottom, 0px)) !important;
+		padding-left: 18px !important;
+		overflow-x: hidden !important;
+		overflow-y: auto !important;
+		overscroll-behavior: contain;
+		scrollbar-gutter: stable;
+	}
+
+	body.phtf-drawer-open .phtf-widget.is-filters-open .phtf-filters-mobile-header,
+	body .phtf-widget.is-filters-open .phtf-filters-mobile-header {
+		position: sticky !important;
+		top: 0 !important;
+		z-index: 10004 !important;
+		margin-right: -18px !important;
+		margin-left: -18px !important;
+		padding-right: 18px !important;
+		padding-left: 18px !important;
+	}
+
+	body.phtf-drawer-open .phtf-widget.is-filters-open .phtf-filters-mobile-actions,
+	body .phtf-widget.is-filters-open .phtf-filters-mobile-actions {
+		position: fixed !important;
+		z-index: 10005 !important;
+		right: 0 !important;
+		bottom: 0 !important;
+		left: 0 !important;
+		display: grid !important;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+		gap: 12px !important;
+		width: 100% !important;
+		max-width: 100% !important;
+		margin: 0 !important;
+		padding: 14px 18px calc(14px + env(safe-area-inset-bottom, 0px)) !important;
+		background: var(--phtf-mobile-filter-drawer-bg, #fff) !important;
+		box-shadow: 0 -5px 18px rgba(0, 38, 61, .08) !important;
+		box-sizing: border-box !important;
+	}
+
+	body .phtf-widget.is-filters-open .phtf-mobile-filter-action {
+		width: 100% !important;
+		min-width: 0 !important;
+		max-width: 100% !important;
+		min-height: 46px !important;
+		margin: 0 !important;
+		padding: 10px 8px !important;
+		white-space: nowrap !important;
+	}
+}
