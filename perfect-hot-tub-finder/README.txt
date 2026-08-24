@@ -381,6 +381,9 @@ Version 1.0.1: Added dedicated Elementor style controls for Primary Button and S
 
 == Changelog ==
 
+= 1.0.247 =
+* Prevented Elementor editor requests from waiting on GitHub update checks or branding-kit maintenance, and cached failed update checks to improve panel loading.
+
 = 1.0.246 =
 * Restored disabled gray styling for unavailable Spa Shop Slider Seating and Price combinations across desktop, tablet, and mobile.
 

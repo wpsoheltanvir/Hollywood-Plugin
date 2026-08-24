@@ -11,6 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class PHTF_GitHub_Updater {
 	const TRANSIENT_KEY = 'phtf_github_latest_release';
+	const FAILURE_CACHE_VALUE = 'unavailable';
 
 	private $plugin_file;
 	private $plugin_basename;
@@ -54,6 +55,10 @@ class PHTF_GitHub_Updater {
 
 	public function check_for_update( $transient ) {
 		if ( empty( $transient->checked ) || empty( $transient->checked[ $this->plugin_basename ] ) ) {
+			return $transient;
+		}
+
+		if ( $this->is_elementor_request() ) {
 			return $transient;
 		}
 
@@ -135,31 +140,31 @@ class PHTF_GitHub_Updater {
 
 	private function get_latest_release() {
 		$cached = get_site_transient( self::TRANSIENT_KEY );
-		if ( is_array( $cached ) ) {
-			return $cached;
+		if ( false !== $cached ) {
+			return is_array( $cached ) ? $cached : false;
 		}
 
 		$url      = sprintf( 'https://api.github.com/repos/%s/%s/releases/latest', rawurlencode( $this->owner ), rawurlencode( $this->repo ) );
 		$response = wp_remote_get(
 			$url,
 			[
-				'timeout' => 12,
+				'timeout' => 5,
 				'headers' => $this->get_api_headers(),
 			]
 		);
 
 		if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
-			return false;
+			return $this->cache_failed_request();
 		}
 
 		$data = json_decode( wp_remote_retrieve_body( $response ), true );
 		if ( empty( $data['tag_name'] ) || empty( $data['assets'] ) || ! is_array( $data['assets'] ) ) {
-			return false;
+			return $this->cache_failed_request();
 		}
 
 		$asset = $this->find_release_asset( $data['assets'] );
 		if ( ! $asset ) {
-			return false;
+			return $this->cache_failed_request();
 		}
 
 		$release = [
@@ -172,6 +177,19 @@ class PHTF_GitHub_Updater {
 		set_site_transient( self::TRANSIENT_KEY, $release, 6 * HOUR_IN_SECONDS );
 
 		return $release;
+	}
+
+	private function cache_failed_request() {
+		set_site_transient( self::TRANSIENT_KEY, self::FAILURE_CACHE_VALUE, HOUR_IN_SECONDS );
+
+		return false;
+	}
+
+	private function is_elementor_request() {
+		$raw_action = isset( $_REQUEST['action'] ) && is_string( $_REQUEST['action'] ) ? wp_unslash( $_REQUEST['action'] ) : '';
+		$action     = sanitize_key( $raw_action );
+
+		return 'elementor' === $action || 0 === strpos( $action, 'elementor_' );
 	}
 
 	private function find_release_asset( $assets ) {
