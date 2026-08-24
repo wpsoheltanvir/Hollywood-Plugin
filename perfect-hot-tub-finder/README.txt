@@ -381,6 +381,9 @@ Version 1.0.1: Added dedicated Elementor style controls for Primary Button and S
 
 == Changelog ==
 
+= 1.0.246 =
+* Restored disabled gray styling for unavailable Spa Shop Slider Seating and Price combinations across desktop, tablet, and mobile.
+
 = 1.0.245 =
 * Kept every Spa Shop Slider Seating and Price checkbox active so mobile and tablet users can freely change or combine filters.
 

@@ -685,15 +685,21 @@
 			return productMatchesSelections(product, seats, prices);
 		}
 
-		function updateFilterAvailability() {
+		function updateFilterAvailability(seats, prices) {
 			filters.forEach(function (filter) {
+				var type = filter.getAttribute('data-phtf-filter');
 				var label = filter.closest ? filter.closest('.phtf-checkbox') : null;
+				var value = filter.value;
+				var available = products.some(function (product) {
+					return productMatchesSelections(product, seats, prices, type, value);
+				});
+				var disabled = !available && !filter.checked;
 
-				filter.disabled = false;
-				filter.setAttribute('aria-disabled', 'false');
+				filter.disabled = disabled;
+				filter.setAttribute('aria-disabled', disabled ? 'true' : 'false');
 				if (label) {
-					label.classList.remove('is-unavailable');
-					label.setAttribute('aria-disabled', 'false');
+					label.classList.toggle('is-unavailable', disabled);
+					label.setAttribute('aria-disabled', disabled ? 'true' : 'false');
 				}
 			});
 		}
@@ -765,7 +771,7 @@
 		function applyFilters() {
 			var seats = activeValues('seat');
 			var prices = activeValues('price');
-			updateFilterAvailability();
+			updateFilterAvailability(seats, prices);
 			visibleProducts = products.filter(function (product) {
 				return productMatches(product, seats, prices);
 			});

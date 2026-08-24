@@ -7628,3 +7628,23 @@ body .elementor-widget-phtf_hot_tub_finder {
 		white-space: nowrap !important;
 	}
 }
+
+/* Spa Shop Slider: unavailable filter combinations stay disabled and gray on every device. */
+body .phtf-widget[data-phtf-widget] .phtf-checkbox.is-unavailable {
+	color: #b8b8b8 !important;
+	cursor: default !important;
+}
+
+body .phtf-widget[data-phtf-widget] .phtf-checkbox.is-unavailable .phtf-price-filter-symbol,
+body .phtf-widget[data-phtf-widget] .phtf-checkbox.is-unavailable .phtf-price-filter-range {
+	color: #d2d2d2 !important;
+}
+
+body .phtf-widget[data-phtf-widget] .phtf-checkbox.is-unavailable .phtf-box {
+	border-color: #b8b8b8 !important;
+	background: transparent !important;
+}
+
+body .phtf-widget[data-phtf-widget] .phtf-checkbox.is-unavailable input + .phtf-box::after {
+	transform: rotate(45deg) scale(0) !important;
+}
