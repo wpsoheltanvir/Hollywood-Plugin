@@ -381,6 +381,9 @@ Version 1.0.1: Added dedicated Elementor style controls for Primary Button and S
 
 == Changelog ==
 
+= 1.0.241 =
+* Restored click and touch interaction for Spa Shop Slider Seating and Price mobile accordions.
+
 = 1.0.240 =
 * Migrated recent slider widget accents from saved reference coral to the Elementor Secondary aqua brand color.
 

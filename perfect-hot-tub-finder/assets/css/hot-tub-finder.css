@@ -7268,6 +7268,22 @@ body .elementor-widget-phtf_hot_tub_finder {
 
 /* Spa Shop Slider: final mobile/tablet accordion visibility protection. */
 @media (max-width: 1024px) {
+	body .phtf-widget[data-phtf-widget].is-filters-open .phtf-filter-group-toggle,
+	body .phtf-widget.phtf-widget--classic[data-phtf-widget].is-filters-open .phtf-filter-group-toggle {
+		position: relative !important;
+		z-index: 2 !important;
+		pointer-events: auto !important;
+		cursor: pointer !important;
+		user-select: none;
+		touch-action: manipulation;
+	}
+
+	body .phtf-widget[data-phtf-widget].is-filters-open .phtf-filter-group-chevron,
+	body .phtf-widget[data-phtf-widget].is-filters-open .phtf-filter-group-title,
+	body .phtf-widget[data-phtf-widget].is-filters-open .phtf-filter-group-title-wrap {
+		pointer-events: none !important;
+	}
+
 	body .phtf-widget[data-phtf-widget].is-filters-open .phtf-filter-group.is-collapsed > .phtf-filter-group-body,
 	body .phtf-widget[data-phtf-widget].is-filters-open .phtf-filter-group.is-collapsed > .phtf-filter-group-body[hidden] {
 		display: none !important;
