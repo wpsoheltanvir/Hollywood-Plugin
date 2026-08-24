@@ -381,6 +381,9 @@ Version 1.0.1: Added dedicated Elementor style controls for Primary Button and S
 
 == Changelog ==
 
+= 1.0.245 =
+* Kept every Spa Shop Slider Seating and Price checkbox active so mobile and tablet users can freely change or combine filters.
+
 = 1.0.244 =
 * Fixed Spa Shop Slider mobile drawer height, scrolling, safe-area spacing, and clipped action buttons.
 
