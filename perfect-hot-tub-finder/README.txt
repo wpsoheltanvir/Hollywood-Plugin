@@ -381,6 +381,10 @@ Version 1.0.1: Added dedicated Elementor style controls for Primary Button and S
 
 == Changelog ==
 
+= 1.0.254 =
+* Restyled Spa Single Best Seat House with a compact branded reference layout and comprehensive responsive Elementor controls for layout, title, spa image, overlay, body diagram, slide text, arrows, and pagination dots.
+* Added accessible body-diagram alt text and secure external video-link attributes.
+
 = 1.0.253 =
 * Removed the series label beneath the title in the Spa Model Single Hero widget while preserving the series breadcrumb item.
 
