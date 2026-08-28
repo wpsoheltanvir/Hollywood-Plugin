@@ -26,6 +26,7 @@ class PHTF_Shop_Similar_Hot_Tubs_Widget extends PHTF_Spa_Series_Models_Widget {
 	protected function register_controls() {
 		$this->register_similar_source_controls();
 		parent::register_controls();
+		$this->configure_price_footnote_controls();
 
 		$this->update_control(
 			'data_source',
@@ -58,6 +59,108 @@ class PHTF_Shop_Similar_Hot_Tubs_Widget extends PHTF_Spa_Series_Models_Widget {
 		$this->update_control( 'column_gap', [ 'default' => [ 'size' => 42, 'unit' => 'px' ] ] );
 
 		$this->register_secondary_price_style_controls();
+	}
+
+	private function configure_price_footnote_controls() {
+		$this->update_control(
+			'price_footnote_marker_color',
+			[
+				'selectors' => [
+					'{{WRAPPER}} .phtf-similar-hot-tubs .phtf-price-note-wrap--1 .phtf-price-note-trigger, {{WRAPPER}} .phtf-similar-hot-tubs .phtf-price-note-wrap--1 .phtf-price-note-trigger sup' => 'color: {{VALUE}} !important;',
+				],
+			]
+		);
+		$this->update_control(
+			'price_footnote_marker_size',
+			[
+				'selectors' => [
+					'{{WRAPPER}} .phtf-similar-hot-tubs .phtf-price-note-wrap--1 .phtf-price-note-trigger sup' => 'font-size: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+		$this->update_control(
+			'price_footnote_marker_top_offset',
+			[
+				'selectors' => [
+					'{{WRAPPER}} .phtf-similar-hot-tubs .phtf-price-note-wrap--1 .phtf-price-note-trigger sup' => 'position: relative; top: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+		$this->update_control(
+			'price_footnote_marker_horizontal_offset',
+			[
+				'selectors' => [
+					'{{WRAPPER}} .phtf-similar-hot-tubs .phtf-price-note-wrap--1 .phtf-price-note-trigger sup' => 'position: relative; left: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->start_injection( [ 'of' => 'price_footnote_marker_horizontal_offset', 'at' => 'after' ] );
+		$this->add_control(
+			'price_footnote_marker_color_2',
+			[
+				'label'     => esc_html__( 'Footnote ² Color', 'perfect-hot-tub-finder' ),
+				'type'      => Controls_Manager::COLOR,
+				'global'    => [ 'default' => 'globals/colors?id=secondary' ],
+				'default'   => '#85D9DE',
+				'selectors' => [
+					'{{WRAPPER}} .phtf-similar-hot-tubs .phtf-price-note-wrap--2 .phtf-price-note-trigger, {{WRAPPER}} .phtf-similar-hot-tubs .phtf-price-note-wrap--2 .phtf-price-note-trigger sup' => 'color: {{VALUE}} !important;',
+				],
+			]
+		);
+		$this->add_responsive_control(
+			'price_footnote_marker_size_2',
+			[
+				'label'      => esc_html__( 'Footnote ² Size', 'perfect-hot-tub-finder' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'em', 'px', 'rem' ],
+				'range'      => [
+					'em'  => [ 'min' => 0.3, 'max' => 1.5, 'step' => 0.05 ],
+					'px'  => [ 'min' => 6, 'max' => 28 ],
+					'rem' => [ 'min' => 0.3, 'max' => 1.5, 'step' => 0.05 ],
+				],
+				'default'    => [ 'size' => 0.75, 'unit' => 'em' ],
+				'selectors'  => [
+					'{{WRAPPER}} .phtf-similar-hot-tubs .phtf-price-note-wrap--2 .phtf-price-note-trigger sup' => 'font-size: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+		$this->add_responsive_control(
+			'price_footnote_marker_top_offset_2',
+			[
+				'label'      => esc_html__( 'Footnote ² Top Offset', 'perfect-hot-tub-finder' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'em', 'px', 'rem' ],
+				'range'      => [
+					'em'  => [ 'min' => -1, 'max' => 1, 'step' => 0.05 ],
+					'px'  => [ 'min' => -20, 'max' => 20 ],
+					'rem' => [ 'min' => -1, 'max' => 1, 'step' => 0.05 ],
+				],
+				'default'    => [ 'size' => -0.2, 'unit' => 'em' ],
+				'selectors'  => [
+					'{{WRAPPER}} .phtf-similar-hot-tubs .phtf-price-note-wrap--2 .phtf-price-note-trigger sup' => 'position: relative; top: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+		$this->add_responsive_control(
+			'price_footnote_marker_horizontal_offset_2',
+			[
+				'label'       => esc_html__( 'Footnote ² Left / Right Offset', 'perfect-hot-tub-finder' ),
+				'description' => esc_html__( 'Use a negative value to move left or a positive value to move right.', 'perfect-hot-tub-finder' ),
+				'type'        => Controls_Manager::SLIDER,
+				'size_units'  => [ 'em', 'px', 'rem' ],
+				'range'       => [
+					'em'  => [ 'min' => -2, 'max' => 2, 'step' => 0.05 ],
+					'px'  => [ 'min' => -40, 'max' => 40 ],
+					'rem' => [ 'min' => -2, 'max' => 2, 'step' => 0.05 ],
+				],
+				'default'     => [ 'size' => 0, 'unit' => 'em' ],
+				'selectors'   => [
+					'{{WRAPPER}} .phtf-similar-hot-tubs .phtf-price-note-wrap--2 .phtf-price-note-trigger sup' => 'position: relative; left: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+		$this->end_injection();
 	}
 
 	private function register_similar_source_controls() {
@@ -278,7 +381,7 @@ class PHTF_Shop_Similar_Hot_Tubs_Widget extends PHTF_Spa_Series_Models_Widget {
 
 			$popup_id = wp_unique_id( 'phtf-similar-price-note-' );
 			?>
-			<span class="phtf-price-note-wrap"><button type="button" class="phtf-price-note-trigger" aria-expanded="false" aria-describedby="<?php echo esc_attr( $popup_id ); ?>" aria-label="<?php echo esc_attr( sprintf( __( 'Pricing footnote %s', 'perfect-hot-tub-finder' ), $number ) ); ?>"><sup><?php echo esc_html( $part ); ?></sup></button><span id="<?php echo esc_attr( $popup_id ); ?>" class="phtf-price-note-popup" role="tooltip"><button type="button" class="phtf-price-note-close" aria-label="<?php esc_attr_e( 'Close pricing note', 'perfect-hot-tub-finder' ); ?>">&times;</button><span class="phtf-price-note-popup-scroll"><?php echo wp_kses_post( wpautop( esc_html( $content ) ) ); ?></span></span></span>
+			<span class="phtf-price-note-wrap phtf-price-note-wrap--<?php echo esc_attr( $number ); ?>"><button type="button" class="phtf-price-note-trigger phtf-price-note-trigger--<?php echo esc_attr( $number ); ?>" aria-expanded="false" aria-describedby="<?php echo esc_attr( $popup_id ); ?>" aria-label="<?php echo esc_attr( sprintf( __( 'Pricing footnote %s', 'perfect-hot-tub-finder' ), $number ) ); ?>"><sup><?php echo esc_html( $part ); ?></sup></button><span id="<?php echo esc_attr( $popup_id ); ?>" class="phtf-price-note-popup" role="tooltip"><button type="button" class="phtf-price-note-close" aria-label="<?php esc_attr_e( 'Close pricing note', 'perfect-hot-tub-finder' ); ?>">&times;</button><span class="phtf-price-note-popup-scroll"><?php echo wp_kses_post( wpautop( esc_html( $content ) ) ); ?></span></span></span>
 			<?php
 		}
 	}

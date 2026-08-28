@@ -381,6 +381,9 @@ Version 1.0.1: Added dedicated Elementor style controls for Primary Button and S
 
 == Changelog ==
 
+= 1.0.250 =
+* Fixed Shop Similar Hot Tubs price-footnote alignment and added independent responsive color, size, top-offset, and horizontal-offset controls for markers ¹ and ².
+
 = 1.0.249 =
 * Added the dynamic Shop Similar Hot Tubs Elementor widget with automatic related-model selection, model and review links, two prices, pricing footnote popups, responsive carousel controls, and inherited branded style options.
 

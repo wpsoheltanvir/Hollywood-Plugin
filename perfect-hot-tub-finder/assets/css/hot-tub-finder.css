@@ -7696,6 +7696,23 @@ body .phtf-widget[data-phtf-widget] .phtf-checkbox.is-unavailable input + .phtf-
 	font-weight: 400;
 }
 
+.phtf-similar-hot-tubs .phtf-price-note-wrap {
+	align-items: baseline;
+	vertical-align: baseline;
+	margin-left: 1px;
+}
+
+.phtf-similar-hot-tubs .phtf-price-note-trigger {
+	align-items: baseline;
+	vertical-align: baseline;
+	line-height: 1;
+}
+
+.phtf-similar-hot-tubs .phtf-price-note-trigger sup {
+	display: inline-block;
+	vertical-align: baseline;
+}
+
 .phtf-similar-hot-tubs .phtf-similar-empty {
 	margin: 0;
 	text-align: center;
