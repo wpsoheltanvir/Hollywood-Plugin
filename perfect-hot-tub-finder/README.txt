@@ -381,6 +381,10 @@ Version 1.0.1: Added dedicated Elementor style controls for Primary Button and S
 
 == Changelog ==
 
+= 1.0.256 =
+* Removed mobile specification row spacing caused by desktop label widths in both the preview and expanded full-screen views.
+* Updated the mobile specifications view to Hollywood navy and aqua branding, and replaced typed toggle symbols with Elementor icon pickers plus responsive icon size and spacing controls.
+
 = 1.0.255 =
 * Added matching user-friendly Slide Arrows style panels to Spa Single Best Seat House and Spa Single Hot Tub Essentials, including responsive icon/box sizing, content gap, position, padding, border width/radius, Normal/Hover/Active colors and shadows, plus disabled opacity.
 

@@ -7,6 +7,7 @@ use Elementor\Controls_Manager;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
+use Elementor\Icons_Manager;
 use Elementor\Repeater;
 use Elementor\Utils;
 
@@ -369,16 +370,6 @@ class PHTF_Spa_Model_Specifications_Widget extends \Elementor\Widget_Base {
 			]
 		);
 		$this->add_control(
-			'load_full_icon',
-			[
-				'label'       => esc_html__( 'Load Icon', 'perfect-hot-tub-finder' ),
-				'type'        => Controls_Manager::TEXT,
-				'default'     => '⌄',
-				'label_block' => true,
-				'condition'   => [ 'show_minimize_button' => 'yes' ],
-			]
-		);
-		$this->add_control(
 			'minimize_text',
 			[
 				'label'       => esc_html__( 'Minimize Button Text', 'perfect-hot-tub-finder' ),
@@ -389,13 +380,46 @@ class PHTF_Spa_Model_Specifications_Widget extends \Elementor\Widget_Base {
 			]
 		);
 		$this->add_control(
+			'show_toggle_icon',
+			[
+				'label'        => esc_html__( 'Show Button Icon', 'perfect-hot-tub-finder' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => esc_html__( 'Yes', 'perfect-hot-tub-finder' ),
+				'label_off'    => esc_html__( 'No', 'perfect-hot-tub-finder' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+				'condition'    => [ 'show_minimize_button' => 'yes' ],
+			]
+		);
+		$this->add_control(
+			'load_full_icon',
+			[
+				'label'     => esc_html__( 'Load Icon', 'perfect-hot-tub-finder' ),
+				'type'      => Controls_Manager::ICONS,
+				'default'   => [ 'value' => 'fas fa-chevron-down', 'library' => 'fa-solid' ],
+				'condition' => [ 'show_minimize_button' => 'yes', 'show_toggle_icon' => 'yes' ],
+			]
+		);
+		$this->add_control(
 			'minimize_icon',
 			[
-				'label'       => esc_html__( 'Minimize Icon', 'perfect-hot-tub-finder' ),
-				'type'        => Controls_Manager::TEXT,
-				'default'     => '^',
-				'label_block' => true,
-				'condition'   => [ 'show_minimize_button' => 'yes' ],
+				'label'     => esc_html__( 'Minimize Icon', 'perfect-hot-tub-finder' ),
+				'type'      => Controls_Manager::ICONS,
+				'default'   => [ 'value' => 'fas fa-chevron-up', 'library' => 'fa-solid' ],
+				'condition' => [ 'show_minimize_button' => 'yes', 'show_toggle_icon' => 'yes' ],
+			]
+		);
+		$this->add_control(
+			'toggle_icon_position',
+			[
+				'label'     => esc_html__( 'Icon Position', 'perfect-hot-tub-finder' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'after',
+				'options'   => [
+					'before' => esc_html__( 'Before', 'perfect-hot-tub-finder' ),
+					'after'  => esc_html__( 'After', 'perfect-hot-tub-finder' ),
+				],
+				'condition' => [ 'show_minimize_button' => 'yes', 'show_toggle_icon' => 'yes' ],
 			]
 		);
 		$this->add_control(
@@ -814,6 +838,28 @@ class PHTF_Spa_Model_Specifications_Widget extends \Elementor\Widget_Base {
 				'selector' => '{{WRAPPER}} .phtf-specs-pill',
 			]
 		);
+		$this->add_responsive_control(
+			'button_icon_size',
+			[
+				'label'      => esc_html__( 'Icon Size', 'perfect-hot-tub-finder' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em' ],
+				'range'      => [ 'px' => [ 'min' => 8, 'max' => 40 ], 'em' => [ 'min' => 0.5, 'max' => 2.5, 'step' => 0.05 ] ],
+				'default'    => [ 'size' => 13, 'unit' => 'px' ],
+				'selectors'  => [ '{{WRAPPER}} .phtf-specs-pill-icon' => 'font-size: {{SIZE}}{{UNIT}};' ],
+			]
+		);
+		$this->add_responsive_control(
+			'button_icon_gap',
+			[
+				'label'      => esc_html__( 'Icon Spacing', 'perfect-hot-tub-finder' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em' ],
+				'range'      => [ 'px' => [ 'min' => 0, 'max' => 40 ], 'em' => [ 'min' => 0, 'max' => 2.5, 'step' => 0.05 ] ],
+				'default'    => [ 'size' => 8, 'unit' => 'px' ],
+				'selectors'  => [ '{{WRAPPER}} .phtf-specs-pill' => 'column-gap: {{SIZE}}{{UNIT}};' ],
+			]
+		);
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
 			[
@@ -902,6 +948,26 @@ class PHTF_Spa_Model_Specifications_Widget extends \Elementor\Widget_Base {
 		endforeach;
 	}
 
+	private function normalize_toggle_icon( $icon, $fallback ) {
+		if ( is_array( $icon ) && ! empty( $icon['value'] ) ) {
+			return $icon;
+		}
+
+		return [
+			'value'   => $fallback,
+			'library' => 'fa-solid',
+		];
+	}
+
+	private function render_toggle_icons( $load_icon, $minimize_icon ) {
+		?>
+		<span class="phtf-specs-pill-icon" data-phtf-specs-toggle-icon aria-hidden="true">
+			<span data-phtf-specs-load-icon><?php Icons_Manager::render_icon( $load_icon, [ 'aria-hidden' => 'true' ] ); ?></span>
+			<span data-phtf-specs-minimize-icon hidden><?php Icons_Manager::render_icon( $minimize_icon, [ 'aria-hidden' => 'true' ] ); ?></span>
+		</span>
+		<?php
+	}
+
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 		if ( 'spa_model' === ( $settings['data_source'] ?? 'spa_model' ) && function_exists( 'phtf_get_spa_model_data' ) && function_exists( 'phtf_get_first_spa_model_data' ) && function_exists( 'phtf_spa_model_spec_rows' ) ) {
@@ -933,6 +999,10 @@ class PHTF_Spa_Model_Specifications_Widget extends \Elementor\Widget_Base {
 		$preview_rows = max( 1, absint( $settings['preview_rows'] ?? 5 ) );
 		$total_rows   = count( $left_rows ) + count( $right_rows );
 		$can_toggle   = 'yes' === ( $settings['show_minimize_button'] ?? 'yes' ) && $total_rows > $preview_rows;
+		$show_toggle_icon = 'yes' === ( $settings['show_toggle_icon'] ?? 'yes' );
+		$toggle_icon_position = 'before' === ( $settings['toggle_icon_position'] ?? 'after' ) ? 'before' : 'after';
+		$load_icon = $this->normalize_toggle_icon( $settings['load_full_icon'] ?? [], 'fas fa-chevron-down' );
+		$minimize_icon = $this->normalize_toggle_icon( $settings['minimize_icon'] ?? [], 'fas fa-chevron-up' );
 		$overview_title = trim( (string) preg_replace( '/\s+Specifications\.?$/i', '', wp_strip_all_tags( $settings['title'] ?? '' ) ) );
 		if ( '' === $overview_title ) {
 			$overview_title = __( 'Spa', 'perfect-hot-tub-finder' );
@@ -973,8 +1043,9 @@ class PHTF_Spa_Model_Specifications_Widget extends \Elementor\Widget_Base {
 					<div class="phtf-specs-footer">
 						<?php if ( $can_toggle && ! empty( $settings['load_full_text'] ) && ! empty( $settings['minimize_text'] ) ) : ?>
 							<button type="button" class="phtf-specs-pill phtf-specs-minimize phtf-specs-toggle" data-phtf-specs-toggle aria-expanded="false">
+								<?php if ( $show_toggle_icon && 'before' === $toggle_icon_position ) { $this->render_toggle_icons( $load_icon, $minimize_icon ); } ?>
 								<span data-phtf-specs-toggle-label data-load-label="<?php echo esc_attr( $settings['load_full_text'] ); ?>" data-minimize-label="<?php echo esc_attr( $settings['minimize_text'] ); ?>"><?php echo esc_html( $settings['load_full_text'] ); ?></span>
-								<span class="phtf-specs-pill-icon" data-phtf-specs-toggle-icon data-load-icon="<?php echo esc_attr( $settings['load_full_icon'] ?? '⌄' ); ?>" data-minimize-icon="<?php echo esc_attr( $settings['minimize_icon'] ?? '^' ); ?>" aria-hidden="true"><?php echo esc_html( $settings['load_full_icon'] ?? '⌄' ); ?></span>
+								<?php if ( $show_toggle_icon && 'after' === $toggle_icon_position ) { $this->render_toggle_icons( $load_icon, $minimize_icon ); } ?>
 							</button>
 						<?php endif; ?>
 						<?php if ( 'yes' === ( $settings['show_manual'] ?? 'yes' ) ) : ?>
