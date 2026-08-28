@@ -381,6 +381,9 @@ Version 1.0.1: Added dedicated Elementor style controls for Primary Button and S
 
 == Changelog ==
 
+= 1.0.252 =
+* Updated the Spa Model Single Hero default desktop appearance to match the approved branded reference layout, typography, colors, buttons, gallery, and navigation sizing.
+
 = 1.0.251 =
 * Removed the Cover Colors information and View Model in 360° footer area from the Customize Spa Colors widget output.
 
