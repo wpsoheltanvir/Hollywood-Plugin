@@ -3936,6 +3936,8 @@
 .phtf-best-seat__video:hover, .phtf-best-seat__video:focus-visible { color: var(--phtf-best-seat-heading) !important; text-decoration: underline; }
 .phtf-best-seat__arrow { position: absolute; top: 54%; z-index: 3; display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; min-width: 0; min-height: 0; padding: 0; border: 0; border-radius: 0; background: transparent !important; box-shadow: none; color: var(--phtf-best-seat-accent) !important; font: 400 58px/1 Arial, sans-serif; cursor: pointer; transform: translateY(-50%); }
 .phtf-best-seat__arrow:hover, .phtf-best-seat__arrow:focus-visible { background: transparent !important; color: var(--phtf-best-seat-heading) !important; outline: 2px solid transparent; }
+.phtf-best-seat__arrow:active { transform: translateY(-50%) scale(.96); }
+.phtf-best-seat__arrow:disabled { cursor: not-allowed; pointer-events: none; }
 .phtf-best-seat__arrow--prev { left: var(--phtf-best-seat-arrow-offset); }
 .phtf-best-seat__arrow--next { right: var(--phtf-best-seat-arrow-offset); }
 .phtf-best-seat__dots { display: flex; align-items: center; justify-content: center; gap: 20px; min-height: 20px; margin-top: 18px; }
@@ -3964,7 +3966,7 @@
 }
 
 /* Spa Single Hot Tub Essentials */
-.phtf-essentials { --phtf-essentials-accent: #85D9DE !important; --phtf-essentials-heading: #00263D; --phtf-essentials-text: #7A7A7A; width: 100%; padding: 76px 64px 54px; overflow: hidden; background: #fff; font-family: 'Questrial', Arial, sans-serif; }
+.phtf-essentials { --phtf-essentials-accent: #85D9DE !important; --phtf-essentials-heading: #00263D; --phtf-essentials-text: #7A7A7A; --phtf-essentials-arrow-offset: -58px; width: 100%; padding: 76px 64px 54px; overflow: hidden; background: #fff; font-family: 'Questrial', Arial, sans-serif; }
 .phtf-essentials *, .phtf-essentials *::before, .phtf-essentials *::after { box-sizing: border-box; }
 .phtf-essentials__inner { position: relative; width: 100%; max-width: 1120px; margin: 0 auto; }
 .phtf-essentials__title { margin: 0 0 24px; color: var(--phtf-essentials-accent); font: 700 28px/1.2 'Questrial', Arial, sans-serif; text-align: center; }
@@ -3984,24 +3986,25 @@
 .phtf-essentials__content-heading { margin: 0 0 14px; color: var(--phtf-essentials-heading); font: 700 18px/1.3 'Questrial', Arial, sans-serif; letter-spacing: .12em; text-transform: uppercase; }
 .phtf-essentials__description { color: var(--phtf-essentials-text); font: 400 18px/1.65 'Questrial', Arial, sans-serif; }
 .phtf-essentials__description p { margin: 0; }
-.phtf-essentials__arrow { position: absolute; top: 55%; z-index: 3; display: inline-flex; align-items: center; justify-content: center; width: 46px; height: 64px; min-width: 0; min-height: 0; padding: 0; border: 0; border-radius: 0; background: transparent !important; box-shadow: none; color: var(--phtf-essentials-accent) !important; font: 400 62px/1 Arial, sans-serif; cursor: pointer; transform: translateY(-50%); }
+.phtf-essentials__arrow { position: absolute; top: 55%; z-index: 3; display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; min-width: 0; min-height: 0; padding: 0; border: 0; border-radius: 0; background: transparent !important; box-shadow: none; color: var(--phtf-essentials-accent) !important; font: 400 58px/1 Arial, sans-serif; cursor: pointer; transform: translateY(-50%); }
 .phtf-essentials__arrow:hover, .phtf-essentials__arrow:focus-visible { background: transparent !important; color: var(--phtf-essentials-heading) !important; outline: none; }
-.phtf-essentials__arrow--prev { left: -58px; }
-.phtf-essentials__arrow--next { right: -58px; }
+.phtf-essentials__arrow:active { transform: translateY(-50%) scale(.96); }
+.phtf-essentials__arrow:disabled { cursor: not-allowed; pointer-events: none; }
+.phtf-essentials__arrow--prev { left: var(--phtf-essentials-arrow-offset); }
+.phtf-essentials__arrow--next { right: var(--phtf-essentials-arrow-offset); }
 .phtf-essentials__action { margin-top: 24px; text-align: center; }
 .phtf-essentials__button { display: inline-flex; align-items: center; justify-content: center; padding: 9px 20px; border: 2px solid var(--phtf-essentials-accent); border-radius: 999px; background: var(--phtf-essentials-accent); color: #fff !important; font: 700 17px/1.1 'Questrial', Arial, sans-serif; text-decoration: none; }
 .phtf-essentials__button:hover, .phtf-essentials__button:focus-visible { border-color: var(--phtf-essentials-heading); background: var(--phtf-essentials-heading); color: #fff !important; text-decoration: none; outline: none; }
 @keyframes phtf-essentials-fade { from { opacity: 0; } to { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .phtf-essentials__slide { animation: none; } }
 @media (max-width: 1024px) {
-	.phtf-essentials { padding: 58px 54px 46px; }
+	.phtf-essentials { --phtf-essentials-arrow-offset: -48px; padding: 58px 54px 46px; }
 	.phtf-essentials__slide { grid-template-columns: minmax(0, 1.2fr) minmax(260px, .8fr); gap: 40px; }
 	.phtf-essentials__image { height: 310px; }
-	.phtf-essentials__arrow--prev { left: -48px; }
-	.phtf-essentials__arrow--next { right: -48px; }
+	.phtf-essentials__arrow { width: 44px; height: 44px; font-size: 52px; }
 }
 @media (max-width: 767px) {
-	.phtf-essentials { padding: 42px 38px 38px; }
+	.phtf-essentials { --phtf-essentials-arrow-offset: -28px; padding: 42px 38px 38px; }
 	.phtf-essentials__title { font-size: 25px; }
 	.phtf-essentials__tabs { max-width: 100%; margin-bottom: 26px; overflow-x: auto; justify-content: flex-start; }
 	.phtf-essentials__tab { flex: 0 0 auto; padding-right: 16px; padding-left: 16px; font-size: 16px; }
@@ -4010,9 +4013,7 @@
 	.phtf-essentials__content { text-align: center; }
 	.phtf-essentials__content-heading { font-size: 16px; }
 	.phtf-essentials__description { font-size: 16px; line-height: 1.55; }
-	.phtf-essentials__arrow { top: 47%; width: 36px; height: 52px; font-size: 48px; }
-	.phtf-essentials__arrow--prev { left: -34px; }
-	.phtf-essentials__arrow--next { right: -34px; }
+	.phtf-essentials__arrow { top: 47%; width: 38px; height: 38px; font-size: 46px; }
 	.phtf-essentials__action { margin-top: 30px; }
 }
 

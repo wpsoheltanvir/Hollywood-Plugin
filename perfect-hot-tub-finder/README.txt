@@ -381,6 +381,9 @@ Version 1.0.1: Added dedicated Elementor style controls for Primary Button and S
 
 == Changelog ==
 
+= 1.0.255 =
+* Added matching user-friendly Slide Arrows style panels to Spa Single Best Seat House and Spa Single Hot Tub Essentials, including responsive icon/box sizing, content gap, position, padding, border width/radius, Normal/Hover/Active colors and shadows, plus disabled opacity.
+
 = 1.0.254 =
 * Restyled Spa Single Best Seat House with a compact branded reference layout and comprehensive responsive Elementor controls for layout, title, spa image, overlay, body diagram, slide text, arrows, and pagination dots.
 * Added accessible body-diagram alt text and secure external video-link attributes.
