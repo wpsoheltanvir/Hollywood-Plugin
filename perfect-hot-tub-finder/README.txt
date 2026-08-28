@@ -381,6 +381,9 @@ Version 1.0.1: Added dedicated Elementor style controls for Primary Button and S
 
 == Changelog ==
 
+= 1.0.251 =
+* Removed the Cover Colors information and View Model in 360° footer area from the Customize Spa Colors widget output.
+
 = 1.0.250 =
 * Fixed Shop Similar Hot Tubs price-footnote alignment and added independent responsive color, size, top-offset, and horizontal-offset controls for markers ¹ and ².
 

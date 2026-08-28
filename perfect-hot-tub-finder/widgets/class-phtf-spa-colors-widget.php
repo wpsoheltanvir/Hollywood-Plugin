@@ -237,78 +237,6 @@ class PHTF_Spa_Colors_Widget extends \Elementor\Widget_Base {
 
 		$this->end_controls_section();
 
-		$this->start_controls_section(
-			'section_footer',
-			[
-				'label' => esc_html__( 'Footer / Button', 'perfect-hot-tub-finder' ),
-				'tab'   => Controls_Manager::TAB_CONTENT,
-			]
-		);
-
-		$this->add_control(
-			'show_cover_text',
-			[
-				'label'        => esc_html__( 'Show Cover Colors Text', 'perfect-hot-tub-finder' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'label_on'     => esc_html__( 'Yes', 'perfect-hot-tub-finder' ),
-				'label_off'    => esc_html__( 'No', 'perfect-hot-tub-finder' ),
-				'return_value' => 'yes',
-				'default'      => 'yes',
-			]
-		);
-
-		$this->add_control(
-			'cover_text',
-			[
-				'label'     => esc_html__( 'Cover Colors Text', 'perfect-hot-tub-finder' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => esc_html__( 'Cover Colors', 'perfect-hot-tub-finder' ),
-				'condition' => [ 'show_cover_text' => 'yes' ],
-			]
-		);
-
-		$this->add_control(
-			'show_info_icon',
-			[
-				'label'        => esc_html__( 'Show Info Icon', 'perfect-hot-tub-finder' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'label_on'     => esc_html__( 'Yes', 'perfect-hot-tub-finder' ),
-				'label_off'    => esc_html__( 'No', 'perfect-hot-tub-finder' ),
-				'return_value' => 'yes',
-				'default'      => 'yes',
-				'condition'    => [ 'show_cover_text' => 'yes' ],
-			]
-		);
-
-		$this->add_control(
-			'info_text',
-			[
-				'label'     => esc_html__( 'Info Tooltip Text', 'perfect-hot-tub-finder' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => esc_html__( 'Cover colors may vary by model and availability.', 'perfect-hot-tub-finder' ),
-				'condition' => [ 'show_info_icon' => 'yes' ],
-			]
-		);
-
-		$this->add_control(
-			'button_text',
-			[
-				'label'   => esc_html__( 'Button Text', 'perfect-hot-tub-finder' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => esc_html__( 'View Model in 360°', 'perfect-hot-tub-finder' ),
-			]
-		);
-
-		$this->add_control(
-			'button_link',
-			[
-				'label'       => esc_html__( 'Button Link', 'perfect-hot-tub-finder' ),
-				'type'        => Controls_Manager::URL,
-				'placeholder' => 'https://example.com',
-			]
-		);
-
-		$this->end_controls_section();
 	}
 
 	private function add_swatch_repeater_controls( $repeater ) {
@@ -700,40 +628,10 @@ class PHTF_Spa_Colors_Widget extends \Elementor\Widget_Base {
 		$this->end_controls_section();
 
 		$this->start_controls_section(
-			'section_footer_style',
+			'section_divider_style',
 			[
-				'label' => esc_html__( 'Footer / Button', 'perfect-hot-tub-finder' ),
+				'label' => esc_html__( 'Center Divider', 'perfect-hot-tub-finder' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
-			]
-		);
-
-		$this->add_control(
-			'cover_text_color',
-			[
-				'label'     => esc_html__( 'Cover Text Color', 'perfect-hot-tub-finder' ),
-				'type'      => Controls_Manager::COLOR,
-				'global' => [ 'default' => 'globals/colors?id=text' ],
-				'default'   => '#7A7A7A',
-				'selectors' => [ '{{WRAPPER}} .phtf-spa-cover-text' => 'color: {{VALUE}};' ],
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			[
-				'name'     => 'cover_typography',
-				'selector' => '{{WRAPPER}} .phtf-spa-cover-text',
-			]
-		);
-
-		$this->add_control(
-			'info_color',
-			[
-				'label'     => esc_html__( 'Info Icon Color', 'perfect-hot-tub-finder' ),
-				'type'      => Controls_Manager::COLOR,
-				'global' => [ 'default' => 'globals/colors?id=secondary' ],
-				'default'   => '#85D9DE',
-				'selectors' => [ '{{WRAPPER}} .phtf-spa-info' => 'color: {{VALUE}}; border-color: {{VALUE}};' ],
 			]
 		);
 
@@ -760,146 +658,7 @@ class PHTF_Spa_Colors_Widget extends \Elementor\Widget_Base {
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			[
-				'name'     => 'button_typography',
-				'selector' => '{{WRAPPER}} .phtf-spa-button',
-			]
-		);
-
-		$this->start_controls_tabs( 'button_tabs' );
-
-		$this->start_controls_tab(
-			'button_normal_tab',
-			[ 'label' => esc_html__( 'Normal', 'perfect-hot-tub-finder' ) ]
-		);
-		$this->add_control(
-			'button_text_color',
-			[
-				'label'     => esc_html__( 'Text Color', 'perfect-hot-tub-finder' ),
-				'type'      => Controls_Manager::COLOR,
-				'global' => [ 'default' => 'globals/colors?id=hol_white' ],
-				'default'   => '#ffffff',
-				'selectors' => [ '{{WRAPPER}} .phtf-spa-button' => 'color: {{VALUE}};' ],
-			]
-		);
-		$this->add_control(
-			'button_bg_color',
-			[
-				'label'     => esc_html__( 'Background Color', 'perfect-hot-tub-finder' ),
-				'type'      => Controls_Manager::COLOR,
-				'global' => [ 'default' => 'globals/colors?id=secondary' ],
-				'default'   => '#85D9DE',
-				'selectors' => [ '{{WRAPPER}} .phtf-spa-button' => 'background-color: {{VALUE}};' ],
-			]
-		);
-		$this->add_control(
-			'button_border_color',
-			[
-				'label'     => esc_html__( 'Border Color', 'perfect-hot-tub-finder' ),
-				'type'      => Controls_Manager::COLOR,
-				'global' => [ 'default' => 'globals/colors?id=secondary' ],
-				'default'   => '#85D9DE',
-				'selectors' => [ '{{WRAPPER}} .phtf-spa-button' => 'border-color: {{VALUE}};' ],
-			]
-		);
-		$this->end_controls_tab();
-
-		$this->start_controls_tab(
-			'button_hover_tab',
-			[ 'label' => esc_html__( 'Hover', 'perfect-hot-tub-finder' ) ]
-		);
-		$this->add_control(
-			'button_hover_text_color',
-			[
-				'label'     => esc_html__( 'Text Color', 'perfect-hot-tub-finder' ),
-				'type'      => Controls_Manager::COLOR,
-				'global' => [ 'default' => 'globals/colors?id=hol_white' ],
-				'default'   => '#ffffff',
-				'selectors' => [ '{{WRAPPER}} .phtf-spa-button:hover, {{WRAPPER}} .phtf-spa-button:focus-visible' => 'color: {{VALUE}};' ],
-			]
-		);
-		$this->add_control(
-			'button_hover_bg_color',
-			[
-				'label'     => esc_html__( 'Background Color', 'perfect-hot-tub-finder' ),
-				'type'      => Controls_Manager::COLOR,
-				'global' => [ 'default' => 'globals/colors?id=primary' ],
-				'default'   => '#00263D',
-				'selectors' => [ '{{WRAPPER}} .phtf-spa-button:hover, {{WRAPPER}} .phtf-spa-button:focus-visible' => 'background-color: {{VALUE}};' ],
-			]
-		);
-		$this->add_control(
-			'button_hover_border_color',
-			[
-				'label'     => esc_html__( 'Border Color', 'perfect-hot-tub-finder' ),
-				'type'      => Controls_Manager::COLOR,
-				'global' => [ 'default' => 'globals/colors?id=primary' ],
-				'default'   => '#00263D',
-				'selectors' => [ '{{WRAPPER}} .phtf-spa-button:hover, {{WRAPPER}} .phtf-spa-button:focus-visible' => 'border-color: {{VALUE}};' ],
-			]
-		);
-		$this->end_controls_tab();
-
-		$this->end_controls_tabs();
-
-		$this->add_responsive_control(
-			'button_padding',
-			[
-				'label'      => esc_html__( 'Button Padding', 'perfect-hot-tub-finder' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', 'em' ],
-				'default'    => [ 'top' => 12, 'right' => 32, 'bottom' => 12, 'left' => 32, 'unit' => 'px' ],
-				'selectors'  => [ '{{WRAPPER}} .phtf-spa-button' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ],
-			]
-		);
-
-		$this->add_responsive_control(
-			'button_radius',
-			[
-				'label'      => esc_html__( 'Button Radius', 'perfect-hot-tub-finder' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%' ],
-				'default'    => [ 'top' => 28, 'right' => 28, 'bottom' => 28, 'left' => 28, 'unit' => 'px' ],
-				'selectors'  => [ '{{WRAPPER}} .phtf-spa-button' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ],
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Box_Shadow::get_type(),
-			[
-				'name'     => 'button_shadow',
-				'selector' => '{{WRAPPER}} .phtf-spa-button',
-			]
-		);
-
 		$this->end_controls_section();
-	}
-
-	private function render_link_attrs( $link ) {
-		$attrs = 'href="#"';
-
-		if ( ! empty( $link['url'] ) ) {
-			$attrs = 'href="' . esc_url( $link['url'] ) . '"';
-		}
-		$rel = [];
-
-		if ( ! empty( $link['is_external'] ) ) {
-			$attrs .= ' target="_blank"';
-			$rel[] = 'noopener';
-			$rel[] = 'noreferrer';
-		}
-
-		if ( ! empty( $link['nofollow'] ) ) {
-			$rel[] = 'nofollow';
-		}
-
-		if ( ! empty( $rel ) ) {
-			$attrs .= ' rel="' . esc_attr( implode( ' ', array_unique( $rel ) ) ) . '"';
-		}
-
-		return $attrs;
 	}
 
 	private function render_swatches( $items, $group ) {
@@ -989,22 +748,6 @@ class PHTF_Spa_Colors_Widget extends \Elementor\Widget_Base {
 					<?php endif; ?>
 				</div>
 
-				<?php if ( 'yes' === ( $settings['show_cover_text'] ?? 'yes' ) || ! empty( $settings['button_text'] ) ) : ?>
-					<div class="phtf-spa-footer">
-						<?php if ( 'yes' === ( $settings['show_cover_text'] ?? 'yes' ) && ! empty( $settings['cover_text'] ) ) : ?>
-							<div class="phtf-spa-cover-text">
-								<span><?php echo esc_html( $settings['cover_text'] ); ?></span>
-								<?php if ( 'yes' === ( $settings['show_info_icon'] ?? 'yes' ) ) : ?>
-									<span class="phtf-spa-info" title="<?php echo esc_attr( $settings['info_text'] ?? '' ); ?>" aria-label="<?php echo esc_attr( $settings['info_text'] ?? '' ); ?>">i</span>
-								<?php endif; ?>
-							</div>
-						<?php endif; ?>
-
-						<?php if ( ! empty( $settings['button_text'] ) ) : ?>
-							<a class="phtf-spa-button" <?php echo $this->render_link_attrs( $settings['button_link'] ?? [] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>><?php echo esc_html( $settings['button_text'] ); ?></a>
-						<?php endif; ?>
-					</div>
-				<?php endif; ?>
 			</div>
 		</section>
 		<?php
