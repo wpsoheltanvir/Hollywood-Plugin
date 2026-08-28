@@ -381,6 +381,9 @@ Version 1.0.1: Added dedicated Elementor style controls for Primary Button and S
 
 == Changelog ==
 
+= 1.0.257 =
+* Removed excessive tablet and mobile side gutters from Shop Similar Hot Tubs by expanding the active card area and anchoring carousel arrows near the viewport edges without changing desktop.
+
 = 1.0.256 =
 * Removed mobile specification row spacing caused by desktop label widths in both the preview and expanded full-screen views.
 * Updated the mobile specifications view to Hollywood navy and aqua branding, and replaced typed toggle symbols with Elementor icon pickers plus responsive icon size and spacing controls.

@@ -7780,7 +7780,34 @@ body .phtf-widget[data-phtf-widget] .phtf-checkbox.is-unavailable input + .phtf-
 }
 
 @media (max-width: 1024px) {
+	.phtf-similar-hot-tubs {
+		padding-inline: 10px !important;
+	}
+
+	.phtf-similar-hot-tubs .phtf-spa-models-inner,
+	.phtf-similar-hot-tubs .phtf-spa-models-carousel,
+	.phtf-similar-hot-tubs .phtf-spa-models-grid,
+	.phtf-similar-hot-tubs .phtf-spa-models-card {
+		width: 100%;
+		max-width: none !important;
+	}
+
+	.phtf-similar-hot-tubs button.phtf-spa-models-arrow--prev {
+		left: 0 !important;
+	}
+
+	.phtf-similar-hot-tubs button.phtf-spa-models-arrow--next {
+		left: auto !important;
+		right: 0 !important;
+	}
+
 	.phtf-similar-hot-tubs .phtf-similar-secondary-price {
 		font-size: 16px;
+	}
+}
+
+@media (max-width: 640px) {
+	.phtf-similar-hot-tubs {
+		padding-inline: 6px !important;
 	}
 }
