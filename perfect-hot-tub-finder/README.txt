@@ -381,6 +381,9 @@ Version 1.0.1: Added dedicated Elementor style controls for Primary Button and S
 
 == Changelog ==
 
+= 1.0.253 =
+* Removed the series label beneath the title in the Spa Model Single Hero widget while preserving the series breadcrumb item.
+
 = 1.0.252 =
 * Updated the Spa Model Single Hero default desktop appearance to match the approved branded reference layout, typography, colors, buttons, gallery, and navigation sizing.
 

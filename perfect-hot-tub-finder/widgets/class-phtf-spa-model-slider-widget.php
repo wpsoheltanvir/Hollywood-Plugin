@@ -88,12 +88,6 @@ class PHTF_Spa_Model_Slider_Widget extends PHTF_Spa_Series_Slider_Widget {
 	}
 
 	private function register_model_style_controls() {
-		$this->start_controls_section( 'style_series_label', [ 'label' => esc_html__( 'Series Label', 'perfect-hot-tub-finder' ), 'tab' => Controls_Manager::TAB_STYLE ] );
-		$this->add_control( 'series_label_color', [ 'label' => esc_html__( 'Color', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .phtf-model-single-hero__series' => 'color: {{VALUE}};' ] ] );
-		$this->add_group_control( Group_Control_Typography::get_type(), [ 'name' => 'series_label_typography', 'selector' => '{{WRAPPER}} .phtf-model-single-hero__series' ] );
-		$this->add_responsive_control( 'series_label_margin', [ 'label' => esc_html__( 'Margin', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::DIMENSIONS, 'size_units' => [ 'px', 'em', '%' ], 'selectors' => [ '{{WRAPPER}} .phtf-model-single-hero__series' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ] ] );
-		$this->end_controls_section();
-
 		$this->start_controls_section( 'style_model_price', [ 'label' => esc_html__( 'Price & Footnotes', 'perfect-hot-tub-finder' ), 'tab' => Controls_Manager::TAB_STYLE ] );
 		$this->add_control( 'price_color', [ 'label' => esc_html__( 'Price Color', 'perfect-hot-tub-finder' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .phtf-model-single-hero__price' => 'color: {{VALUE}};' ] ] );
 		$this->add_group_control( Group_Control_Typography::get_type(), [ 'name' => 'price_typography', 'selector' => '{{WRAPPER}} .phtf-model-single-hero__price' ] );
@@ -230,7 +224,6 @@ class PHTF_Spa_Model_Slider_Widget extends PHTF_Spa_Series_Slider_Widget {
 		}
 
 		$title = $model['title'] ?? esc_html__( 'Spa Model', 'perfect-hot-tub-finder' );
-		$series = $model['series_display'] ?? '';
 		$reviews = trim( (string) ( $model['reviews'] ?? '' ) );
 		$reviews_url = ! empty( $model['reviews_url'] ) ? $model['reviews_url'] : ( $model['url'] ?? '' );
 		$description = $model['hero_description'] ?? '';
@@ -241,7 +234,6 @@ class PHTF_Spa_Model_Slider_Widget extends PHTF_Spa_Series_Slider_Widget {
 			<div class="phtf-series-slider__content">
 				<?php $this->render_breadcrumb( $settings, $title ); ?>
 				<h1 class="phtf-series-slider__title"><?php echo esc_html( $title ); ?></h1>
-				<?php if ( $series ) : ?><div class="phtf-model-single-hero__series"><?php echo esc_html( strtoupper( wp_strip_all_tags( $series ) ) ); ?></div><?php endif; ?>
 				<?php if ( $reviews ) : ?>
 					<a class="phtf-series-slider__reviews" href="<?php echo esc_url( $reviews_url ); ?>">
 						<?php echo $this->render_stars( $model['rating'] ?? 5 ); ?>

@@ -7385,14 +7385,6 @@ body .elementor-widget-phtf_hot_tub_finder {
 	font-weight: 700;
 	line-height: 1.05;
 }
-.phtf-model-single-hero__series {
-	margin: 0 0 14px;
-	color: var(--phtf-series-navy);
-	font-size: 18px;
-	font-weight: 700;
-	line-height: 1.25;
-	text-transform: uppercase;
-}
 .phtf-model-single-hero .phtf-series-slider__reviews {
 	display: flex;
 	align-items: center;
@@ -7560,29 +7552,24 @@ body .elementor-widget-phtf_hot_tub_finder {
 		padding: 34px max(22px, 5vw) 8px;
 		font-size: 36px;
 	}
-	.phtf-model-single-hero__series {
-		order: 3;
-		margin: 0;
-		padding: 0 max(22px, 5vw) 14px;
-	}
 	.phtf-model-single-hero .phtf-series-slider__reviews {
-		order: 4;
+		order: 3;
 		width: auto;
 	}
 	.phtf-model-single-hero__price {
-		order: 5;
+		order: 4;
 		margin: 10px 0 0;
 		padding: 0 max(22px, 5vw);
 	}
 	.phtf-model-single-hero .phtf-series-slider__description {
-		order: 6;
+		order: 5;
 	}
 	.phtf-model-single-hero .phtf-series-slider__actions {
-		order: 7;
+		order: 6;
 		padding-bottom: 20px;
 	}
 	.phtf-model-single-hero__specs {
-		order: 8;
+		order: 7;
 		grid-template-columns: repeat(3, minmax(0, 1fr));
 		margin: 0;
 		padding: 0 max(22px, 5vw) 30px;
@@ -7594,10 +7581,6 @@ body .elementor-widget-phtf_hot_tub_finder {
 	.phtf-model-single-hero .phtf-series-slider__title {
 		padding: 30px 16px 7px;
 		font-size: 30px;
-	}
-	.phtf-model-single-hero__series {
-		padding: 0 16px 12px;
-		font-size: 16px;
 	}
 	.phtf-model-single-hero .phtf-series-slider__reviews {
 		align-items: flex-start;
