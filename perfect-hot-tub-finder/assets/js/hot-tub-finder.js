@@ -1879,6 +1879,137 @@
 		start();
 	}
 
+	function initStickyNavigation(nav) {
+		if (!nav || nav.phtfStickyNavigationReady) {
+			return;
+		}
+		nav.phtfStickyNavigationReady = true;
+
+		var links = Array.prototype.slice.call(nav.querySelectorAll('[data-phtf-sticky-nav-link]'));
+		var toggle = nav.querySelector('[data-phtf-sticky-nav-toggle]');
+		var currentLabel = nav.querySelector('[data-phtf-sticky-nav-current]');
+		var holder = nav.parentElement;
+		var stickyEnabled = nav.getAttribute('data-sticky') === 'true';
+		var autoActive = nav.getAttribute('data-auto-active') === 'true';
+		var smoothScroll = nav.getAttribute('data-smooth-scroll') === 'true';
+		var activeId = '';
+		var frame = 0;
+
+		if (!links.length) {
+			return;
+		}
+
+		function cssNumber(property) {
+			return parseFloat(window.getComputedStyle(nav).getPropertyValue(property)) || 0;
+		}
+
+		function stickyTop() {
+			return cssNumber('--phtf-sticky-nav-top') + cssNumber('--phtf-sticky-nav-admin-offset');
+		}
+
+		function entries() {
+			return links.map(function (link) {
+				var id = link.getAttribute('data-section-id') || '';
+				return { link: link, id: id, target: id ? document.getElementById(id) : null };
+			}).filter(function (entry) { return !!entry.target; });
+		}
+
+		function setActive(id) {
+			if (!id || id === activeId) {
+				return;
+			}
+			activeId = id;
+			links.forEach(function (link) {
+				var active = link.getAttribute('data-section-id') === id;
+				var item = link.closest('[data-phtf-sticky-nav-item]');
+				if (item) { item.classList.toggle('is-active', active); }
+				if (active) {
+					link.setAttribute('aria-current', 'true');
+					if (currentLabel) { currentLabel.textContent = link.textContent.trim(); }
+				} else {
+					link.removeAttribute('aria-current');
+				}
+			});
+		}
+
+		function closeMenu() {
+			nav.classList.remove('is-menu-open');
+			if (toggle) { toggle.setAttribute('aria-expanded', 'false'); }
+		}
+
+		function update() {
+			frame = 0;
+			var top = stickyTop();
+			var gap = cssNumber('--phtf-sticky-nav-scroll-gap');
+			var holderTop = holder ? holder.getBoundingClientRect().top + window.pageYOffset : nav.getBoundingClientRect().top + window.pageYOffset;
+			var shouldFix = stickyEnabled && window.pageYOffset + top >= holderTop;
+
+			if (holder) {
+				holder.style.minHeight = shouldFix ? nav.offsetHeight + 'px' : '';
+			}
+			nav.classList.toggle('is-fixed', shouldFix);
+
+			if (!autoActive) {
+				return;
+			}
+			var available = entries();
+			if (!available.length) {
+				return;
+			}
+			var probe = window.pageYOffset + top + nav.offsetHeight + gap + 2;
+			var selected = available[0];
+			available.forEach(function (entry) {
+				var sectionTop = entry.target.getBoundingClientRect().top + window.pageYOffset;
+				if (sectionTop <= probe) { selected = entry; }
+			});
+			if (window.innerHeight + window.pageYOffset >= document.documentElement.scrollHeight - 4) {
+				selected = available[available.length - 1];
+			}
+			setActive(selected.id);
+		}
+
+		function scheduleUpdate() {
+			if (!frame) { frame = window.requestAnimationFrame(update); }
+		}
+
+		links.forEach(function (link) {
+			link.addEventListener('click', function (event) {
+				var id = link.getAttribute('data-section-id') || '';
+				var target = id ? document.getElementById(id) : null;
+				if (!target) { return; }
+				event.preventDefault();
+				setActive(id);
+				closeMenu();
+				var top = stickyTop();
+				var gap = cssNumber('--phtf-sticky-nav-scroll-gap');
+				var destination = Math.max(0, target.getBoundingClientRect().top + window.pageYOffset - nav.offsetHeight - top - gap);
+				window.scrollTo({ top: destination, behavior: smoothScroll ? 'smooth' : 'auto' });
+				if (window.history && window.history.replaceState) {
+					window.history.replaceState(null, '', '#' + id);
+				}
+			});
+		});
+
+		if (toggle) {
+			toggle.addEventListener('click', function () {
+				var open = !nav.classList.contains('is-menu-open');
+				nav.classList.toggle('is-menu-open', open);
+				toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+			});
+		}
+
+		document.addEventListener('click', function (event) {
+			if (!nav.contains(event.target)) { closeMenu(); }
+		});
+		nav.addEventListener('keydown', function (event) {
+			if (event.key === 'Escape') { closeMenu(); if (toggle) { toggle.focus(); } }
+		});
+		window.addEventListener('scroll', scheduleUpdate, { passive: true });
+		window.addEventListener('resize', scheduleUpdate);
+		setActive((window.location.hash || '').replace(/^#/, '') || links[0].getAttribute('data-section-id'));
+		update();
+	}
+
 	function initAll() {
 		collectProductSources();
 		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-widget]')).forEach(initFinder);
@@ -1890,6 +2021,7 @@
 		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-model-specs]')).forEach(initModelSpecs);
 		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-best-seat]')).forEach(initBestSeatHouse);
 		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-essentials]')).forEach(initHotTubEssentials);
+		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-sticky-nav]')).forEach(initStickyNavigation);
 		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-reviews]')).forEach(initReviews);
 		Array.prototype.slice.call(document.querySelectorAll('[data-phtf-compare]')).forEach(initCompareSpaModels);
 		Array.prototype.slice.call(document.querySelectorAll('.phtc-widget')).forEach(initSeriesComparison);
@@ -2006,6 +2138,10 @@
 				var root = $scope && $scope[0] ? $scope[0].querySelector('[data-phtf-essentials]') : null;
 				if (root) { initHotTubEssentials(root); }
 			});
+			window.elementorFrontend.hooks.addAction('frontend/element_ready/phtf_spa_single_sticky_navigation.default', function ($scope) {
+				var root = $scope && $scope[0] ? $scope[0].querySelector('[data-phtf-sticky-nav]') : null;
+				if (root) { initStickyNavigation(root); }
+			});
 			window.elementorFrontend.hooks.addAction('frontend/element_ready/phtf_reviews.default', function ($scope) {
 				var root = $scope && $scope[0] ? $scope[0].querySelector('[data-phtf-reviews]') : null;
 				if (root) {
@@ -2035,6 +2171,7 @@
 				'phtf_spa_model_specifications',
 				'phtf_spa_single_best_seat_house',
 				'phtf_spa_single_hot_tub_essentials',
+				'phtf_spa_single_sticky_navigation',
 				'phtf_compare_spa_models',
 				'phtf_series_comparison'
 			].forEach(function (widgetName) {

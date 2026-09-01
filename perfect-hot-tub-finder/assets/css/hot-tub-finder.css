@@ -7811,3 +7811,228 @@ body .phtf-widget[data-phtf-widget] .phtf-checkbox.is-unavailable input + .phtf-
 		padding-inline: 6px !important;
 	}
 }
+
+/* Spa Single Sticky Navigation */
+.phtf-sticky-nav {
+	--phtf-sticky-nav-top: 0px;
+	--phtf-sticky-nav-admin-offset: 0px;
+	--phtf-sticky-nav-scroll-gap: 12px;
+	--phtf-sticky-nav-underline: #85D9DE;
+	position: relative;
+	z-index: 999;
+	width: 100%;
+	background: #00263D;
+	font-family: 'Questrial', Arial, sans-serif;
+	box-sizing: border-box;
+	transition: box-shadow 180ms ease;
+}
+
+.phtf-sticky-nav *,
+.phtf-sticky-nav *::before,
+.phtf-sticky-nav *::after {
+	box-sizing: border-box;
+}
+
+.phtf-sticky-nav.is-fixed {
+	position: fixed;
+	top: calc(var(--phtf-sticky-nav-top) + var(--phtf-sticky-nav-admin-offset));
+	right: 0;
+	left: 0;
+	width: 100%;
+	box-shadow: 0 6px 20px rgba(0, 38, 61, 0.18);
+}
+
+body.admin-bar .phtf-sticky-nav {
+	--phtf-sticky-nav-admin-offset: 32px;
+}
+
+.phtf-sticky-nav__inner {
+	position: relative;
+	width: 100%;
+	max-width: 1180px;
+	margin: 0 auto;
+	padding: 18px 20px;
+}
+
+.phtf-sticky-nav__list {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	column-gap: 18px;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.phtf-sticky-nav__item {
+	display: flex;
+	align-items: center;
+	gap: 18px;
+	margin: 0;
+	padding: 0;
+}
+
+.phtf-sticky-nav__link {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 4px 8px 8px;
+	color: #FFFFFF;
+	font-size: 17px;
+	font-weight: 700;
+	line-height: 1.2;
+	text-align: center;
+	text-decoration: none !important;
+	white-space: nowrap;
+	transition: color 180ms ease;
+}
+
+.phtf-sticky-nav__link::after {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 2px;
+	margin: auto;
+	background: var(--phtf-sticky-nav-underline);
+	content: '';
+	transform: scaleX(0);
+	transform-origin: center;
+	transition: transform 200ms ease;
+}
+
+.phtf-sticky-nav__link:hover,
+.phtf-sticky-nav__link:focus-visible {
+	color: #85D9DE;
+	outline: none;
+}
+
+.phtf-sticky-nav__link:hover::after,
+.phtf-sticky-nav__link:focus-visible::after,
+.phtf-sticky-nav__item.is-active .phtf-sticky-nav__link::after {
+	transform: scaleX(1);
+}
+
+.phtf-sticky-nav__separator {
+	display: block;
+	width: 1px;
+	height: 18px;
+	background: rgba(255, 255, 255, 0.32);
+}
+
+.phtf-sticky-nav__mobile-toggle {
+	display: none;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	margin: 0;
+	padding: 12px 4px;
+	border: 0;
+	background: transparent !important;
+	color: #FFFFFF;
+	font-family: 'Questrial', Arial, sans-serif;
+	font-size: 16px;
+	font-weight: 700;
+	line-height: 1.2;
+	text-align: left;
+	cursor: pointer;
+}
+
+.phtf-sticky-nav__mobile-toggle:hover,
+.phtf-sticky-nav__mobile-toggle:focus-visible {
+	background: transparent !important;
+	color: #85D9DE;
+	outline: none;
+}
+
+.phtf-sticky-nav__mobile-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 auto;
+	font-size: 15px;
+	line-height: 1;
+	transition: transform 180ms ease;
+}
+
+.phtf-sticky-nav__mobile-icon svg {
+	display: block;
+	width: 1em;
+	height: 1em;
+	fill: currentColor;
+}
+
+.phtf-sticky-nav.is-menu-open .phtf-sticky-nav__mobile-icon {
+	transform: rotate(180deg);
+}
+
+@media (max-width: 1024px) {
+	.phtf-sticky-nav__inner {
+		padding: 14px 16px;
+	}
+
+	.phtf-sticky-nav__list,
+	.phtf-sticky-nav__item {
+		column-gap: 12px;
+	}
+
+	.phtf-sticky-nav__link {
+		font-size: 15px;
+	}
+}
+
+@media (max-width: 767px) {
+	.phtf-sticky-nav__inner {
+		padding: 0 12px;
+	}
+
+	.phtf-sticky-nav__mobile-toggle {
+		display: flex;
+	}
+
+	.phtf-sticky-nav__list {
+		position: absolute;
+		top: 100%;
+		right: 0;
+		left: 0;
+		display: none;
+		align-items: stretch;
+		justify-content: flex-start;
+		flex-direction: column;
+		gap: 0;
+		padding: 7px 12px 12px;
+		background: #00263D;
+		box-shadow: 0 12px 22px rgba(0, 38, 61, 0.2);
+	}
+
+	.phtf-sticky-nav.is-menu-open .phtf-sticky-nav__list {
+		display: flex;
+	}
+
+	.phtf-sticky-nav__item {
+		display: block;
+		width: 100%;
+	}
+
+	.phtf-sticky-nav__link {
+		display: inline-flex;
+		justify-content: flex-start;
+		width: auto;
+		padding: 11px 4px 8px;
+		font-size: 16px;
+		text-align: left;
+	}
+
+	.phtf-sticky-nav__separator {
+		display: none;
+	}
+}
+
+@media (max-width: 782px) {
+	body.admin-bar .phtf-sticky-nav {
+		--phtf-sticky-nav-admin-offset: 46px;
+	}
+}

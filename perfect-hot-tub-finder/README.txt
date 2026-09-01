@@ -381,6 +381,10 @@ Version 1.0.1: Added dedicated Elementor style controls for Primary Button and S
 
 == Changelog ==
 
+= 1.0.258 =
+* Added the Spa Single Sticky Navigation Elementor widget with editable section anchors, robust fixed-top behavior, smooth scrolling, automatic scroll-spy underline updates, and an accessible mobile dropdown showing the current section.
+* Added responsive Hollywood navy/aqua styling controls for bar layout, navigation links, active underline, separators, sticky offsets, mobile icon, and dropdown appearance.
+
 = 1.0.257 =
 * Removed excessive tablet and mobile side gutters from Shop Similar Hot Tubs by expanding the active card area and anchoring carousel arrows near the viewport edges without changing desktop.
 
