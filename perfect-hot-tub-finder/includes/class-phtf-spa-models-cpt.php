@@ -302,7 +302,7 @@ if ( ! function_exists( 'phtf_spa_model_meta_fields' ) ) {
 if ( ! function_exists( 'phtf_spa_model_specs_labels' ) ) {
 	function phtf_spa_model_specs_labels() {
 		$fields = phtf_spa_model_meta_fields();
-		$skip   = [ 'compare_category', 'spa_id', 'rating', 'reviews', 'price', 'secondary_price', 'seating_capacity', 'seating_filter', 'price_tier', 'explore_categories', 'product_image_url', 'lifestyle_image_url', 'view_model_url', 'compare_url', 'model_title_url', 'reviews_url', 'price_note_popup_content', 'price_note_popup_content_2', 'brochure_url', 'local_pricing_url', 'owners_manual_url', 'review_quote', 'review_author' ];
+		$skip   = [ 'compare_category', 'spa_id', 'rating', 'reviews', 'price', 'secondary_price', 'seating_capacity', 'seating_filter', 'price_tier', 'explore_categories', 'product_image_url', 'lifestyle_image_url', 'view_model_url', 'compare_url', 'model_title_url', 'reviews_url', 'price_note_popup_content', 'price_note_popup_content_2', 'brochure_url', 'local_pricing_url', 'owners_manual_url', 'review_quote', 'review_author', 'hero_description' ];
 		$labels = [];
 		foreach ( $fields as $key => $field ) {
 			if ( in_array( $key, $skip, true ) ) {
@@ -816,7 +816,7 @@ JS
 	public function render_details_meta_box( $post ) {
 		wp_nonce_field( 'phtf_save_spa_model', 'phtf_spa_model_nonce' );
 		$fields = phtf_spa_model_meta_fields();
-		$detail_keys = [ 'spa_id', 'rating', 'reviews', 'reviews_url', 'price', 'price_note_popup_content', 'secondary_price', 'price_note_popup_content_2', 'hero_description', 'seating_capacity', 'seating_filter', 'price_tier', 'view_model_url', 'compare_url', 'brochure_url', 'local_pricing_url' ];
+		$detail_keys = [ 'spa_id', 'rating', 'reviews', 'reviews_url', 'price', 'price_note_popup_content', 'secondary_price', 'price_note_popup_content_2', 'seating_capacity', 'seating_filter', 'price_tier', 'view_model_url', 'compare_url', 'brochure_url', 'local_pricing_url' ];
 		echo '<p class="description" style="margin-top:0;">' . esc_html__( 'These fields replace the old Elementor product repeater for the Spa Shop Slider. Use one Spa Model post for each product/result.', 'perfect-hot-tub-finder' ) . '</p>';
 		echo '<div class="phtf-admin-grid" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 18px;">';
 		foreach ( $detail_keys as $key ) {
