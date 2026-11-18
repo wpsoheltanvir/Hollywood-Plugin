@@ -901,56 +901,64 @@
 
 	function initSpaColors(root) {
 		var customizer = root && root.matches && root.matches('[data-phtf-spa-colors]') ? root : (root ? root.querySelector('[data-phtf-spa-colors]') : null);
-		if (!customizer) {
-			return;
-		}
-
-		customizer.setAttribute('data-phtf-spa-initialized', 'true');
-
+		if (!customizer) { return; }
 		var mainImage = customizer.querySelector('[data-phtf-spa-main-image]');
-		function activate(button) {
-			var group = button.getAttribute('data-phtf-spa-group') || '';
-			var image = button.getAttribute('data-phtf-spa-image') || '';
-
-			Array.prototype.slice.call(customizer.querySelectorAll('[data-phtf-spa-swatch-wrap="' + group + '"]')).forEach(function (wrap) {
-				wrap.classList.remove('is-active');
-				var groupButton = wrap.querySelector('[data-phtf-spa-swatch]');
-				if (groupButton) {
-					groupButton.setAttribute('aria-pressed', 'false');
-				}
-			});
-
-			var wrapper = button.closest ? button.closest('[data-phtf-spa-swatch-wrap]') : button.parentNode;
-			if (wrapper) {
-				wrapper.classList.add('is-active');
+		var cabinetLayer = customizer.querySelector('[data-phtf-spa-cabinet-layer]');
+		var mode = customizer.getAttribute('data-phtf-cabinet-image-mode') || 'lower_area';
+		function changeImage(element, url) {
+			if (!element) { return; }
+			element.phtfSpaImageRequest = (element.phtfSpaImageRequest || 0) + 1;
+			var request = element.phtfSpaImageRequest;
+			if (!url) {
+				element.classList.remove('is-changing');
+				return;
 			}
-			button.setAttribute('aria-pressed', 'true');
-
-			if (mainImage && image) {
-				customizer.phtfSpaImageRequest = (customizer.phtfSpaImageRequest || 0) + 1;
-				var request = customizer.phtfSpaImageRequest;
-				mainImage.classList.add('is-changing');
-				var previewImage = new Image();
-				previewImage.onload = function () {
-					if (request !== customizer.phtfSpaImageRequest) { return; }
-					mainImage.src = image;
-					mainImage.classList.remove('is-changing');
-				};
-				previewImage.onerror = function () {
-					if (request !== customizer.phtfSpaImageRequest) { return; }
-					mainImage.classList.remove('is-changing');
-				};
-				previewImage.src = image;
-			}
+			element.classList.add('is-changing');
+			var image = new Image();
+			image.onload = function () {
+				if (request !== element.phtfSpaImageRequest) { return; }
+				element.src = url;
+				element.hidden = false;
+				element.classList.remove('is-changing');
+			};
+			image.onerror = function () {
+				if (request === element.phtfSpaImageRequest) { element.classList.remove('is-changing'); }
+			};
+			image.src = url;
 		}
-
+		function updateShells(cabinet) {
+			var first = null;
+			var unavailableSelection = false;
+			Array.prototype.forEach.call(customizer.querySelectorAll('[data-phtf-spa-swatch-wrap="shell"]'), function (wrap) {
+				var allowed = (wrap.getAttribute('data-phtf-available-cabinets') || '').split('|').filter(Boolean);
+				wrap.hidden = allowed.length > 0 && allowed.indexOf(cabinet) === -1;
+				if (!wrap.hidden && !first) { first = wrap.querySelector('[data-phtf-spa-swatch]'); }
+				if (wrap.hidden && wrap.classList.contains('is-active')) { unavailableSelection = true; }
+			});
+			if (unavailableSelection && first) { activate(first); }
+		}
+		function activate(button) {
+			var group = button.getAttribute('data-phtf-spa-group');
+			var image = button.getAttribute('data-phtf-spa-image') || '';
+			if (group !== 'cabinet' && group !== 'shell') { return; }
+			Array.prototype.forEach.call(customizer.querySelectorAll('[data-phtf-spa-swatch-wrap="' + group + '"]'), function (wrap) {
+				wrap.classList.remove('is-active');
+				var other = wrap.querySelector('[data-phtf-spa-swatch]');
+				if (other) { other.setAttribute('aria-pressed', 'false'); }
+			});
+			button.closest('[data-phtf-spa-swatch-wrap]').classList.add('is-active');
+			button.setAttribute('aria-pressed', 'true');
+			changeImage(group === 'cabinet' && mode === 'lower_area' ? cabinetLayer : mainImage, image);
+			if (group === 'cabinet') { updateShells(button.getAttribute('data-phtf-spa-option') || ''); }
+		}
 		customizer.onclick = function (event) {
 			var button = event.target && event.target.closest ? event.target.closest('[data-phtf-spa-swatch]') : null;
 			if (button && customizer.contains(button)) { activate(button); }
 		};
+		var active = customizer.querySelector('[data-phtf-spa-swatch-wrap="cabinet"].is-active [data-phtf-spa-swatch]');
+		if (active) { updateShells(active.getAttribute('data-phtf-spa-option') || ''); }
+		customizer.setAttribute('data-phtf-spa-initialized', 'true');
 	}
-
-
 
 	function initDelight(root) {
 		var delight = root && root.matches && root.matches('[data-phtf-delight]') ? root : (root ? root.querySelector('[data-phtf-delight]') : null);

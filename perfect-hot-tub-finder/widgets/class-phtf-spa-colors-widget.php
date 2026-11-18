@@ -120,6 +120,20 @@ class PHTF_Spa_Colors_Widget extends \Elementor\Widget_Base {
 		);
 
 		$this->add_control(
+			'cabinet_image_mode',
+			[
+				'label' => esc_html__( 'Cabinet Image Change Mode', 'perfect-hot-tub-finder' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => 'lower_area',
+				'options' => [
+					'lower_area' => esc_html__( 'Separate Shell + Cabinet Images', 'perfect-hot-tub-finder' ),
+					'full_replace' => esc_html__( 'Replace Full Preview Image', 'perfect-hot-tub-finder' ),
+				],
+				'description' => esc_html__( 'Use matching transparent shell and cabinet images for this model. Each group changes its own part of the preview.', 'perfect-hot-tub-finder' ),
+			]
+		);
+
+		$this->add_control(
 			'image_alt',
 			[
 				'label'       => esc_html__( 'Image Alt Text', 'perfect-hot-tub-finder' ),
@@ -163,7 +177,7 @@ class PHTF_Spa_Colors_Widget extends \Elementor\Widget_Base {
 		);
 
 		$cabinets = new Repeater();
-		$this->add_swatch_repeater_controls( $cabinets );
+		$this->add_swatch_repeater_controls( $cabinets, 'cabinet' );
 
 		$this->add_control(
 			'cabinet_colors',
@@ -215,7 +229,7 @@ class PHTF_Spa_Colors_Widget extends \Elementor\Widget_Base {
 		);
 
 		$shells = new Repeater();
-		$this->add_swatch_repeater_controls( $shells );
+		$this->add_swatch_repeater_controls( $shells, 'shell' );
 
 		$this->add_control(
 			'shell_colors',
@@ -239,7 +253,7 @@ class PHTF_Spa_Colors_Widget extends \Elementor\Widget_Base {
 
 	}
 
-	private function add_swatch_repeater_controls( $repeater ) {
+	private function add_swatch_repeater_controls( $repeater, $group ) {
 		$repeater->add_control(
 			'name',
 			[
@@ -275,6 +289,18 @@ class PHTF_Spa_Colors_Widget extends \Elementor\Widget_Base {
 				'description' => esc_html__( 'Optional. If set, clicking this swatch changes the large spa preview image.', 'perfect-hot-tub-finder' ),
 			]
 		);
+
+		if ( 'shell' === $group ) {
+			$repeater->add_control(
+				'available_cabinets',
+				[
+					'label' => esc_html__( 'Available for Cabinets', 'perfect-hot-tub-finder' ),
+					'type' => Controls_Manager::TEXT,
+					'label_block' => true,
+					'description' => esc_html__( 'Comma-separated cabinet labels. Leave blank for all cabinets.', 'perfect-hot-tub-finder' ),
+				]
+			);
+		}
 
 		$repeater->add_control(
 			'active',
@@ -425,7 +451,7 @@ class PHTF_Spa_Colors_Widget extends \Elementor\Widget_Base {
 				'size_units' => [ 'px', '%' ],
 				'range'      => [ 'px' => [ 'min' => 200, 'max' => 1000 ], '%' => [ 'min' => 20, 'max' => 100 ] ],
 				'default'    => [ 'size' => 520, 'unit' => 'px' ],
-				'selectors'  => [ '{{WRAPPER}} .phtf-spa-main-image' => 'max-width: {{SIZE}}{{UNIT}};' ],
+				'selectors'  => [ '{{WRAPPER}} .phtf-spa-preview-stage' => 'max-width: {{SIZE}}{{UNIT}};' ],
 			]
 		);
 
@@ -465,6 +491,8 @@ class PHTF_Spa_Colors_Widget extends \Elementor\Widget_Base {
 				'size_units' => [ 'px' ],
 				'range'      => [ 'px' => [ 'min' => 34, 'max' => 130 ] ],
 				'default'    => [ 'size' => 74, 'unit' => 'px' ],
+				'tablet_default' => [ 'size' => 64, 'unit' => 'px' ],
+				'mobile_default' => [ 'size' => 54, 'unit' => 'px' ],
 				'selectors'  => [ '{{WRAPPER}} .phtf-spa-swatch-button' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};' ],
 			]
 		);
@@ -476,11 +504,11 @@ class PHTF_Spa_Colors_Widget extends \Elementor\Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%', 'em' ],
 				'default'    => [
-					'top'      => 4,
-					'right'    => 4,
-					'bottom'   => 4,
-					'left'     => 4,
-					'unit'     => 'px',
+					'top'      => 50,
+					'right'    => 50,
+					'bottom'   => 50,
+					'left'     => 50,
+					'unit'     => '%',
 					'isLinked' => true,
 				],
 				'selectors'  => [
@@ -497,6 +525,8 @@ class PHTF_Spa_Colors_Widget extends \Elementor\Widget_Base {
 				'size_units' => [ 'px' ],
 				'range'      => [ 'px' => [ 'min' => 8, 'max' => 80 ] ],
 				'default'    => [ 'size' => 30, 'unit' => 'px' ],
+				'tablet_default' => [ 'size' => 20, 'unit' => 'px' ],
+				'mobile_default' => [ 'size' => 12, 'unit' => 'px' ],
 				'selectors'  => [ '{{WRAPPER}} .phtf-spa-swatches' => 'gap: {{SIZE}}{{UNIT}};' ],
 			]
 		);
@@ -679,14 +709,19 @@ class PHTF_Spa_Colors_Widget extends \Elementor\Widget_Base {
 			$active      = 'yes' === ( $item['active'] ?? '' ) || ( ! $has_active && 0 === $index );
 			$swatch_url  = $item['swatch_image']['url'] ?? '';
 			$preview_url = $item['preview_image']['url'] ?? '';
+			$option_slug = sanitize_title( $name );
+			$available = [];
+			if ( 'shell' === $group && ! empty( $item['available_cabinets'] ) ) {
+				$available = array_filter( array_map( 'sanitize_title', explode( ',', $item['available_cabinets'] ) ) );
+			}
 			$color       = $item['swatch_color'] ?? '#dddddd';
 			$style       = 'background-color:' . esc_attr( $color ) . ';';
 			if ( ! empty( $swatch_url ) ) {
 				$style .= 'background-image:url(' . esc_url( $swatch_url ) . ');';
 			}
 			?>
-			<div class="phtf-spa-swatch<?php echo $active ? ' is-active' : ''; ?>" data-phtf-spa-swatch-wrap="<?php echo esc_attr( $group ); ?>">
-				<button type="button" class="phtf-spa-swatch-button" style="<?php echo esc_attr( $style ); ?>" data-phtf-spa-swatch data-phtf-spa-group="<?php echo esc_attr( $group ); ?>" data-phtf-spa-image="<?php echo esc_url( $preview_url ); ?>" aria-label="<?php echo esc_attr( $name ); ?>" aria-pressed="<?php echo $active ? 'true' : 'false'; ?>"></button>
+			<div class="phtf-spa-swatch<?php echo $active ? ' is-active' : ''; ?>" data-phtf-spa-swatch-wrap="<?php echo esc_attr( $group ); ?>"<?php echo $available ? ' data-phtf-available-cabinets="' . esc_attr( implode( '|', $available ) ) . '"' : ''; ?>>
+				<button type="button" class="phtf-spa-swatch-button" style="<?php echo esc_attr( $style ); ?>" data-phtf-spa-swatch data-phtf-spa-group="<?php echo esc_attr( $group ); ?>" data-phtf-spa-option="<?php echo esc_attr( $option_slug ); ?>" data-phtf-spa-image="<?php echo esc_url( $preview_url ); ?>" aria-label="<?php echo esc_attr( $name ); ?>" aria-pressed="<?php echo $active ? 'true' : 'false'; ?>"></button>
 				<?php if ( ! empty( $name ) ) : ?>
 					<span class="phtf-spa-swatch-label"><?php echo esc_html( $name ); ?></span>
 				<?php endif; ?>
@@ -701,8 +736,30 @@ class PHTF_Spa_Colors_Widget extends \Elementor\Widget_Base {
 		$image_url  = phtf_image_url_or_fallback( $settings['main_image']['url'] ?? '', 'widget' );
 		$image_alt  = $settings['image_alt'] ?? '';
 		$uid        = 'phtf-spa-colors-' . $this->get_id();
+		$mode = $settings['cabinet_image_mode'] ?? 'lower_area';
+		$cabinet_image = '';
+		$shell_image = '';
+		foreach ( [ 'cabinet', 'shell' ] as $group ) {
+			$selected = '';
+			foreach ( (array) ( $settings[ $group . '_colors' ] ?? [] ) as $item ) {
+				if ( '' === $selected || 'yes' === ( $item['active'] ?? '' ) ) {
+					$selected = $item['preview_image']['url'] ?? '';
+				}
+				if ( 'yes' === ( $item['active'] ?? '' ) ) {
+					break;
+				}
+			}
+			if ( 'cabinet' === $group ) {
+				$cabinet_image = $selected;
+			} else {
+				$shell_image = $selected;
+			}
+		}
+		if ( 'lower_area' === $mode && $shell_image ) {
+			$image_url = $shell_image;
+		}
 		?>
-		<section id="<?php echo esc_attr( $uid ); ?>" class="phtf-spa-colors" data-phtf-spa-colors>
+		<section id="<?php echo esc_attr( $uid ); ?>" class="phtf-spa-colors" data-phtf-spa-colors data-phtf-cabinet-image-mode="<?php echo esc_attr( $mode ); ?>">
 			<div class="phtf-spa-colors-inner">
 				<?php if ( 'yes' === ( $settings['show_title'] ?? 'yes' ) || 'yes' === ( $settings['show_subtitle'] ?? 'yes' ) ) : ?>
 					<div class="phtf-spa-colors-header">
@@ -717,7 +774,12 @@ class PHTF_Spa_Colors_Widget extends \Elementor\Widget_Base {
 				<?php endif; ?>
 
 				<div class="phtf-spa-preview">
-					<img class="phtf-spa-main-image" data-phtf-spa-main-image src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>">
+					<div class="phtf-spa-preview-stage">
+						<img class="phtf-spa-main-image" data-phtf-spa-main-image src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>">
+						<?php if ( 'lower_area' === $mode ) : ?>
+							<img class="phtf-spa-cabinet-layer" data-phtf-spa-cabinet-layer<?php echo $cabinet_image ? ' src="' . esc_url( $cabinet_image ) . '"' : ' hidden'; ?> alt="" aria-hidden="true">
+						<?php endif; ?>
+					</div>
 				</div>
 
 				<div class="phtf-spa-options-row">
